@@ -1,5 +1,5 @@
 NAME = minishell
-CFLAGS = -I $(INCLUDES) #-Wall -Wextra -Werror
+CFLAGS = -I $(INCLUDES) -g #-Wall -Wextra -Werror
 RFLAGS = -lreadline -L/Users/euiclee/.brew/opt/readline/lib -I/Users/euiclee/.brew/opt/readline/include
 
 SRCS_DIR = ./srcs/
@@ -18,7 +18,8 @@ all : $(NAME)
 
 $(NAME) : $(OBJ_DIR) $(OBJS) $(INCLUDES)
 	@echo -n "Making minishell... "
-	@cc $(OBJS) $(RFLAGS) -o $@ 
+	@make all -s -C libft
+	@cc $(OBJS) $(RFLAGS) ./libft/libft.a -o $@ 
 	@echo -e "\033[32;1m"complete"\033[0m"
 	@sleep 0.2
 
@@ -30,12 +31,14 @@ $(OBJ_DIR)/%.o : %.c $(OBJ_DIR)
 
 clean :
 	@echo -n "Deleting object files : "
+	@make clean -s -C libft
 	@rm -rf $(OBJ_DIR)
 	@echo -e "\033[31;1m"delete"\033[0m"
 	@sleep 0.2
 
 fclean : clean
 	@echo -n "Deleting minishell : "
+	@make fclean -s -C libft
 	@rm -f minishell
 	@echo -e "\033[31;1m"delete"\033[0m"
 	@sleep 0.2
