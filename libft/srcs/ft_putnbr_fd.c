@@ -3,26 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/13 14:02:01 by euiclee           #+#    #+#             */
-/*   Updated: 2022/11/22 09:30:39 by euiclee          ###   ########.fr       */
+/*   Created: 2022/07/13 11:52:56 by nakoo             #+#    #+#             */
+/*   Updated: 2022/07/15 17:42:37 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+void	ft_is_recursive(int n, int fd)
+{
+	char	c;
+
+	c = n % 10 + '0';
+	if (n > 9)
+		ft_is_recursive(n / 10, fd);
+	write(fd, &c, 1);
+}
+
 void	ft_putnbr_fd(int n, int fd)
 {
-	long long	num;
-
-	num = n;
-	if (num < 0)
+	if (n < 0)
 	{
-		ft_putchar_fd('-', fd);
-		num *= -1;
+		if (n == -2147483648)
+		{
+			write(fd, "-2147483648", 11);
+			return ;
+		}
+		write(fd, "-", 1);
+		n *= -1;
 	}
-	if (num > 9)
-		ft_putnbr_fd(num / 10, fd);
-	ft_putchar_fd(num % 10 + '0', fd);
+	ft_is_recursive(n, fd);
 }
