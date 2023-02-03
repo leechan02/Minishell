@@ -1,6 +1,6 @@
 NAME = minishell
-CFLAGS = -I $(INCLUDES) -g #-Wall -Wextra -Werror
-RFLAGS = -lreadline -L/Users/euiclee/.brew/opt/readline/lib -I/Users/euiclee/.brew/opt/readline/include
+CFLAGS = -I $(INCLUDES) -MMD #-Wall -Wextra -Werror
+RFLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib -I${HOME}/.brew/opt/readline/include
 
 SRCS_DIR = ./srcs/
 SRCS = main.c
@@ -12,11 +12,13 @@ SHELL = bash
 OBJ_DIR = objs
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS_NAME:.c=.o)))
 
+DEPS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS_NAME:.c=.d)))
+
 vpath %.c $(SRCS_DIR)
 
 all : $(NAME)
 
-$(NAME) : $(OBJ_DIR) $(OBJS) $(INCLUDES)
+$(NAME) : $(OBJ_DIR) $(OBJS)
 	@echo -n "Making minishell... "
 	@make all -s -C libft
 	@cc $(OBJS) $(RFLAGS) ./libft/libft.a -o $@ 
@@ -27,7 +29,7 @@ $(OBJ_DIR) :
 	@mkdir $@
 
 $(OBJ_DIR)/%.o : %.c $(OBJ_DIR)
-	@cc $(CFLAGS) $(RFLAGS) -c $< -o $@
+	@cc $(CFLAGS) -c $< -o $@
 
 clean :
 	@echo -n "Deleting object files : "
@@ -48,3 +50,5 @@ re :
 	@make all
 
 .PHONY : all clean fclean re
+
+-include $(DEPS)
