@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/03 19:50:04 by nakoo            ###   ########.fr       */
+/*   Created: 2023/02/02 14:04:05 by nakoo             #+#    #+#             */
+/*   Updated: 2023/02/03 15:29:47 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-void	cd(char *path, char **env)
-{
-	char	*oldpwd;
-	char	*pwd;
+# include "../libft/includes/libft.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
 
-	oldpwd = ft_strfind(env, "OLDPWD=") + 7;
-	pwd = getcwd(NULL, 0);
-	ft_strlcpy(oldpwd, pwd, ft_strlen(pwd));
-	free(pwd);
-	if (*path == '\0')
-		pwd = ft_strfind(env, "HOME=") + 5;
-	else
-		pwd = path;
-	chdir(pwd);
-	ft_strlcpy(ft_strfind(env, "PWD=") + 4, pwd, ft_strlen(pwd));
-	free(path);
-}
+# define FALSE 0
+# define TRUE 1
+
+# define FAILURE 0
+# define SUCCESS 1
+
+/* cd.c */
+
+/* echo.c */
+
+/* env.c */
+
+/* exit.c */
+
+/* export.c */
+
+/* pwd.c */
+void	pwd(char **env);
+
+/* unset.c */
+
+#endif
