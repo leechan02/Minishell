@@ -33,20 +33,21 @@ int	main(int ac, char **av, char **env)
 	char	*line;
 	char	**shell_env;
 	char	***token;
+	int		i;
 
 	(void)av;
 	shell_env = cp_env(env);
-	int	i = -1;
-	line = "ls -a -l | wc -l";
-	token = parsing(line);
-	while (token[++i])
-		printf("token : %d", i);
-	// while (ac)
-	// {
-	// 	line = readline(BLUE"minishell-0.1$ "RESET);
-	// 	add_history(line);
-	// 	free(line);
-	// 	line = NULL;
-	// }
+	while (ac)
+	{
+		line = readline(BLUE"minishell-0.1$ "RESET);
+		i = -1;
+		token = parsing(line);
+		while (token[++i])
+			;
+		printf("token : %d\n", i);
+		add_history(line);
+		free(line);
+		line = NULL;
+	}
 	return (0);
 }

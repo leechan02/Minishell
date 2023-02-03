@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 19:18:22 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/03 20:31:55 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/03 20:49:00 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int	get_pipe(char *line)
 	return (pipe_num);
 }
 
-int	until_pipe(char *line, int *i)
+int	until_pipe(char *line, int i)
 {
 	int	len;
 
 	len = 0;
-	while (line[*i] != '|')
+	while (line[i] != '|')
 	{
 		len++;
 		i++;
@@ -45,14 +45,18 @@ char	***parsing(char *line)
 	int		pipe_num;
 	int		idx;
 	int		i;
+	int		pipe = 0;
 
-	pipe_num = get_pipe(line);
-	tokens = malloc(sizeof(char **) * (pipe_num + 2));
+	pipe_num = get_pipe(line) + 1;
+	tokens = malloc(sizeof(char **) * (pipe_num + 1));
 	idx = 0;
+	i = 0;
 	while (pipe_num > 0)
 	{
-		token = ft_substr(line, i, until_pipe(line, &i));
+		pipe = until_pipe(line, i);
+		token = ft_substr(line, i, pipe);
 		tokens[idx++] = ft_split(token, ' ');
+		i = pipe + 1;
 		pipe_num--;
 		free(token);
 	}
