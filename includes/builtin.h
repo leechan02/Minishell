@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:04:05 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/03 15:29:47 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/03 19:51:23 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@
 # define FALSE 0
 # define TRUE 1
 
-# define FAILURE 0
-# define SUCCESS 1
-
 /* cd.c */
+void	cd(char *path, char **env);
 
 /* echo.c */
 
@@ -35,7 +33,7 @@
 /* export.c */
 
 /* pwd.c */
-void	pwd(char **env);
+void	pwd(char **envp);
 
 /* unset.c */
 
