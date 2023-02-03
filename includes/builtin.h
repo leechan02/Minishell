@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:04:05 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/03 19:51:23 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/03 21:02:57 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	cd(char *path, char **env);
 /* echo.c */
 
 /* env.c */
+void	ft_env(char **env);
 
 /* exit.c */
 
