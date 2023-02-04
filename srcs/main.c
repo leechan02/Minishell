@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/03 18:20:58by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/04 23:32:31 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	**cp_env(char **origin_env)
 	while (origin_env[env_num])
 		env_num++;
 	env = malloc(sizeof(char *) * env_num);
+	if (!env)
+		return (NULL);
 	env_num = -1;
 	while (origin_env[++env_num])
 		env[env_num] = ft_strdup(origin_env[env_num]);
