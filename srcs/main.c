@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/04 23:37:47 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/04 23:44:32 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	**cp_env(char **origin_env)
 {
-	/*요놈들 free 필요할 것 같음*/
+	//cp_env need free
 	char	**env;
 	int		env_num;
 
@@ -42,7 +42,8 @@ int	main(int ac, char **av, char **env)
 	shell_env = cp_env(env);
 	while (ac)
 	{
-		line = readline(BLUE"minishell-0.1$ "RESET);
+		line = readline(BLUE"minishell-0.1$ "RESET); //$ sign doesn't need color.
+		//If we want to add getcwd than we can change. Just need check can readline accept variable.
 		i = -1;
 		token = parsing(line);
 		while (token[++i])
