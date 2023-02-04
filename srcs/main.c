@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/04 23:32:31 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/04 23:37:47 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	**cp_env(char **origin_env)
 	env_num = -1;
 	while (origin_env[++env_num])
 		env[env_num] = ft_strdup(origin_env[env_num]);
+	env[env_num] = NULL;
 	return (env);
 }
 
