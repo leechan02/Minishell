@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 19:18:22 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/03 20:49:00 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/05 22:10:44 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ int	get_pipe(char *line)
 	int	i;
 	int	pipe_num;
 
-	i = -1;
+	i = 0;
 	pipe_num = 0;
-	while (line[++i])
+	while (line[i])
+	{
 		if(line[i] == '|')
 			pipe_num++;
+		i++;
+	}
 	return (pipe_num);
 }
 
@@ -30,7 +33,7 @@ int	until_pipe(char *line, int i)
 	int	len;
 
 	len = 0;
-	while (line[i] != '|')
+	while (line[i] && line[i] != '|')
 	{
 		len++;
 		i++;
@@ -38,28 +41,35 @@ int	until_pipe(char *line, int i)
 	return (len);
 }
 
-char	***parsing(char *line)
+void	parsing(char *line, char ***tokens)
 {
-	char	***tokens;
 	char	*token;
-	int		pipe_num;
+	int		token_num;
 	int		idx;
 	int		i;
-	int		pipe = 0;
+	int		token_len;
 
-	pipe_num = get_pipe(line) + 1;
-	tokens = malloc(sizeof(char **) * (pipe_num + 1));
-	idx = 0;
+	token_num = get_pipe(line) + 1;
+	tokens = malloc(sizeof(char **) * (token_num + 1));
 	i = 0;
-	while (pipe_num > 0)
+	idx = 0;
+	while (token_num > 0)
 	{
-		pipe = until_pipe(line, i);
-		token = ft_substr(line, i, pipe);
-		tokens[idx++] = ft_split(token, ' ');
-		i = pipe + 1;
-		pipe_num--;
+		token_len = until_pipe(line, i);
+		token = ft_substr(line, i, token_len);
+		tokens[idx] = ft_split(token, ' ');
+		i = token_len + 1;
+		idx++;
+		token_num--;
 		free(token);
 	}
+	printf("tokens : %d\n", idx);
 	tokens[idx] = NULL;
-	return (tokens);
+	for (int k = 0; tokens[k]; k++)
+	{
+		printf("token[%d] : ", k);
+		for (int j = 0; tokens[k][j]; j++)
+			printf("%s ", tokens[0][j]);
+		printf("\n");
+	}
 }

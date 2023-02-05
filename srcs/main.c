@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/04 23:44:32 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/05 21:59:10 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ int	main(int ac, char **av, char **env)
 {
 	char	*line;
 	char	**shell_env;
-	char	***token;
-	int		i;
+	char	***tokens;
 
 	(void)av;
 	shell_env = cp_env(env);
@@ -44,11 +43,7 @@ int	main(int ac, char **av, char **env)
 	{
 		line = readline(BLUE"minishell-0.1$ "RESET); //$ sign doesn't need color.
 		//If we want to add getcwd than we can change. Just need check can readline accept variable.
-		i = -1;
-		token = parsing(line);
-		while (token[++i])
-			;
-		printf("token : %d\n", i);
+		parsing(line, tokens);
 		add_history(line);
 		free(line);
 		line = NULL;
