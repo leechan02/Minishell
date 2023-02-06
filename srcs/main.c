@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/05 21:59:10 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/06 09:42:45 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int	main(int ac, char **av, char **env)
 	shell_env = cp_env(env);
 	while (ac)
 	{
-		line = readline(BLUE"minishell-0.1$ "RESET); //$ sign doesn't need color.
-		//If we want to add getcwd than we can change. Just need check can readline accept variable.
+		line = readline("\033[34;1mminishell:0.1\033[0;1m$\033[0m ");
 		parsing(line, tokens);
 		add_history(line);
 		free(line);
