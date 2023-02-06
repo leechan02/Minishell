@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 19:18:22 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/05 22:10:44 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/06 09:39:55 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	parsing(char *line, char ***tokens)
 		token_len = until_pipe(line, i);
 		token = ft_substr(line, i, token_len);
 		tokens[idx] = ft_split(token, ' ');
-		i = token_len + 1;
+		i += token_len + 1;
 		idx++;
 		token_num--;
 		free(token);
@@ -69,7 +69,7 @@ void	parsing(char *line, char ***tokens)
 	{
 		printf("token[%d] : ", k);
 		for (int j = 0; tokens[k][j]; j++)
-			printf("%s ", tokens[0][j]);
+			printf("%s ", tokens[k][j]);
 		printf("\n");
 	}
 }
