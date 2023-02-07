@@ -6,20 +6,37 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/07 00:46:45 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/07 14:30:50 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-void	ft_echo(char *str)
+void	ft_echo(char **token)
 {
-	if (str == NULL)
+	int	i;
+	int	nl;
+
+	i = 0;
+	nl = NL;
+	if (ft_strcmp(*(token + i), "-n") == 0)
 	{
-		printf("\n");
+		nl = NO_NL;
+		i++;
+	}
+	if (*(token + i) == NULL)
+	{
+		if (nl == NO_NL)
+			return ;
+		write(1, "\n", 1);
 		return ;
 	}
-	printf("%s", str);
-	/* echo -n 옵션에 대해 생각할 것 */
-	printf("\n");
+	while (*(token + i) != NULL)
+	{
+		write (1, *(token + i), ft_strlen(*(token + i)));
+		write (1, " ", 1);
+		i++;
+	}
+	if (nl != NO_NL)
+		write(1, "\n", 1);
 }

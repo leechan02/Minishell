@@ -6,8 +6,14 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/06 16:47:17 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/07 13:29:39 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+
+void	ft_exit(void)
+{
+	printf("exit\n");
+	exit(0);
+}
