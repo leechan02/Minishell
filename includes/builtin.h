@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:04:05 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/07 20:20:16 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/08 07:58:11 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 # define NL 0
 # define NO_NL 1
+# define NO_EQUAL 0
+# define EQUAL 1
 
 void	ft_cd(char *path, char **env);
 void	ft_echo(char **token);
