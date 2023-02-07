@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/07 20:23:56 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/08 08:23:34 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,7 @@ void	swap(int *a, int *b)
 	*a ^= *b;
 }
 
-void	sort_ascii(int *sorted_idx, char **env)
-{
-	int	idx;
-	int	i;
-	int	j;
-
-	idx = 0;
-	while (env[idx] != NULL)
-	{
-		sorted_idx[idx] = idx;
-		idx++;
-	}
-	i = 0;
-	while (i < idx - 1)
-	{
-		j = i + 1;
-		while (j < idx)
-		{
-			if (ft_strcmp(env[sorted_idx[i]], env[sorted_idx[j]]) > 0)
-				swap(&sorted_idx[i], &sorted_idx[j]);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	print_export(char **env)
+int	*sort_ascii(char **env)
 {
 	int	*sorted_idx;
 	int	idx;
@@ -57,34 +31,73 @@ void	print_export(char **env)
 	idx = -1;
 	while (env[++idx] != NULL)
 	sorted_idx = (int *)malloc(sizeof(int) * idx);
-	sort_ascii(sorted_idx, env);
+	idx = -1;
+	while (env[++idx] != NULL)
+		sorted_idx[idx] = idx;
 	i = -1;
-	while (++i < idx)
+	while (++i < idx - 1)
+	{
+		j = i + 1;
+		while (++j < idx)
+		{
+			if (ft_strcmp(env[sorted_idx[i]], env[sorted_idx[j]]) > 0)
+				swap(&sorted_idx[i], &sorted_idx[j]);
+		}
+	}
+	return (sorted_idx);
+}
+
+void	print_export(char **env, int *sorted_idx, int sign)
+{
+	int	i;
+	int	j;
+
+	sorted_idx = sort_ascii(env);
+	i = -1;
+	while (env[++i] != NULL)
 	{
 		j = -1;
 		printf("declare -x ");
+		sign = NO_EQUAL;
 		while (env[sorted_idx[i]][++j] != '\0')
 		{
-			if (env[sorted_idx[i]][j] == '=')
+			if (env[sorted_idx[i]][j] == '=' && sign == NO_EQUAL)
+			{
+				sign = EQUAL;
 				printf("=\"");
+			}
 			else
 				printf("%c", env[sorted_idx[i]][j]);
 		}
-		printf("\"\n");
+		if (sign == EQUAL)
+			printf("\"");
+		printf("\n");
 	}
 	free(sorted_idx);
 }
 
-void	ft_export(char *str, char **env)
+void	ft_export(char **token, char **env)
 {
+	int	*sorted_idx;
+	int	sign;
 	int	i;
+	int	j;
 
-	i = 0;
-	if (str == NULL || *(str + i) == '\0')
-		return (print_export(env));
-	else if (ft_isalpha(*(str + i)) == 0 && *(str + i) != '_')
+	i = -1;
+	if (token[0] == NULL)
+		return (print_export(env, sorted_idx, sign));
+	while (token[++i] != NULL)
 	{
-		printf("minishell: export: `%s': not a valid identifier\n", str);
-		return ;
+		if (ft_isalpha(token[i][0]) == 0 && token[i][0] != '_')
+			printf("minishell: export: `%s': not a valid identifier\n", \
+			token[i]);
+		else
+		{
+			j = 0;
+			while (env[j] != NULL)
+				j++;
+			env[j] = ft_strdup(token[i]);
+			env[j + 1] = NULL;
+		}
 	}
 }
