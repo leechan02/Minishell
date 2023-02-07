@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:32:05 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/03 19:22:19 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/07 10:05:06 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/includes/libft.h"
-# include "parsing.h"
+# include "parse.h"
 
 #endif
