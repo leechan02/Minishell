@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/06 13:03:40 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/07 13:22:55 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int ac, char **av, char **env)
 	while (ac)
 	{
 		// line = readline("\033[34;1mminishell:0.1\033[0;1m$\033[0m ");
-		line = "$PATH";
+		line = "$USER";
 		parsing(line, tokens, shell_env);
 		add_history(line);
 		break ;
