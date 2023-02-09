@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/09 09:20:00 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/09 12:00:38 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_unset(char **token, char **env)
 			token[idx]);
 		else
 		{
-			if (get_del_idx(token[idx], env, &del_idx) != 0)
+			if (get_del_idx(token[idx], env, &del_idx) != FALSE)
 			{
 				while (env[del_idx + 1] != NULL)
 				{

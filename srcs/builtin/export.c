@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/08 08:23:34 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:09:13 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ int	*sort_ascii(char **env)
 	int	i;
 	int	j;
 
-	idx = -1;
-	while (env[++idx] != NULL)
+	idx = 0;
+	while (env[idx] != NULL)
+		idx++;
 	sorted_idx = (int *)malloc(sizeof(int) * idx);
 	idx = -1;
 	while (env[++idx] != NULL)
