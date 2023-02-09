@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:04:05 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/09 09:40:16 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/09 15:47:14 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,13 @@ void	ft_pwd(char **envp);
 void	ft_exit(void);
 
 /* export.c */
-void	sort_ascii(int *sorted_idx, char **env);
-void	ft_export(char *str, char **env);
-void	print_export(char **env);
+int		*sort_ascii(char **env);
+void	print_export(char **env, int *sorted_idx, int sign);
+void	ft_export(char **token, char **env);
 void	swap(int *a, int *b);
+
+/* unset.c */
+int		get_del_idx(char *token, char **env, int *del_idx);
+void	ft_unset(char **token, char **env);
 
 #endif
