@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 20:13:22 by nakoo             #+#    #+#             */
-/*   Updated: 2022/07/15 17:42:29 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/10 08:58:42 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_calloc(size_t count, size_t size)
 
 	tmp = malloc(count * size);
 	if (!tmp)
-		return (0);
+		exit(1);
 	ft_bzero(tmp, count * size);
 	return (tmp);
 }

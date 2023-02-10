@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 19:18:22 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/06 09:39:55 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/08 20:02:01 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "parse.h"
 
 int	get_pipe(char *line)
 {
@@ -21,7 +21,7 @@ int	get_pipe(char *line)
 	pipe_num = 0;
 	while (line[i])
 	{
-		if(line[i] == '|')
+		if (line[i] == '|')
 			pipe_num++;
 		i++;
 	}
@@ -41,7 +41,7 @@ int	until_pipe(char *line, int i)
 	return (len);
 }
 
-void	parsing(char *line, char ***tokens)
+void	parsing(char *line, char ***tokens, char **env)
 {
 	char	*token;
 	int		token_num;
@@ -57,7 +57,7 @@ void	parsing(char *line, char ***tokens)
 	{
 		token_len = until_pipe(line, i);
 		token = ft_substr(line, i, token_len);
-		tokens[idx] = ft_split(token, ' ');
+		tokens[idx] = check_env(token, env);
 		i += token_len + 1;
 		idx++;
 		token_num--;
