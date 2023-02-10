@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:32:05 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/10 13:17:48 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/10 17:57:14 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 typedef struct s_tokens{
 	char	**token;
-	int		*redirection;
+	int		*redir;
 }t_tokens;
 
 #endif
