@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 19:18:22 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/10 14:05:18 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/10 14:24:30 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,26 @@ int	get_pipe(char *line)
 	return (pipe_num);
 }
 
+int	until_pipe(char *line)
+{
+	int	len;
+	int	qut;
+	int	db_qut;
+
+	len = 0;
+	qut = 0;
+	db_qut = 0;
+	while (line[len] != '|' && line[len] != '\0')
+	{
+		if (line[len] == '\'')
+			qut = ~qut;
+		else if (line[len] == '\"')
+			db_qut = ~db_qut;
+		len++;
+	}
+	return (len);
+}
+
 void	parsing(char *line, t_tokens **tokens, char **env)
 {
 	char	*token;
@@ -48,11 +68,13 @@ void	parsing(char *line, t_tokens **tokens, char **env)
 		return (perror("What the f**k!!"));
 	*tokens = ft_calloc(tokens_n + 1, sizeof(t_tokens));
 	idx = 0;
-	while (line)
+	while (*line)
 	{
 		token_len = until_pipe(line);
+		printf("token len = %d\n", token_len);
 		token = ft_substr(line++, 0, token_len);
-		*tokens[idx++]->token = check_env(token, env);
+		printf("token : %s\n", token);
+		// *tokens[idx++]->token = check_env(token, env);
 		line += token_len;
 		free(token);
 	}

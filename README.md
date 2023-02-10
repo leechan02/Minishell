@@ -24,6 +24,3 @@
 
 - a to z, A to Z, 0 to 9 with ‘_’
 - Can not start 0~9.
-
-
-" ' " '
