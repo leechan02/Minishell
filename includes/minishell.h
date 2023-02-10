@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:32:05 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/07 10:05:06 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/10 13:17:48 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/includes/libft.h"
-# include "parse.h"
 # include "builtin.h"
+
+typedef struct s_tokens{
+	char	**token;
+	int		*redirection;
+}t_tokens;
 
 #endif
