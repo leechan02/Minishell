@@ -6,13 +6,13 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/09 12:00:38 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/10 15:19:51 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-int	get_del_idx(char *token, char **env, int *del_idx)
+static int	get_del_idx(char *token, char **env, int *del_idx)
 {
 	int	token_len;
 

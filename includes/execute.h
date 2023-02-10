@@ -6,11 +6,18 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:52:44 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/09 15:53:02 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/10 19:13:40 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 # define EXECUTE_H
+
+# define FAIL 0
+# define SUCCESS 1
+
+# include "minishell.h"
+
+
 
 #endif

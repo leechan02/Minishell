@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/07 14:30:50 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/10 16:46:48 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_echo(char **token)
 		write(1, "\n", 1);
 		return ;
 	}
+	/* fd 고려할 것  */
 	while (*(token + i) != NULL)
 	{
 		write (1, *(token + i), ft_strlen(*(token + i)));

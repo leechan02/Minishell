@@ -6,13 +6,13 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/09 14:09:13 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/10 16:28:43 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-void	swap(int *a, int *b)
+static void	swap(int *a, int *b)
 {
 	if (a == b)
 		return ;
@@ -21,7 +21,7 @@ void	swap(int *a, int *b)
 	*a ^= *b;
 }
 
-int	*sort_ascii(char **env)
+static int	*sort_ascii(char **env)
 {
 	int	*sorted_idx;
 	int	idx;
@@ -48,7 +48,7 @@ int	*sort_ascii(char **env)
 	return (sorted_idx);
 }
 
-void	print_export(char **env, int *sorted_idx, int sign)
+static void	print_export(char **env, int *sorted_idx, int sign)
 {
 	int	i;
 	int	j;
