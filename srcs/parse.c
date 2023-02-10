@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 19:18:22 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/08 20:02:01 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/09 13:59:17 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void	parsing(char *line, char ***tokens, char **env)
 	}
 	printf("tokens : %d\n", idx);
 	tokens[idx] = NULL;
-	for (int k = 0; tokens[k]; k++)
+	for (int k = 0; tokens[0][k]; k++)
 	{
 		printf("token[%d] : ", k);
-		for (int j = 0; tokens[k][j]; j++)
-			printf("%s ", tokens[k][j]);
+		// for (int j = 0; tokens[k][j]; j++)
+			printf("%s ", tokens[0][k]);
 		printf("\n");
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:39:56 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/08 19:56:37 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/09 12:09:09by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ char	**check_env(char *line, char **env)
 	while (ret[i])
 	{
 		loca = ret[i];
-		while (*loca)
+		while (loca)
 		{
 			loca = ft_strchr(loca, '$');
-			if (loca && (ft_isalnum(*(++loca)) || *loca == '_'))
+			if (loca != NULL && (ft_isalnum(*(++loca)) || *loca == '_'))
 			{
 				if (ft_isdigit(*loca))
 					ft_memmove(loca - 1, loca + 1, ft_strlen(loca));
