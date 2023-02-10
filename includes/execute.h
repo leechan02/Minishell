@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 17:22:56 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/07 14:36:26 by nakoo            ###   ########.fr       */
+/*   Created: 2023/02/09 15:52:44 by nakoo             #+#    #+#             */
+/*   Updated: 2023/02/09 15:53:02 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef EXECUTE_H
+# define EXECUTE_H
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
-
-	i = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (-2147483648);
-	while ((s1[i] != '\0' && s2[i] != '\0') && (s1[i] == s2[i]))
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
+#endif

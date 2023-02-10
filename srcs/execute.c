@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 17:22:56 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/07 14:36:26 by nakoo            ###   ########.fr       */
+/*   Created: 2023/02/09 15:50:52 by nakoo             #+#    #+#             */
+/*   Updated: 2023/02/09 19:47:23 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "execute.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+/* token struct */
+typedef struct s_tokens {
+	char	**token;
+	int		*redirection;
+}	t_tokens;
+
+void	execute(t_tokens **tok, char **env)
 {
-	int	i;
-
-	i = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (-2147483648);
-	while ((s1[i] != '\0' && s2[i] != '\0') && (s1[i] == s2[i]))
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	/* pipe 기준으로 t_tokens가 들어온다. */
+	/* 1. token[i]부터 ->redirecion 처리, T/F도 판별 */
+	/* 2. cmd 판별(builtin or not), To handle error case */
+	/* 3. pipe ? */
+	/* 4. pipe 병렬 처리 */
 }
