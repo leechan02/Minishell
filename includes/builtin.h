@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:04:05 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/10 18:24:46 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/12 15:43:34 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 void	ft_export(char **token, char **env);
 void	ft_unset(char **token, char **env);
 void	ft_cd(char *path, char **env);
-void	ft_echo(char **token);
+void	ft_echo(char **token, int fd);
 void	ft_pwd(char **envp);
 void	ft_env(char **env);
 void	ft_exit(void);

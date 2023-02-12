@@ -6,13 +6,13 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/10 16:46:48 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/12 15:40:02 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-void	ft_echo(char **token)
+void	ft_echo(char **token, int fd)
 {
 	int	i;
 	int	nl;
@@ -28,16 +28,15 @@ void	ft_echo(char **token)
 	{
 		if (nl == NO_NL)
 			return ;
-		write(1, "\n", 1);
+		ft_putchar_fd('\n', fd);
 		return ;
 	}
-	/* fd 고려할 것  */
 	while (*(token + i) != NULL)
 	{
-		write (1, *(token + i), ft_strlen(*(token + i)));
-		write (1, " ", 1);
+		ft_putstr_fd(*(token + i), fd);
+		ft_putchar_fd(' ', fd);
 		i++;
 	}
 	if (nl != NO_NL)
-		write(1, "\n", 1);
+		ft_putchar_fd('\n', fd);
 }
