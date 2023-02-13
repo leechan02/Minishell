@@ -95,18 +95,16 @@ char	*replace_env(char **loca, char *origin, char **env)
 	return (ret);
 }
 
-char	**check_env(char *line, char **env)
+void	check_env(t_tokens *tokens, char **env)
 {
-	char	**ret;
 	char	*loca;
 	int		i;
 
 	i = 0;
-	ret = ft_split(line, ' ');
-	while (ret[i])
+	while (tokens->token[i])
 	{
-		loca = ret[i];
-		while (loca)
+		loca = tokens->token[i];
+		while (tokens->token[i][0] != '\'' && loca)
 		{
 			loca = ft_strchr(loca, '$');
 			if (loca != NULL && (ft_isalnum(*(++loca)) || *loca == '_'))
@@ -114,10 +112,10 @@ char	**check_env(char *line, char **env)
 				if (ft_isdigit(*loca))
 					ft_memmove(loca - 1, loca + 1, ft_strlen(loca));
 				else
-					ret[i] = replace_env(&loca, ret[i], env);
+					tokens->token[i]
+						= replace_env(&loca, tokens->token[i], env);
 			}
 		}
 		i++;
 	}
-	return (ret);
 }

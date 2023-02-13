@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 09:47:49 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/13 14:33:06 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/13 19:24:05 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	is_redir(t_tokens **tok, int idx, int token_num)
 	int	len;
 
 	i = 0;
-	for (int j = 0; j < token_num; j++)
-		printf("redir : %s\n", tok[idx]->token[j]);
 	while (i < token_num)
 	{
 		len = 0;
@@ -35,6 +33,4 @@ void	is_redir(t_tokens **tok, int idx, int token_num)
 			tok[idx]->redir[i] = TRUE;
 		i++;
 	}
-	for (int i = 0; i < token_num; i++)
-		printf("redir : %d\n", tok[idx]->redir[i]);
 }

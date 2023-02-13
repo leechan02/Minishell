@@ -73,6 +73,9 @@ void	parsing(char *line, t_tokens **tokens, char **env)
 		tokens[idx]->token = split_token(token);
 		tokens[idx]->redir = ft_calloc(cnt_tokens(token), sizeof(int));
 		is_redir(tokens, idx, cnt_tokens(token));
+		check_env(tokens[idx], env);
+		for (int i = 0; tokens[idx]->token[i]; i++)
+			printf("tokens : %s\n", tokens[idx]->token[i]);
 		idx++;
 		line += token_len;
 		if (*line == '|')

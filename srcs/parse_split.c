@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:21:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/13 14:49:56 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/13 19:06:56by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,19 @@ int	is_redirection(char **token, int qut, int db_qut, int *len)
 	return (FALSE);
 }
 
+int	is_spaquot(char **token, int qut, int db_qut)
+{
+	if (**token == '\"' && ((qut != 0 && qut % 2 == 0)
+			|| (db_qut != 0 && db_qut % 2 == 0)))
+		return (TRUE);
+	else if (**token == '\'' && ((qut != 0 && qut % 2 == 0)
+			|| (db_qut != 0 && db_qut % 2 == 0)))
+		return (TRUE);
+	else if ((**token == ' ' && qut % 2 == 0 && db_qut % 2 == 0))
+		return (TRUE);
+	return (FALSE);
+}
+
 int	until_sep(char **token)
 {
 	int	len;
@@ -79,12 +92,11 @@ int	until_sep(char **token)
 	{
 		len++;
 		if (**token == '\'')
-			qut = ~qut;
+			qut++;
 		else if (**token == '\"')
-			db_qut = ~db_qut;
-		if (**token == ' ' && qut == 0 && db_qut == 0)
-			break ;
-		else if (is_redirection(token, qut, db_qut, &len))
+			db_qut++;
+		if (is_spaquot(token, qut, db_qut)
+			|| is_redirection(token, qut, db_qut, &len))
 		{
 			(*token)++;
 			break ;
@@ -107,7 +119,6 @@ char	**split_token(char *token)
 	db_qut = 0;
 	words = cnt_tokens(token);
 	ret = ft_calloc(words + 1, sizeof(char *));
-	printf("words : %d\n", words);
 	while (idx < words)
 	{
 		while (*token == ' ')

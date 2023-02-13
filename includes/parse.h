@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:32:05 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/13 14:28:23 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/13 19:35:33 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	parsing(char *line, t_tokens **tokens, char **env);
 /*parse_split*/
 int		cnt_tokens(char *token);
 int		until_sep(char **token);
+int		is_spaquot(char **token, int qut, int db_qut);
 int		is_redirection(char **token, int qut, int db_qut, int *len);
 char	**split_token(char *token);
 
@@ -33,5 +34,5 @@ void	is_redir(t_tokens **tok, int idx, int token_num);
 int		get_end_with_len(char **loca, char **finish, char *origin, char **env);
 char	*make_ret(char **loca, char *origin, char **env, char **finish);
 char	*replace_env(char **loca, char *origin, char **env);
-char	**check_env(char *line, char **env);
+void	check_env(t_tokens *tokens, char **env);
 #endif
