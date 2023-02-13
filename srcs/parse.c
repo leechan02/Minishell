@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 19:18:22 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/10 19:26:37 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/13 10:14:15by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	parsing(char *line, t_tokens **tokens, char **env)
 		token_len = until_pipe(line);
 		token = ft_substr(line, 0, token_len);
 		tokens[idx]->token = split_token(token);
+		tokens[idx]->redir = ft_calloc(cnt_tokens(token), sizeof(int));
+		is_redir(tokens, idx, cnt_tokens(token));
 		idx++;
 		line += token_len;
 		if (*line == '|')

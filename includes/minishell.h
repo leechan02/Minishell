@@ -6,15 +6,12 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:32:05 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/10 17:57:14 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/13 13:17:18 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-# define BLUE "\033[34;1m"
-# define RESET "\033[0m"
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -23,6 +20,9 @@
 # include <readline/history.h>
 # include "../libft/includes/libft.h"
 # include "builtin.h"
+
+# define TRUE 1
+# define FALSE 0
 
 typedef struct s_tokens{
 	char	**token;
