@@ -6,13 +6,13 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/03 21:02:46 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/13 10:35:42 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-void	ft_env(char **env)
+int	ft_env(char **env)
 {
 	int	i;
 
@@ -22,4 +22,5 @@ void	ft_env(char **env)
 		printf("%s\n", env[i]);
 		i++;
 	}
+	return (TRUE);
 }

@@ -6,37 +6,64 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/12 15:40:02 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/13 19:41:08 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-void	ft_echo(char **token, int fd)
+static int	is_redir(t_tokens *tokens, int i)
+{
+	int	fd;
+	int	j;
+
+	fd = 1;
+	j = 0;
+	while (tokens->token[i][j] != NULL)
+	{
+		if (ft_strcmp(tokens->token[i][j], "<") == 0 && tokens->redir[j] == TRUE)
+	}
+}
+
+static int	is_n(char *token)
 {
 	int	i;
-	int	nl;
 
 	i = 0;
+	while (token[i] != NULL)
+	{
+		if (token[i] != 'n')
+			return (NL);
+		i++;
+	}
+	return (NO_NL);
+}
+
+int	ft_echo(t_tokens *tokens, int i)
+{
+	int	nl;
+	int	fd;
+	int	j;
+
+	j = 0;
 	nl = NL;
-	if (ft_strcmp(*(token + i), "-n") == 0)
+	fd = is_redir(tokens);
+	if (ft_strcmp(*(token + j), "-n") == 0)
 	{
 		nl = NO_NL;
-		i++;
+		j++;
 	}
-	if (*(token + i) == NULL)
+	if (*(token + j) == NULL)
 	{
-		if (nl == NO_NL)
-			return ;
-		ft_putchar_fd('\n', fd);
-		return ;
+		if (nl == NL)
+			return (ft_putchar_fd('\n', fd), TRUE);
 	}
-	while (*(token + i) != NULL)
+	while (*(token + j) != NULL)
 	{
-		ft_putstr_fd(*(token + i), fd);
+		ft_putstr_fd(*(token + j), fd);
 		ft_putchar_fd(' ', fd);
-		i++;
+		j++;
 	}
 	if (nl != NO_NL)
-		ft_putchar_fd('\n', fd);
+		return (ft_putchar_fd('\n', fd), TRUE);
 }

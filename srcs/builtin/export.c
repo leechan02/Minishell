@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/10 16:28:43 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/13 18:48:42 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	*sort_ascii(char **env)
 	return (sorted_idx);
 }
 
-static void	print_export(char **env, int *sorted_idx, int sign)
+static int	print_export(char **env, int *sorted_idx, int sign)
 {
 	int	i;
 	int	j;
@@ -74,10 +74,10 @@ static void	print_export(char **env, int *sorted_idx, int sign)
 			printf("\"");
 		printf("\n");
 	}
-	free(sorted_idx);
+	return (free(sorted_idx), TRUE);
 }
 
-void	ft_export(char **token, char **env)
+int	ft_export(char **token, char **env)
 {
 	int	*sorted_idx;
 	int	sign;
@@ -85,7 +85,9 @@ void	ft_export(char **token, char **env)
 	int	j;
 
 	i = -1;
-	if (token[0] == NULL)
+	while (ft_strcmp(token[++i], "export") != 0)
+		;
+	if (token[i + 1] == NULL)
 		return (print_export(env, sorted_idx, sign));
 	while (token[++i] != NULL)
 	{
@@ -101,4 +103,5 @@ void	ft_export(char **token, char **env)
 			env[j + 1] = NULL;
 		}
 	}
+	return (TRUE);
 }

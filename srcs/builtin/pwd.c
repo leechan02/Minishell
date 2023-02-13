@@ -6,22 +6,23 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/06 14:20:59 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/13 10:36:49 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-void	ft_pwd(char **envp)
+int	ft_pwd(char **env)
 {
 	int	i;
 
 	i = 0;
-	while (envp[i] != NULL)
+	while (env[i] != NULL)
 	{
-		if (ft_strncmp(envp[i], "PWD=", 4) == 0)
+		if (ft_strncmp(env[i], "PWD=", 4) == 0)
 			break ;
 		i++;
 	}
-	printf("%s\n", envp[i] + 4);
+	printf("%s\n", env[i] + 4);
+	return (TRUE);
 }

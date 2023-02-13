@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/10 15:19:51 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/13 18:51:26 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,22 @@ static int	get_del_idx(char *token, char **env, int *del_idx)
 	return (FALSE);
 }
 
-void	ft_unset(char **token, char **env)
+int	ft_unset(char **token, char **env)
 {
-	int	idx;
+	int	i;
 	int	del_idx;
 
-	idx = 0;
-	while (token[idx] != NULL)
+	i = -1;
+	while (ft_strcmp(token[++i], "unset") == 0)
+		;
+	while (token[++i] != NULL)
 	{
-		if (ft_isalpha(token[idx][0]) == 0 && token[idx][0] != '_')
+		if (ft_isalpha(token[i][0]) == 0 && token[i][0] != '_')
 			printf("minishell: unset: `%s': not a valid identifier\n", \
-			token[idx]);
+			token[i]);
 		else
 		{
-			if (get_del_idx(token[idx], env, &del_idx) != FALSE)
+			if (get_del_idx(token[i], env, &del_idx) != FALSE)
 			{
 				while (env[del_idx + 1] != NULL)
 				{
@@ -50,6 +52,6 @@ void	ft_unset(char **token, char **env)
 				env[del_idx] = NULL;
 			}
 		}
-		idx++;
 	}
+	return (TRUE);
 }
