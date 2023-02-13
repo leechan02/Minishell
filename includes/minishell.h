@@ -26,7 +26,7 @@
 
 typedef struct s_tokens{
 	char	**token;
-	int		*redirection;
+	int		*redir;
 }t_tokens;
 
 #endif
