@@ -6,11 +6,37 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:50:52 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/12 16:42:50 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/13 20:05:37 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
+
+int	is_builtin(t_tokens *tokens, char **env, int idx)
+{
+	int	j;
+
+	j = 0;
+	while (tokens->token + idx != NULL)
+	{
+		if (ft_strcmp(tokens->token[j], "export") == 0)
+			return (ft_export(tokens->token + idx, env));
+		else if (ft_strcmp(tokens->token[j], "unset") == 0)
+			return (ft_unset(tokens->token + idx, env));
+		else if (ft_strcmp(tokens->token[j], "cd") == 0)
+			return (ft_cd(tokens->token + idx, env));
+		else if (ft_strcmp(tokens->token[j], "echo") == 0)
+			return (ft_echo(tokens));
+		else if (ft_strcmp(tokens->token[j], "pwd") == 0)
+			return (ft_pwd(env));
+		else if (ft_strcmp(tokens->token[j], "env") == 0)
+			return (ft_env(env));
+		else if (ft_strcmp(tokens->token[j], "exit") == 0)
+			ft_exit();
+		j++;
+	}
+	return (FALSE);
+}
 
 void	check_redirection(char **token)
 {
@@ -23,28 +49,25 @@ int	execute(t_tokens *tokens, char **env)
 {
 	pid_t	pid;
 	int		fd[2];
+	int		cnt;
 	int		i;
 	
-	/* 1. token이 1개보다 많다면(pipe를 기준으로 나눴기 때문) */
-	/* 2. default로 STDOUT을 pipe로 연결 */
-	/* 3. token[i]부터 ->redirecion 처리, T/F도 판별 */
-	/* 4. cmd 판별(builtin or not), To handle error case */
-	/* 5. pipe ? */
-	/* 6. pipe 병렬 처리 */
-	i = 1;
-	while (i < tokens)
-		pid = fork();
-	/* 마지막 token - 1 까지만 반복문에 들어간다. */
-	while (tokens->token[i + 1] != NULL)
+	cnt = 0;
+	while (tokens->token[cnt] != NULL)
+		cnt++;
+	if (cnt == 1 && is_builtin(tokens, env, 0) == TRUE)
+		return (SUCCESS);
+	i = 0;
+	while (tokens->token[i] != NULL)
 	{
-		/* | 뒤에 아무것도 오지 않는 경우 */
 		if (token->token[i] == NULL)
 			return (FAIL);
+		pid = fork();
 		fd = pipex(tokens->token[i], env, fd);
 		check_redirection(tokens->token[i]);
-		
 		i++;
 	}
+	wait_children(i);
 	return (SUCCESS);
 }
 
