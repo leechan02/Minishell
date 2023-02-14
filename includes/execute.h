@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:52:44 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/14 18:53:03 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/14 19:52:55 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@
 # include "builtin.h"
 # include <sys/wait.h>
 # include <stdlib.h>
+# include <signal.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
+
+typedef void	(*t_sig)(int);
 
 enum e_flag {
 	READ,
@@ -48,5 +51,8 @@ void	wait_children(int num_of_children);
 void	exec(char *av, char **envp);
 char	**find_path(char **envp);
 int		open_file(char *file, int flag);
+
+/* signal.c */
+void	signal_exit(void);
 
 #endif
