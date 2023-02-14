@@ -52,12 +52,15 @@ int	main(int ac, char **av, char **env)
 	// shell_env = cp_env(env);
 	while (ac)
 	{
-		// line = readline("\033[34;1mminishell:0.1\033[0;1m$\033[0m ");
+		line = readline("\033[34;1mminishell:0.1\033[0;1m$\033[0m ");
+		/* ctrl + D 입력 시 실행될 함수 */
+		if (line == NULL)
+			sigexit_handler();
 		line = "ls -al | wc -l > outfile";
 		// line = "echo \" \' \" \'";
 		pipe_num = parsing(line, &tokens, env);
-		if (execute(tokens, env, pipe_num) == 0)
-			printf("succes\n");
+		// if (execute(tokens, env, pipe_num) == 0)
+		// 	printf("succes\n");
 		// add_history(line);
 		break ;
 		// free(line);
