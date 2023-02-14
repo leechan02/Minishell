@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "execute.h"
-#include "builtin.h"
 
 int	is_builtin(t_tokens *tokens, char **env, int idx)
 {
@@ -39,19 +38,33 @@ int	is_builtin(t_tokens *tokens, char **env, int idx)
 	return (FALSE);
 }
 
+func
+{
+	dup2;
+}
+
+void	only_process(t_tokens *tokens, char **env)
+{
+	"echo hello > out"
+	while (tokens->token[i])
+		ft_strcmp(tokens->token[i], "echo");
+	1. find command.
+		if (builtin)
+		>  << > >> 
+		else if (access)
+		else command not found
+			fork()
+			>
+			exec()
+		if (not builtin)
+			wait_children(1);	
+}
+
 int	execute(t_tokens *tokens, char **env, int pipe_num)
 {
+	if (pipe_num == 0)
+	 	only_process(tokens, env);
+	else
+	 	pipex(pipe_num + 1, tokens, env);
 	return (0);
-	// if (pipe_num == 0)
-	// 	only_process(tokens, env);
-	// else
-	// 	pipex(pipe_num + 1, tokens, env);
-	// for (int j = 0; tokens[j].token; j++)
-	// {
-	// 	for (int i = 0; tokens[j].token[i]; i++)
-	// 	{
-	// 		printf("tokens : %s\n", tokens[j].token[i]);
-	// 		printf("redir : %d\n", tokens[j].redir[i]);
-	// 	}
-	// }
 }

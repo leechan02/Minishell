@@ -4,10 +4,10 @@ RFLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib -I${HOME}/.brew/opt/readlin
 
 SRCS_PARSE = $(addprefix parse/, parse_env.c parse_quote.c parse_redir.c parse_split.c parse.c)
 SRCS_BUILTIN = $(addprefix builtin/, cd.c env.c export.c pwd.c unset.c echo.c exit.c)
-# SRCS_EXECUTE = $(addprefix execute/, execute.c)
+SRCS_EXECUTE = $(addprefix execute/, execute.c pipex.c redirect.c utils.c)
 
 SRCS_DIR = ./srcs/
-SRCS = main.c execute.c $(SRCS_PARSE) $(SRCS_BUILTIN)
+SRCS = main.c $(SRCS_PARSE) $(SRCS_BUILTIN) $(SRCS_EXECUTE)
 SRCS_NAME = $(addprefix $(SRCS_DIR), $(SRCS))
 
 INCLUDES = ./includes/
@@ -18,7 +18,7 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS_NAME:.c=.o)))
 
 DEPS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS_NAME:.c=.d)))
 
-vpath %.c $(SRCS_DIR) $(SRCS_DIR)parse/ $(SRCS_DIR)builtin/
+vpath %.c $(SRCS_DIR) $(SRCS_DIR)parse/ $(SRCS_DIR)builtin/ $(SRCS_DIR)execute/
 
 all : $(NAME)
 

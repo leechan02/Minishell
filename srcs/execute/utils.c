@@ -6,11 +6,11 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:52:17 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/10 18:31:33 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/14 17:05:39 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "execute.h"
 
 void	wait_children(int num_of_children)
 {

@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/14 15:31:49 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/14 18:27:25 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "execute.h"
 
-void	here_doc(char **av, char **envp, int outfile_fd)
+void	here_doc(char **tokens, char **env, int outfile_fd)
 {
 	char	*limiter;
 	char	*line;
 	int		fd[2];
 
-	limiter = ft_strjoin(av[2], "\n");
+	limiter = ft_strjoin(tokens[2], "\n");
 	pipe(fd);
 	while (TRUE)
 	{
@@ -32,19 +32,19 @@ void	here_doc(char **av, char **envp, int outfile_fd)
 	free(line);
 	free(limiter);
 	close(fd[1]);
-	pipex(fd, av, envp);
+	pipex(fd, tokens, env);
 }
 
-void	pipex(int ac, char **av, char **envp)
+void	pipex(int token_nb, t_tokens *tokens, char **env)
 {
 	int		old_fd[2];
 	int		new_fd[2];
 	int		cmd;
 	pid_t	pid;
 
-	cmd = 2;
+	cmd = -1;
 	old_fd[0] = STDIN_FILENO;
-	while (cmd < ac - 2)
+	while (++cmd < token_nb)
 	{
 		pipe(new_fd);
 		pid = fork();
@@ -52,14 +52,14 @@ void	pipex(int ac, char **av, char **envp)
 		{
 			close(new_fd[0]);
 			dup2(old_fd[0], STDIN_FILENO);
-			dup2(new_fd[1], STDOUT_FILENO);
-			exec(av[cmd], envp);
+			if (cmd != token_nb - 1)
+				dup2(new_fd[1], STDOUT_FILENO);
+			find_redir(&tokens[cmd]);
+			exec(&tokens[cmd].token, env);
 		}
 		close(old_fd[0]);
 		close(new_fd[1]);
 		ft_memcpy(old_fd, new_fd, sizeof(int) * 2);
-		cmd++;
 	}
-	dup2(old_fd[0], STDIN_FILENO);
-	exec(av[ac - 2], envp);
+	return (wait_children(token_nb));
 }
