@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/10 18:54:32 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/14 15:31:49 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	here_doc(char **av, char **envp, int outfile_fd)
 	free(line);
 	free(limiter);
 	close(fd[1]);
-	pipex(av, envp, fd, outfile_fd);
+	pipex(fd, av, envp);
 }
 
-void	multiple_pipex(int ac, char **av, char **envp)
+void	pipex(int ac, char **av, char **envp)
 {
 	int		old_fd[2];
 	int		new_fd[2];
@@ -62,23 +62,4 @@ void	multiple_pipex(int ac, char **av, char **envp)
 	}
 	dup2(old_fd[0], STDIN_FILENO);
 	exec(av[ac - 2], envp);
-}
-
-int	*pipex(char **av, char **env, )
-{
-	int		fd[2];
-	pid_t	pid;
-
-	pipe(fd);
-	pid = fork();
-	if (pid == 0)
-	{
-		dup2(infile_fd, STDIN_FILENO);
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
-		exec(av[2], env);
-	}
-	close(fd[0]);
-	close(fd[1]);
-	wait_children
 }
