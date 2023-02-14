@@ -70,24 +70,16 @@ int	parsing(char *line, t_tokens **tokens, char **env)
 	{
 		token_len = until_pipe(line);
 		token = ft_substr(line, 0, token_len);
-		tokens[idx]->token = split_token(token);
-		tokens[idx]->redir = ft_calloc(cnt_tokens(token), sizeof(int));
+		(*tokens)[idx].token = split_token(token);
+		(*tokens)[idx].redir = ft_calloc(cnt_tokens(token), sizeof(int));
 		is_redir(tokens, idx, cnt_tokens(token));
-		check_env(tokens[idx], env);
-		check_quote(tokens[idx]);
+		check_env(&(*tokens)[idx], env);
+		check_quote(&(*tokens)[idx]);
 		idx++;
 		line += token_len;
 		if (*line == '|')
 			line++;
 		free(token);
-	}
-	for (int j = 0; j < tokens_n; j++)
-	{
-		for (int i = 0; tokens[j]->token[i]; i++)
-		{
-			printf("tokens : %s\n", tokens[j]->token[i]);
-			printf("redir : %d\n", tokens[j]->redir[i]);
-		}
 	}
 	return (tokens_n - 1);
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "execute.h"
 
 void	free_env(char **env)
 {
@@ -48,20 +49,21 @@ int	main(int ac, char **av, char **env)
 	t_tokens	*tokens;
 
 	(void)av;
-	shell_env = cp_env(env);
+	// shell_env = cp_env(env);
 	while (ac)
 	{
 		// line = readline("\033[34;1mminishell:0.1\033[0;1m$\033[0m ");
-		line = "echo \"$USER\" \'| $USER\' | \"ER\" <'<'<<file";
+		line = "ls -al | wc -l > outfile";
 		// line = "echo \" \' \" \'";
-		pipe_num = parsing(line, &tokens, shell_env);
-		printf("pipe_num : %d\n", pipe_num);
+		pipe_num = parsing(line, &tokens, env);
+		if (execute(tokens, env, pipe_num) == 0)
+			printf("succes\n");
 		// add_history(line);
 		break ;
 		// free(line);
 		// line = NULL;
 	}
-	free_env(shell_env);
+	// free_env(shell_env);
 	// system("leaks --list minishell");
 	return (0);
 }

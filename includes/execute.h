@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:52:44 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/10 19:13:40 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/14 14:11:03 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # include "minishell.h"
 
-
+/*execute*/
+int	execute(t_tokens *tokens, char **env, int pipe_num);
 
 #endif

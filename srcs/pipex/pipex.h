@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 15:16:55 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/10 18:32:42 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/14 15:27:12 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ enum e_flag {
 };
 
 /* pipex.c */
-void	pipex(char **av, char **envp, int *tmp_pipe, int outfile_fd);
 void	here_doc(char **av, char **envp, int outfile_fd);
-void	multiple_pipex(int ac, char **av, char **envp);
+void	pipex(int ac, char **av, char **envp);
 
 /* utils.c */
 void	wait_children(int num_of_children);
