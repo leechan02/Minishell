@@ -2,7 +2,7 @@ NAME = minishell
 CFLAGS = -I $(INCLUDES) -MMD
 RFLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib -I${HOME}/.brew/opt/readline/include
 
-SRCS_PARSE := $(addprefix parse/, parse_env.c parse_quote.c parse_redir.c parse_split.c parse.c)
+SRCS_PARSE = $(addprefix parse/, parse_env.c parse_quote.c parse_redir.c parse_split.c parse.c)
 
 SRCS_DIR = ./srcs/
 SRCS = main.c $(SRCS_PARSE)
@@ -12,11 +12,11 @@ INCLUDES = ./includes/
 SHELL = bash
 
 OBJ_DIR = objs
-OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
+OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS_NAME:.c=.o)))
 
-DEPS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.d)))
+DEPS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS_NAME:.c=.d)))
 
-vpath %.c $(SRCS_DIR)
+vpath %.c $(SRCS_DIR) parse/
 
 all : $(NAME)
 
