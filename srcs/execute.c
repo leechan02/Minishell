@@ -30,10 +30,10 @@ int	is_builtin(t_tokens *tokens, char **env, int idx)
 			return (ft_pwd(env));
 		else if (ft_strcmp(tokens->token[j], "env") == 0)
 			return (ft_env(env));
-		// else if (ft_strcmp(tokens->token[j], "echo") == 0)
-		// 	return (ft_echo(tokens));
-		// else if (ft_strcmp(tokens->token[j], "exit") == 0)
-		// 	ft_exit(tokens->token + idx);
+		else if (ft_strcmp(tokens->token[j], "echo") == 0)
+			return (ft_echo(tokens->token + idx));
+		else if (ft_strcmp(tokens->token[j], "exit") == 0)
+			ft_exit(tokens->token + idx);
 		j++;
 	}
 	return (FALSE);
@@ -41,10 +41,11 @@ int	is_builtin(t_tokens *tokens, char **env, int idx)
 
 int	execute(t_tokens *tokens, char **env, int pipe_num)
 {
-	if (pipe_num == 0)
-		only_process(tokens, env);
-	else
-		pipex(pipe_num + 1, tokens, env);
+	return (0);
+	// if (pipe_num == 0)
+	// 	only_process(tokens, env);
+	// else
+	// 	pipex(pipe_num + 1, tokens, env);
 	// for (int j = 0; tokens[j].token; j++)
 	// {
 	// 	for (int i = 0; tokens[j].token[i]; i++)
