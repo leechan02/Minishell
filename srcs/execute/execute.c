@@ -38,11 +38,6 @@ int	is_builtin(t_tokens *tokens, char **env, int idx)
 	return (FALSE);
 }
 
-func
-{
-	dup2;
-}
-
 void	only_process(t_tokens *tokens, char **env)
 {
 	"echo hello > out"
