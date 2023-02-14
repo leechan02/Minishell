@@ -1,18 +1,20 @@
 NAME = minishell
-CFLAGS = -I $(INCLUDES) -MMD #-Wall -Wextra -Werror
+CFLAGS = -I $(INCLUDES) -MMD
 RFLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib -I${HOME}/.brew/opt/readline/include
 
+SRCS_PARSE := $(addprefix parse/, parse_env.c parse_quote.c parse_redir.c parse_split.c parse.c)
+
 SRCS_DIR = ./srcs/
-SRCS = main.c parse.c parse_env.c parse_split.c parse_redir.c
+SRCS = main.c $(SRCS_PARSE)
 SRCS_NAME = $(addprefix $(SRCS_DIR), $(SRCS))
 
 INCLUDES = ./includes/
 SHELL = bash
 
 OBJ_DIR = objs
-OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS_NAME:.c=.o)))
+OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 
-DEPS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS_NAME:.c=.d)))
+DEPS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.d)))
 
 vpath %.c $(SRCS_DIR)
 
@@ -21,7 +23,7 @@ all : $(NAME)
 $(NAME) : $(OBJ_DIR) $(OBJS)
 	@echo -n "Making minishell... "
 	@make all -s -C libft
-	@cc -g $(OBJS) $(RFLAGS) ./libft/libft.a -o $@ 
+	@cc -g -Wall -Wextra -Werror $(OBJS) $(RFLAGS) ./libft/libft.a -o $@ 
 	@echo -e "\033[32;1m"complete"\033[0m"
 	@sleep 0.2
 

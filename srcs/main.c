@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/13 19:48:56 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/14 09:33:59y euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	**cp_env(char **origin_env)
 
 int	main(int ac, char **av, char **env)
 {
+	int			pipe_num;
 	char		*line;
 	char		**shell_env;
 	t_tokens	*tokens;
@@ -53,7 +54,8 @@ int	main(int ac, char **av, char **env)
 		// line = readline("\033[34;1mminishell:0.1\033[0;1m$\033[0m ");
 		line = "echo \"$USER\" \'| $US\' | \"ER\" <'<'<<file";
 		// line = "echo \" \' \" \'";
-		parsing(line, &tokens, shell_env);
+		pipe_num = parsing(line, &tokens, shell_env);
+		printf("pipe_num : %d\n", pipe_num);
 		// add_history(line);
 		break ;
 		// free(line);

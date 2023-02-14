@@ -56,7 +56,7 @@ int	until_pipe(char *line)
 	return (len);
 }
 
-void	parsing(char *line, t_tokens **tokens, char **env)
+int	parsing(char *line, t_tokens **tokens, char **env)
 {
 	char	*token;
 	int		tokens_n;
@@ -74,20 +74,20 @@ void	parsing(char *line, t_tokens **tokens, char **env)
 		tokens[idx]->redir = ft_calloc(cnt_tokens(token), sizeof(int));
 		is_redir(tokens, idx, cnt_tokens(token));
 		check_env(tokens[idx], env);
-		for (int i = 0; tokens[idx]->token[i]; i++)
-			printf("tokens : %s\n", tokens[idx]->token[i]);
+		check_quote(tokens[idx]);
 		idx++;
 		line += token_len;
 		if (*line == '|')
 			line++;
 		free(token);
 	}
-	// printf("tokens : %d\n", idx);
-	// for (int k = 0; *tokens[k]->token; k++)
-	// {
-	// 	printf("token[%d] : ", k);
-	// 	// for (int j = 0; tokens[k][j]; j++)
-	// 		printf("%s ", *tokens[k]->token);
-	// 	printf("\n");
-	// }
+	for (int j = 0; j < tokens_n; j++)
+	{
+		for (int i = 0; tokens[j]->token[i]; i++)
+		{
+			printf("tokens : %s\n", tokens[j]->token[i]);
+			printf("redir : %d\n", tokens[j]->redir[i]);
+		}
+	}
+	return (tokens_n - 1);
 }
