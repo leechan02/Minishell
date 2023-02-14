@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:50:52 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/13 20:35:24 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/14 14:02:27 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_builtin(t_tokens *tokens, char **env, int idx)
 		else if (ft_strcmp(tokens->token[j], "cd") == 0)
 			return (ft_cd(tokens->token + idx, env));
 		else if (ft_strcmp(tokens->token[j], "echo") == 0)
-			return (ft_echo(tokens));
+			return (ft_echo(tokens->token + idx));
 		else if (ft_strcmp(tokens->token[j], "pwd") == 0)
 			return (ft_pwd(env));
 		else if (ft_strcmp(tokens->token[j], "env") == 0)
