@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 19:18:22 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/10 14:24:30 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/13 10:14:15by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	get_pipe(char *line)
 			pipe_num++;
 		line++;
 	}
-	if (qut != 0 || db_qut != 0)
-		pipe_num = -1;
 	return (pipe_num);
 }
 
@@ -45,18 +43,20 @@ int	until_pipe(char *line)
 	len = 0;
 	qut = 0;
 	db_qut = 0;
-	while (line[len] != '|' && line[len] != '\0')
+	while (line[len] != '\0')
 	{
 		if (line[len] == '\'')
 			qut = ~qut;
 		else if (line[len] == '\"')
 			db_qut = ~db_qut;
+		if (line[len] == '|' && qut == 0 && db_qut == 0)
+			break ;
 		len++;
 	}
 	return (len);
 }
 
-void	parsing(char *line, t_tokens **tokens, char **env)
+int	parsing(char *line, t_tokens **tokens, char **env)
 {
 	char	*token;
 	int		tokens_n;
@@ -64,26 +64,30 @@ void	parsing(char *line, t_tokens **tokens, char **env)
 	int		idx;
 
 	tokens_n = get_pipe(line) + 1;
-	if (tokens_n == 0)
-		return (perror("What the f**k!!"));
 	*tokens = ft_calloc(tokens_n + 1, sizeof(t_tokens));
 	idx = 0;
 	while (*line)
 	{
 		token_len = until_pipe(line);
-		printf("token len = %d\n", token_len);
-		token = ft_substr(line++, 0, token_len);
-		printf("token : %s\n", token);
-		// *tokens[idx++]->token = check_env(token, env);
+		token = ft_substr(line, 0, token_len);
+		tokens[idx]->token = split_token(token);
+		tokens[idx]->redir = ft_calloc(cnt_tokens(token), sizeof(int));
+		is_redir(tokens, idx, cnt_tokens(token));
+		check_env(tokens[idx], env);
+		check_quote(tokens[idx]);
+		idx++;
 		line += token_len;
+		if (*line == '|')
+			line++;
 		free(token);
 	}
-	// printf("tokens : %d\n", idx);
-	// for (int k = 0; *tokens[k]->token; k++)
-	// {
-	// 	printf("token[%d] : ", k);
-	// 	// for (int j = 0; tokens[k][j]; j++)
-	// 		printf("%s ", *tokens[k]->token);
-	// 	printf("\n");
-	// }
+	for (int j = 0; j < tokens_n; j++)
+	{
+		for (int i = 0; tokens[j]->token[i]; i++)
+		{
+			printf("tokens : %s\n", tokens[j]->token[i]);
+			printf("redir : %d\n", tokens[j]->redir[i]);
+		}
+	}
+	return (tokens_n - 1);
 }

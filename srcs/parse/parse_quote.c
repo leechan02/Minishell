@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parse_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 16:32:05 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/13 13:17:18 by euiclee          ###   ########.fr       */
+/*   Created: 2023/02/14 08:47:47 by euiclee           #+#    #+#             */
+/*   Updated: 2023/02/14 08:57:29 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "parse.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "../libft/includes/libft.h"
-# include "builtin.h"
+void	check_quote(t_tokens *tokens)
+{
+	int		i;
+	char	*temp;
 
-# define TRUE 1
-# define FALSE 0
-
-typedef struct s_tokens{
-	char	**token;
-	int		*redir;
-}t_tokens;
-
-#endif
+	i = 0;
+	while (tokens->token[i])
+	{
+		temp = tokens->token[i];
+		if (tokens->token[i][0] == '\'')
+		{
+			tokens->token[i] = ft_strtrim(temp, "\'");
+			free(temp);
+		}
+		else if (tokens->token[i][0] == '\"')
+		{
+			tokens->token[i] = ft_strtrim(temp, "\"");
+			free(temp);
+		}
+		i++;
+	}
+}
