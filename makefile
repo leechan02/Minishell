@@ -16,7 +16,7 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS_NAME:.c=.o)))
 
 DEPS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS_NAME:.c=.d)))
 
-vpath %.c $(SRCS_DIR) parse/
+vpath %.c $(SRCS_DIR) $(SRCS_DIR)parse/
 
 all : $(NAME)
 
