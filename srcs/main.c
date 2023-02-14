@@ -52,7 +52,7 @@ int	main(int ac, char **av, char **env)
 	while (ac)
 	{
 		// line = readline("\033[34;1mminishell:0.1\033[0;1m$\033[0m ");
-		line = "echo \"$USER\" \'| $US\' | \"ER\" <'<'<<file";
+		line = "echo \"$USER\" \'| $USER\' | \"ER\" <'<'<<file";
 		// line = "echo \" \' \" \'";
 		pipe_num = parsing(line, &tokens, shell_env);
 		printf("pipe_num : %d\n", pipe_num);
