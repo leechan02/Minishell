@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/13 20:49:24 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/14 16:12:40 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,27 @@
 int	ft_exit(char **token)
 {
 	int	i;
+	int	j;
 
-	i = -1;
-	while (ft_strcmp(token[++i], "exit") != 0)
-		;
-	if (ft_isdigit(ft_atoi(token[i + 1]) == 1) \
-	&& ft_isdigit(ft_atoi(token[i + 2]) == 1))
-	{
-		printf("exit\n");
-		printf("minishell: exit: too many arguments\n")
-		return (FALSE);
-	}
-	if (/* exit 바로 뒤의 인자가 숫자가 아닐 경우 */)
-	{
-		printf("exit\n");
-		printf("minishell: exit: %s: numeric argument required\n", token[i + 1]);
+	i = 0;
+	printf("exit\n");
+	if (token[++i] == NULL)
 		exit(0);
+	else if (token[i] != NULL)
+	{
+		j = -1;
+		while (ft_isdigit(token[i][++j]) != 0 && token[i][j] != '\0')
+			;
+		if (token[i][j] != '\0')
+		{
+			printf("minishell: exit: %s: numeric argument required\n", token[i]);
+			exit (0);
+		}
+		if (token[++i] != NULL)
+		{
+			printf("minishell: exit: too many arguments\n");
+			return (FALSE);
+		}
 	}
 	exit(0);
 }
