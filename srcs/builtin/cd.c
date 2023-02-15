@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/13 20:22:18 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/15 14:10:50 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_cd(char **token, char **env)
 	pwd = getcwd(NULL, 0);
 	ft_strlcpy(oldpwd, pwd, ft_strlen(pwd) + 1);
 	free(pwd);
-	if (token[i + 1][0] == '\0' || token[i + 1][0] == '~')
+	if (token[i + 1] == NULL || token[i + 1][0] == '~')
 		pwd = ft_strfind(env, "HOME=") + 5;
 	else if (token[i + 1][0] == '-')
 	{
