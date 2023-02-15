@@ -66,7 +66,7 @@ int	is_redirection(char **token, int qut, int db_qut, int *len)
 	return (FALSE);
 }
 
-int	is_spaquot(char **token, int qut, int db_qut)
+int	is_spaquot(char **token, int qut, int db_qut, int *len)
 {
 	if (**token == '\"' && ((qut != 0 && qut % 2 == 0)
 			|| (db_qut != 0 && db_qut % 2 == 0)))
@@ -75,7 +75,10 @@ int	is_spaquot(char **token, int qut, int db_qut)
 			|| (db_qut != 0 && db_qut % 2 == 0)))
 		return (TRUE);
 	else if ((**token == ' ' && qut % 2 == 0 && db_qut % 2 == 0))
+	{
+		(*len)--;
 		return (TRUE);
+	}
 	return (FALSE);
 }
 
@@ -95,7 +98,7 @@ int	until_sep(char **token)
 			qut++;
 		else if (**token == '\"')
 			db_qut++;
-		if (is_spaquot(token, qut, db_qut)
+		if (is_spaquot(token, qut, db_qut, &len)
 			|| is_redirection(token, qut, db_qut, &len))
 		{
 			(*token)++;

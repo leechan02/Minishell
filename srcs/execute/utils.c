@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:52:17 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/14 17:05:39 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/15 11:00:44y euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,25 @@ char	**find_path(char **envp)
 	return (path);
 }
 
-void	exec(char *av, char **envp)
+void	exec(char **token, char **envp)
 {
 	char	**path;
-	char	**opt;
 	char	*cmd;
 	int		i;
 
-	opt = ft_split(av, ' ');
-	ft_assert((opt != NULL), "Failed to execute ft_split ");
 	path = find_path(envp);
 	i = 0;
 	while (path[i] != NULL)
 	{
 		cmd = ft_strjoin(path[i], "/");
-		cmd = ft_strjoin(cmd, opt[0]);
+		cmd = ft_strjoin(cmd, token[0]);
 		if (access(cmd, X_OK) == 0)
 			break ;
 		i++;
 	}
 	if (access(cmd, X_OK) == -1)
 		ft_assert(FALSE, "Failed to execute access ");
-	ft_assert(!(execve(cmd, opt, envp) == -1), "Failed to execute execve ");
+	ft_assert(!(execve(cmd, token, envp) == -1), "Failed to execute execve ");
 }
 
 int	open_file(char *file, int flag)

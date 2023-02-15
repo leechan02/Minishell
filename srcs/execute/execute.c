@@ -12,54 +12,37 @@
 
 #include "execute.h"
 
-int	is_builtin(t_tokens *tokens, char **env, int idx)
+// "echo hello > out"
+int	only_process(t_tokens *tokens, char **env)
 {
-	int	j;
+	pid_t	pid;
 
-	j = 0;
-	while (tokens->token + idx != NULL)
+	if (is_builtin(tokens[0]))
 	{
-		if (ft_strcmp(tokens->token[j], "export") == 0)
-			return (ft_export(tokens->token + idx, env));
-		else if (ft_strcmp(tokens->token[j], "unset") == 0)
-			return (ft_unset(tokens->token + idx, env));
-		else if (ft_strcmp(tokens->token[j], "cd") == 0)
-			return (ft_cd(tokens->token + idx, env));
-		else if (ft_strcmp(tokens->token[j], "pwd") == 0)
-			return (ft_pwd(env));
-		else if (ft_strcmp(tokens->token[j], "env") == 0)
-			return (ft_env(env));
-		else if (ft_strcmp(tokens->token[j], "echo") == 0)
-			return (ft_echo(tokens->token + idx));
-		else if (ft_strcmp(tokens->token[j], "exit") == 0)
-			ft_exit(tokens->token + idx);
-		j++;
+		find_redir(&tokens[0]);
+		exec_builtin(tokens, env);
 	}
-	return (FALSE);
-}
-
-void	only_process(t_tokens *tokens, char **env)
-{
-	"echo hello > out"
-	while (tokens->token[i])
-		ft_strcmp(tokens->token[i], "echo");
-	1. find command.
-		if (builtin)
-		>  << > >> 
-		else if (access)
-		else command not found
-			fork()
-			>
-			exec()
-		if (not builtin)
-			wait_children(1);	
+	else
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			find_redir(&tokens[0]);
+			exec(tokens->token, env);
+		}
+		wait_children(1);
+	}
+	return (SUCCESS);
 }
 
 int	execute(t_tokens *tokens, char **env, int pipe_num)
 {
 	if (pipe_num == 0)
-	 	only_process(tokens, env);
-	else
-	 	pipex(pipe_num + 1, tokens, env);
-	return (0);
+		only_process(tokens, env);
+	// else
+	// 	pipex(pipe_num + 1, tokens, env);
+	return (SUCCESS);
+	// for (int i = 0; tokens[i].token; i++)
+	// 	for (int j = 0; tokens[i].token[j]; j++)
+	// 		printf("token : %s re : %d\n", tokens[i].token[j], tokens[i].redir[j]);
 }
