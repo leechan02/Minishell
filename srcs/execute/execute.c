@@ -12,15 +12,17 @@
 
 #include "execute.h"
 
-// "echo hello > out"
 int	only_process(t_tokens *tokens, char **env)
 {
 	pid_t	pid;
+	int		fd;
 
 	if (is_builtin(tokens[0]))
 	{
+		fd = dup(STDOUT_FILENO);
 		find_redir(&tokens[0]);
 		exec_builtin(tokens, env);
+		dup2(fd, STDOUT_FILENO);
 	}
 	else
 	{
@@ -39,10 +41,7 @@ int	execute(t_tokens *tokens, char **env, int pipe_num)
 {
 	if (pipe_num == 0)
 		only_process(tokens, env);
-	// else
-	// 	pipex(pipe_num + 1, tokens, env);
+	else
+		pipex(pipe_num + 1, tokens, env);
 	return (SUCCESS);
-	// for (int i = 0; tokens[i].token; i++)
-	// 	for (int j = 0; tokens[i].token[j]; j++)
-	// 		printf("token : %s re : %d\n", tokens[i].token[j], tokens[i].redir[j]);
 }

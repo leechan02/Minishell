@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:03:56 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/15 11:38:08 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/15 14:23:57 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ char	**replace_redir(t_tokens *tokens, int i)
 		ret[idx] = tokens->token[idx];
 		idx++;
 	}
+	free(tokens->token[i]);
+	free(tokens->token[i + 1]);
 	while (tokens->token[i + 2])
 	{
 		ret[idx] = tokens->token[i + 2];
 		idx++;
 		i++;
 	}
-	free(tokens->token[i]);
-	free(tokens->token[i + 1]);
 	free(tokens->token);
 	return (ret);
 }
@@ -50,7 +50,6 @@ int	exec_redir(t_tokens *tokens, int i, int flag)
 	else if (flag == HERE_DOC)
 		dup2(open_file(tokens->token[i + 1], READ), STDIN_FILENO);
 	tokens->token = replace_redir(tokens, i);
-	printf("token : %s\n", tokens->token[0]);
 	return (SUCCESS);
 }
 
@@ -72,6 +71,7 @@ int	find_redir(t_tokens *tokens)
 	int	i;
 
 	i = 0;
+	/*here_doc?*/
 	while (tokens->token[i])
 	{
 		if (tokens->redir[i] == TRUE)
