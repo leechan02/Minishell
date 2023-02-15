@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/15 14:37:49 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/15 15:56:31 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 // 	pipex(fd[0], tokens, env);
 // }
 
+/* 한 줄  추가하면 norm 25줄 제한 넘음 */
 void	pipex(int token_nb, t_tokens *tokens, char **env)
 {
 	int		old_fd[2];
@@ -51,7 +52,6 @@ void	pipex(int token_nb, t_tokens *tokens, char **env)
 		if (pid == 0)
 		{
 			close(new_fd[0]);
-			/* heredoc? */
 			dup2(old_fd[0], STDIN_FILENO);
 			if (cmd != token_nb - 1)
 				dup2(new_fd[1], STDOUT_FILENO);

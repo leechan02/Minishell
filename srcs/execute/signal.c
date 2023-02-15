@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 19:02:33 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/15 13:06:39 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/15 15:56:51 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,4 @@ void	signal_handler(int sig)
 
 void	sigquit_handler(void)
 {
-
 }
