@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/09 15:52:44 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/15 13:54:26 by euiclee          ###   ########.fr       */
+/*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
+/*   Updated: 2023/02/15 14:57:47 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	**find_path(char **envp);
 int		open_file(char *file, int flag);
 
 /* signal.c */
-void	signal_exit(void);
+void	sigexit_handler(void);
+void	signal_handler(int sig);
 
 #endif
