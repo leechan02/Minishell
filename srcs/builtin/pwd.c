@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/13 10:36:49 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/15 15:25:45 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,9 @@
 
 int	ft_pwd(char **env)
 {
-	int	i;
+	char	*cwd;
 
-	i = 0;
-	while (env[i] != NULL)
-	{
-		if (ft_strncmp(env[i], "PWD=", 4) == 0)
-			break ;
-		i++;
-	}
-	printf("%s\n", env[i] + 4);
-	return (TRUE);
+	cwd = getcwd(NULL, 0);
+	printf("%s\n", cwd);
+	return (free(cwd), TRUE);
 }

@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/15 14:10:50 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/15 15:43:51 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+
+static int	error_msg(int expression, char *msg)
+{
+	if (expression == FALSE)
+	{
+		perror(msg);
+		return (FALSE);
+	}
+	return (TRUE);
+}
 
 int	ft_cd(char **token, char **env)
 {
@@ -32,11 +42,11 @@ int	ft_cd(char **token, char **env)
 	else if (token[i + 1][0] == '-')
 	{
 		printf("%s\n", copy);
-		return (free(copy), chdir(copy));
+		return (free(copy), error_msg((chdir(copy) == 0), "cd "));
 	}
-	else
+	else if (token[i + 1] != NULL)
 		pwd = token[i + 1];
-	chdir(pwd);
+	error_msg((chdir(pwd) == 0), "cd ");
 	ft_strlcpy(ft_strfind(env, "PWD=") + 4, pwd, ft_strlen(pwd) + 1);
 	return (TRUE);
 }

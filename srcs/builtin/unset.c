@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/13 18:51:26 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/15 15:31:48 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_unset(char **token, char **env)
 	int	del_idx;
 
 	i = -1;
-	while (ft_strcmp(token[++i], "unset") == 0)
+	while (ft_strcmp(token[++i], "unset") != 0)
 		;
 	while (token[++i] != NULL)
 	{
