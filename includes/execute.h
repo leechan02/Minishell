@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/15 14:57:47 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/16 16:38:01 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,22 @@ int		exec_builtin(t_tokens *tokens, char **env);
 /* redirect */
 char	**replace_redir(t_tokens *tokens, int i);
 int		exec_redir(t_tokens *tokens, int i, int flag);
-int		find_redir(t_tokens *tokens);
+int		find_redir(t_tokens *tokens, int new_fd, int token_nb, int cmd);
 int		check_redir(t_tokens *tokens, int i);
 
 /* execute.c */
 int		only_process(t_tokens *tokens, char **env);
 int		execute(t_tokens *tokens, char **env, int pipe_num);
 
+/* here_doc */
+char	**name_save(t_tokens *tokens);
+char	**find_here_doc(t_tokens *tokens);
+void	here_doc(t_tokens *tokens, int i, int *file_n);
+void	save_filename(char *file_name, char **name, int *file_n);
+void	replace_here_doc(t_tokens *tokens, int i, int *file_n);
+
 /* pipex.c */
-// void	here_doc(char **av, char **envp, int outfile_fd);
+void	file_delete(char **file_name);
 void	pipex(int token_nb, t_tokens *tokens, char **env);
 
 /* utils.c */
@@ -70,3 +77,4 @@ void	sigexit_handler(void);
 void	signal_handler(int sig);
 
 #endif
+// <infile cat <<end | cat <<end

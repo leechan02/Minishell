@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:03:56 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/15 14:23:57 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 16:44:48 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	**replace_redir(t_tokens *tokens, int i)
 	while (idx < i)
 	{
 		ret[idx] = tokens->token[idx];
+		tokens->redir[idx] = tokens->redir[idx];
 		idx++;
 	}
 	free(tokens->token[i]);
@@ -32,6 +33,7 @@ char	**replace_redir(t_tokens *tokens, int i)
 	while (tokens->token[i + 2])
 	{
 		ret[idx] = tokens->token[i + 2];
+		tokens->redir[idx] = tokens->redir[i + 2];
 		idx++;
 		i++;
 	}
@@ -47,9 +49,7 @@ int	exec_redir(t_tokens *tokens, int i, int flag)
 		dup2(open_file(tokens->token[i + 1], WRITE), STDOUT_FILENO);
 	else if (flag == APPEND)
 		dup2(open_file(tokens->token[i + 1], HERE_DOC), STDOUT_FILENO);
-	else if (flag == HERE_DOC)
-		dup2(open_file(tokens->token[i + 1], READ), STDIN_FILENO);
-	tokens->token = replace_redir(tokens, i);
+	tokens->token = replace_redir(tokens, i); //할당이 제대로 안 되었을 수 있음 tokens->token = (NULL)?
 	return (SUCCESS);
 }
 
@@ -59,23 +59,25 @@ int	check_redir(t_tokens *tokens, int i)
 		exec_redir(tokens, i, IN);
 	else if (!ft_strcmp(tokens->token[i], ">"))
 		exec_redir(tokens, i, OUT);
-	else if (!ft_strcmp(tokens->token[i], "<<"))
-		exec_redir(tokens, i, HERE);
 	else if (!ft_strcmp(tokens->token[i], ">>"))
 		exec_redir(tokens, i, APPEND);
 	return (SUCCESS);
 }
 
-int	find_redir(t_tokens *tokens)
+int	find_redir(t_tokens *tokens, int new_fd, int token_nb, int cmd)
 {
 	int	i;
 
 	i = 0;
-	/*here_doc?*/
+	if (cmd != token_nb - 1)
+		dup2(new_fd, STDOUT_FILENO);
 	while (tokens->token[i])
 	{
 		if (tokens->redir[i] == TRUE)
-			check_redir(tokens, i++);
+		{
+			check_redir(tokens, i);
+			i = -1;
+		}
 		i++;
 	}
 	return (SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:50:52 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/15 15:55:21 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/16 16:27:33 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ int	only_process(t_tokens *tokens, char **env)
 {
 	pid_t	pid;
 	int		fd;
+	char	**name;
 
+	name = find_here_doc(tokens);
 	if (is_builtin(tokens[0]))
 	{
 		fd = dup(STDOUT_FILENO);
-		find_redir(&tokens[0]);
+		find_redir(&tokens[0], 0, 2, 1);
 		exec_builtin(tokens, env);
 		dup2(fd, STDOUT_FILENO);
 	}
@@ -29,11 +31,12 @@ int	only_process(t_tokens *tokens, char **env)
 		pid = fork();
 		if (pid == 0)
 		{
-			find_redir(&tokens[0]);
+			find_redir(&tokens[0], 0, 2, 1);
 			exec(tokens->token, env);
 		}
 		wait_children(1);
 	}
+	file_delete(name);
 	return (SUCCESS);
 }
 
