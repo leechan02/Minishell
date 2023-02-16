@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/16 16:44:25 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 17:26:08 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	pipex(int token_nb, t_tokens *tokens, char **env)
 			find_redir(&tokens[cmd], fd[1][1], token_nb, cmd);
 			exec(tokens[cmd].token, env);
 		}
-		close(fd[0][0]);
+		if (fd[0][0] != 0)
+			close(fd[0][0]);
 		close(fd[1][1]);
 		ft_memcpy(fd[0], fd[1], sizeof(int) * 2);
 	}
