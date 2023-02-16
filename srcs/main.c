@@ -53,8 +53,8 @@ int	main(int ac, char **av, char **env)
 	while (ac)
 	{
 		line = readline("\033[34;1mminishell:0.3\033[0;1m$\033[0m ");
-		if (line[0] == '\0')
-			continue ;
+		if (line == NULL)
+			break ;
 		/* ctrl + D 입력 시 실행될 함수 */
 		// if (line == NULL)
 		// 	sigexit_handler();
