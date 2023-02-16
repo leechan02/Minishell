@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:50:52 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/16 09:42:42 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 14:52:06 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	only_process(t_tokens *tokens, char **env)
 {
 	pid_t	pid;
 	int		fd;
+	char	**name;
 
+	name = find_here_doc(tokens);
 	if (is_builtin(tokens[0]))
 	{
 		fd = dup(STDOUT_FILENO);
@@ -34,6 +36,7 @@ int	only_process(t_tokens *tokens, char **env)
 		}
 		wait_children(1);
 	}
+	file_delete(name);
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/16 10:11:49 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 14:53:45 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,15 @@ int		check_redir(t_tokens *tokens, int i);
 int		only_process(t_tokens *tokens, char **env);
 int		execute(t_tokens *tokens, char **env, int pipe_num);
 
+/* here_doc */
+char	**name_save(t_tokens *tokens);
+char	**find_here_doc(t_tokens *tokens);
+void	here_doc(t_tokens *tokens, int i);
+void	save_filename(char *file_name, char **name, int *file_n);
+void	replace_here_doc(t_tokens *tokens, int i, int *file_n);
+
 /* pipex.c */
-void	here_doc(t_tokens *tokens, int i, char **file_name);
-void	find_here_doc(t_tokens *tokens, char **file_name);
+void	file_delete(char **file_name);
 void	pipex(int token_nb, t_tokens *tokens, char **env);
 
 /* utils.c */

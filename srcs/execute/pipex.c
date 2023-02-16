@@ -6,53 +6,19 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/16 10:23:57 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 14:51:32 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-void	here_doc(t_tokens *tokens, int i, char **file_name)
-{
-	char	*limiter;
-	char	*line;
-	int		fd;
-
-	fd = open_file(tokens->token[i + 1], WRITE);
-	limiter = ft_strjoin(tokens->token[i + 1], "\n");
-	while (TRUE)
-	{
-		write (STDIN_FILENO, "> ", 2);
-		line = get_next_line(STDIN_FILENO);
-		if (line == NULL || ft_strcmp(line, limiter) == 0)
-			break ;
-		write(fd, line, ft_strlen(line));
-		free(line);
-	}
-	free(line);
-	free(limiter);
-}
-
-void	find_here_doc(t_tokens *tokens, char **file_name)
+void	file_delete(char **file_name)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (tokens[i].token)
-	{
-		j = 0;
-		while (tokens[i].token[j])
-		{
-			if (ft_strcmp(tokens[i].token[j], "<<") == 0)
-			{
-				replace_here_doc(&tokens[i], j);
-				here_doc(&tokens[i], j, file_name);
-			}
-			j++;
-		}
-		i++;
-	}
+	while (file_name[i])
+		unlink(file_name[i]);
 }
 
 void	pipex(int token_nb, t_tokens *tokens, char **env)
@@ -64,7 +30,7 @@ void	pipex(int token_nb, t_tokens *tokens, char **env)
 
 	cmd = -1;
 	fd[0][0] = STDIN_FILENO;
-	find_here_doc(tokens, file_name);
+	file_name = find_here_doc(tokens);
 	while (++cmd < token_nb)
 	{
 		pipe(fd[1]);

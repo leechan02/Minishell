@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/15 15:55:06 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/16 13:53:29 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,18 @@ int	main(int ac, char **av, char **env)
 	// shell_env = cp_env(env);
 	while (ac)
 	{
-		line = readline("\033[34;1mminishell:0.3\033[0;1m$\033[0m ");
+		// line = readline("\033[34;1mminishell:0.3\033[0;1m$\033[0m ");
 		/* ctrl + D 입력 시 실행될 함수 */
 		// if (line == NULL)
 		// 	sigexit_handler();
-		// line = "echo hello | hexdump > out";
+		line = "<infile cat <<end";
 		pipe_num = parsing(line, &tokens, env);
 		if (execute(tokens, env, pipe_num) == 0)
 			printf("succes\n");
-		add_history(line);
-		// break ;
-		free(line);
-		line = NULL;
+		break ;
+		// add_history(line);
+		// free(line);
+		// line = NULL;
 	}
 	// free_env(shell_env);
 	// system("leaks --list minishell");
