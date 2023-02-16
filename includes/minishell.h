@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:00:53 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/16 17:48:42 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/16 19:53:24 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,6 @@ typedef struct s_tokens{
 	int		*redir;
 }t_tokens;
 
+/* main */
+void	free_all(t_tokens *tokens);
 #endif
