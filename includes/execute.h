@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/15 14:57:47 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/16 10:11:49 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		exec_builtin(t_tokens *tokens, char **env);
 /* redirect */
 char	**replace_redir(t_tokens *tokens, int i);
 int		exec_redir(t_tokens *tokens, int i, int flag);
-int		find_redir(t_tokens *tokens);
+int		find_redir(t_tokens *tokens, int new_fd, int token_nb, int cmd);
 int		check_redir(t_tokens *tokens, int i);
 
 /* execute.c */
@@ -56,7 +56,8 @@ int		only_process(t_tokens *tokens, char **env);
 int		execute(t_tokens *tokens, char **env, int pipe_num);
 
 /* pipex.c */
-// void	here_doc(char **av, char **envp, int outfile_fd);
+void	here_doc(t_tokens *tokens, int i, char **file_name);
+void	find_here_doc(t_tokens *tokens, char **file_name);
 void	pipex(int token_nb, t_tokens *tokens, char **env);
 
 /* utils.c */

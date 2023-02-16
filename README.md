@@ -1,6 +1,6 @@
 # **Minishell**
 
-## **Parse**
+## ✅ **Parse**
 ### **Order**
 ***check quote → divide tokens(with pipe) → divide token (with space) → replace $ variables → delete quote***
 - `‘ “`를 검사하면서 `pipe` 단위로 `while`문을 돌면서 tokens를 나누어 준다.
@@ -24,3 +24,16 @@
 
 - a to z, A to Z, 0 to 9 with ‘_’
 - Can not start 0~9.
+
+## ✅ **Execute**
+
+### **<< Here_doc**
+
+- tokens 다 돌면서 `<<` 찾기
+    - 1-1 `<<` 찾으면 limiter 이름 + idx로 파일 생성하고 넣어주기
+    - 1-2 limiter 나올 때까지 넣어주고 `<<` → `<`으로 그리고 limiter → 파일 이름으로 바꿔주기.
+- 명령어들 실행 끝날 때 파일 이름 모아뒀다가 `unlink`.
+
+### **Order**
+
+***check pipe_num → one process or pipex → if (one) check builtin or not → else (pipex) exec pipex and check redir***
