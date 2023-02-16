@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/16 14:51:32 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 16:44:25 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	file_delete(char **file_name)
 
 	i = 0;
 	while (file_name[i])
+	{
 		unlink(file_name[i]);
+		i++;
+	}
 }
 
 void	pipex(int token_nb, t_tokens *tokens, char **env)
@@ -46,6 +49,6 @@ void	pipex(int token_nb, t_tokens *tokens, char **env)
 		close(fd[1][1]);
 		ft_memcpy(fd[0], fd[1], sizeof(int) * 2);
 	}
+	wait_children(token_nb);
 	file_delete(file_name);
-	return (wait_children(token_nb));
 }

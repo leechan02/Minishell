@@ -6,19 +6,23 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:19:21 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/16 14:56:35 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 16:38:42 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-void	here_doc(t_tokens *tokens, int i)
+void	here_doc(t_tokens *tokens, int i, int *file_n)
 {
 	char	*limiter;
 	char	*line;
+	char	*name;
+	char	*num;
 	int		fd;
 
-	fd = open_file(tokens->token[i + 1], WRITE);
+	num = ft_itoa((*file_n));
+	name = ft_strjoin(tokens->token[i + 1], num);
+	fd = open_file(name, WRITE);
 	limiter = ft_strjoin(tokens->token[i + 1], "\n");
 	while (TRUE)
 	{
@@ -29,6 +33,8 @@ void	here_doc(t_tokens *tokens, int i)
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
+	free(num);
+	free(name);
 	free(line);
 	free(limiter);
 }
@@ -55,8 +61,12 @@ char	**name_save(t_tokens *tokens)
 	{
 		j = 0;
 		while (tokens[i].token[j])
+		{
 			if (ft_strcmp(tokens[i].token[j], "<<") == 0)
 				num++;
+			j++;
+		}
+		i++;
 	}
 	name = ft_calloc(num + 1, sizeof(char *));
 	return (name);
@@ -72,6 +82,7 @@ void	replace_here_doc(t_tokens *tokens, int i, int *file_n)
 	free(tokens->token[i + 1]);
 	tokens->token[i + 1] = ft_strjoin(tokens->token[i + 1], num);
 	free(num);
+	(*file_n)++;
 }
 
 char	**find_here_doc(t_tokens *tokens)
@@ -92,7 +103,7 @@ char	**find_here_doc(t_tokens *tokens)
 			if (ft_strcmp(tokens[i].token[j], "<<") == 0)
 			{
 				save_filename(tokens[i].token[j + 1], name, &file_n);
-				here_doc(&tokens[i], j);
+				here_doc(&tokens[i], j, &file_n);
 				replace_here_doc(&tokens[i], j, &file_n);
 			}
 			j++;

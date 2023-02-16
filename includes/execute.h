@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/16 14:53:45 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 16:38:01 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		execute(t_tokens *tokens, char **env, int pipe_num);
 /* here_doc */
 char	**name_save(t_tokens *tokens);
 char	**find_here_doc(t_tokens *tokens);
-void	here_doc(t_tokens *tokens, int i);
+void	here_doc(t_tokens *tokens, int i, int *file_n);
 void	save_filename(char *file_name, char **name, int *file_n);
 void	replace_here_doc(t_tokens *tokens, int i, int *file_n);
 
@@ -77,3 +77,4 @@ void	sigexit_handler(void);
 void	signal_handler(int sig);
 
 #endif
+// <infile cat <<end | cat <<end
