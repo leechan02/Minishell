@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:19:21 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/16 16:38:42 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 19:04:13 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	here_doc(t_tokens *tokens, int i, int *file_n)
 		line = get_next_line(STDIN_FILENO);
 		if (line == NULL || ft_strcmp(line, limiter) == 0)
 			break ;
+		setting_signal(PARENT_HEREDOC);
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}

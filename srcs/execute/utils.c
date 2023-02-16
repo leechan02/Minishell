@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:52:17 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/16 16:34:41 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 17:35:23 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	exec(char **token, char **envp)
 	char	*cmd;
 	int		i;
 
+	setting_signal(CHILD_EXECVE);
 	path = find_path(envp);
 	i = 0;
 	while (path[i] != NULL)

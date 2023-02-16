@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:03:56 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/16 16:44:48 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 17:37:18 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	exec_redir(t_tokens *tokens, int i, int flag)
 		dup2(open_file(tokens->token[i + 1], WRITE), STDOUT_FILENO);
 	else if (flag == APPEND)
 		dup2(open_file(tokens->token[i + 1], HERE_DOC), STDOUT_FILENO);
-	tokens->token = replace_redir(tokens, i); //할당이 제대로 안 되었을 수 있음 tokens->token = (NULL)?
+	tokens->token = replace_redir(tokens, i);
 	return (SUCCESS);
 }
 

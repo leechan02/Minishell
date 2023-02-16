@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/16 17:26:08 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 17:36:59 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,5 @@ void	pipex(int token_nb, t_tokens *tokens, char **env)
 		close(fd[1][1]);
 		ft_memcpy(fd[0], fd[1], sizeof(int) * 2);
 	}
-	wait_children(token_nb);
-	file_delete(file_name);
+	return (wait_children(token_nb), file_delete(file_name));
 }

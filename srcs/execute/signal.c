@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 19:02:33 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/15 15:56:51 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/16 19:05:30 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	sigexit_handler(void)
 	exit(128 + SIGTERM);
 }
 
-void	signal_handler(int sig)
+void	sigint_handler1(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -29,9 +29,46 @@ void	signal_handler(int sig)
 		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
-		signal(SIGQUIT, SIG_IGN);
+	{
+		write (1, "Quit :3\n", 8);
+		/* have to sest errno */
+	}
 }
 
-void	sigquit_handler(void)
+void	sigint_handler2(int sig)
 {
+	if (sig == SIGINT)
+	{
+		write (1, "\n", 1);
+		/* have to set errno */
+	}
+}
+
+void	setting_signal(int status)
+{
+	if (status == SHELL)
+	{
+		signal(SIGINT, sigint_handler1);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (status == PARENT_EXECVE)
+	{
+		signal(SIGINT, sigint_handler2);
+		signal(SIGQUIT, sigint_handler1);
+	}
+	else if (status == CHILD_EXECVE)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+	}
+	else if (status == PARENT_HEREDOC)
+	{
+		signal(SIGINT, sigint_handler2);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (status == CHILD_HEREDOC)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_IGN);
+	}
 }

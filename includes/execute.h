@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/16 16:38:01 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 19:00:14 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ enum e_redir {
 	OUT,
 	HERE,
 	APPEND
+};
+
+enum e_status {
+	SHELL,
+	PARENT_EXECVE,
+	CHILD_EXECVE,
+	PARENT_HEREDOC,
+	CHILD_HEREDOC
 };
 
 /* builtin */
@@ -74,7 +82,8 @@ int		open_file(char *file, int flag);
 
 /* signal.c */
 void	sigexit_handler(void);
-void	signal_handler(int sig);
+void	sigint_handler1(int sig);
+void	sigint_handler2(int sig);
+void	setting_signal(int status);
 
 #endif
-// <infile cat <<end | cat <<end

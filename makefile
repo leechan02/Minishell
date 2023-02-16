@@ -4,7 +4,7 @@ RFLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib -I${HOME}/.brew/opt/readlin
 
 SRCS_PARSE = $(addprefix parse/, parse_env.c parse_quote.c parse_redir.c parse_split.c parse.c)
 SRCS_BUILTIN = $(addprefix builtin/, cd.c env.c export.c pwd.c unset.c echo.c exit.c)
-SRCS_EXECUTE = $(addprefix execute/, here_doc.c pipex.c execute.c utils.c builtin.c redirect.c)
+SRCS_EXECUTE = $(addprefix execute/, here_doc.c pipex.c execute.c utils.c builtin.c redirect.c signal.c)
 
 SRCS_DIR = ./srcs/
 SRCS = main.c $(SRCS_PARSE) $(SRCS_BUILTIN) $(SRCS_EXECUTE)
@@ -33,7 +33,7 @@ $(OBJ_DIR) :
 	@mkdir $@
 
 $(OBJ_DIR)/%.o : %.c $(OBJ_DIR)
-	@cc -g $(CFLAGS) -c $< -o $@
+	@cc -g $(CFLAGS) -I${HOME}/.brew/opt/readline/include -c $< -o $@
 
 clean :
 	@echo -n "Deleting object files : "

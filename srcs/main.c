@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/16 16:45:10 euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 18:07:36 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,19 @@ int	main(int ac, char **av, char **env)
 	t_tokens	*tokens;
 
 	(void)av;
-	// shell_env = cp_env(env);
 	while (ac)
 	{
-		line = readline("\033[34;1mminishell:0.3\033[0;1m$\033[0m ");
+		setting_signal(SHELL);
+		line = readline("\033[34;1mminishell:0.5\033[0;1m$\033[0m ");
 		if (line == NULL)
-			break ;
-		/* ctrl + D 입력 시 실행될 함수 */
-		// if (line == NULL)
-		// 	sigexit_handler();
-		// line = "<infile cat <<end | cat <<end";
+			sigexit_handler();
+		if (line[0] == '\0')
+			continue ;
 		pipe_num = parsing(line, &tokens, env);
-		if (execute(tokens, env, pipe_num) == 0)
-			printf("succes\n");
-		// break ;
+		execute(tokens, env, pipe_num);
 		add_history(line);
 		free(line);
 		line = NULL;
 	}
-	// free_env(shell_env);
-	// system("leaks --list minishell");
 	return (0);
 }

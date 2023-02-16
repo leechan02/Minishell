@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 08:44:06 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/15 09:23:01 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/16 17:19:44 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	exec_builtin(t_tokens *tokens, char **env)
 	int	j;
 
 	j = 0;
+	setting_signal(PARENT_EXECVE);
 	while (tokens->token[j] != NULL)
 	{
 		if (ft_strcmp(tokens->token[j], "export") == 0)
