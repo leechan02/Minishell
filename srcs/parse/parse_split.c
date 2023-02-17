@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:21:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 16:36:46 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/17 18:46:46 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ int	is_redirection(char **token, int qut, int db_qut, int *len)
 
 int	is_spaquot(char **token, int qut, int db_qut, int *len)
 {
-	if (**token == '\"' && ((qut != 0 && qut % 2 == 0)
+	if (**token == '\"' && *(*token + 1) == ' '
+		&& ((qut != 0 && qut % 2 == 0)
 			|| (db_qut != 0 && db_qut % 2 == 0)))
 		return (TRUE);
-	else if (**token == '\'' && ((qut != 0 && qut % 2 == 0)
+	else if (**token == '\'' && *(*token + 1) == ' '
+		&& ((qut != 0 && qut % 2 == 0)
 			|| (db_qut != 0 && db_qut % 2 == 0)))
 		return (TRUE);
 	else if ((**token == ' ' && qut % 2 == 0 && db_qut % 2 == 0))
