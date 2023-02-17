@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 13:18:08 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/17 14:12:36 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,8 @@ int	main(int ac, char **av, char **env)
 			free(line);
 			continue ;
 		}
-		// line = "echo $USERname";
 		pipe_num = parsing(line, &tokens, env);
 		execute(tokens, env, pipe_num);
-		// break ; 
 		add_history(line);
 		free(line);
 		line = NULL;
