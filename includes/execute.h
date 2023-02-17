@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/16 19:00:14 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/17 14:57:23 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	wait_children(int num_of_children);
 void	exec(char **token, char **envp);
 char	**find_path(char **envp);
 int		open_file(char *file, int flag);
+void	swap(int *a, int *b);
 
 /* signal.c */
 void	sigexit_handler(void);

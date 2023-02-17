@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:04:05 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/14 13:59:12 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/17 15:53:44 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/includes/libft.h"
 # include "minishell.h"
+# include "execute.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>

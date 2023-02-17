@@ -6,20 +6,11 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/17 14:34:58 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/17 16:44:31 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-static void	swap(int *a, int *b)
-{
-	if (a == b)
-		return ;
-	*a ^= *b;
-	*b ^= *a;
-	*a ^= *b;
-}
 
 static int	*sort_ascii(char **env)
 {
@@ -77,11 +68,39 @@ static int	print_export(char **env, int *sorted_idx, int sign)
 	return (free(sorted_idx), TRUE);
 }
 
-void	variable_init(int **sorted_idx, int *sign, int *i)
+static void	variable_init(int **sorted_idx, int *sign, int *i, int *j)
 {
 	*sorted_idx = NULL;
 	*sign = 0;
 	*i = -1;
+	*j = 0;
+}
+
+static void	is_duplicated(char *str, char **env)
+{
+	char	*tmp;
+	int		len;
+	int		i;
+
+	i = 0;
+	while (str[i] != '=' && str[i] != '\0')
+		i++;
+	tmp = ft_substr(str, 0, i);
+	len = ft_strlen(tmp);
+	i = -1;
+	while (env[++i] != NULL && ft_strncmp(tmp, env[i], len) != 0)
+		;
+	if (env[i] != NULL)
+	{
+		while (env[i] != NULL)
+		{
+			free(env[i]);
+			env[i] = env[i + 1];
+			i++;
+		}
+		free(env[i]);
+		env[i] = NULL;
+	}
 }
 
 int	ft_export(char **token, char **env)
@@ -91,7 +110,7 @@ int	ft_export(char **token, char **env)
 	int	i;
 	int	j;
 
-	variable_init(&sorted_idx, &sign, &i);
+	variable_init(&sorted_idx, &sign, &i, &j);
 	while (ft_strcmp(token[++i], "export") != 0)
 		;
 	if (token[i + 1] == NULL || token[i + 1][0] == '\0')
@@ -103,7 +122,7 @@ int	ft_export(char **token, char **env)
 			token[i]);
 		else
 		{
-			j = 0;
+			is_duplicated(token[i], env);
 			while (env[j] != NULL)
 				j++;
 			env[j] = ft_strdup(token[i]);
