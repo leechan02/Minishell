@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/14 15:16:37 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/17 14:45:13 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_echo(char **token)
 	while (token[i] != NULL)
 	{
 		write (1, token[i], ft_strlen(token[i]));
-		if (token[++i] != NULL)
+		if (token[++i] != NULL && token[i][0] != '\0')
 			write (1, " ", 1);
 	}
 	if (nl != NO_NL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/17 13:11:12 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/17 14:34:58 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	ft_export(char **token, char **env)
 	variable_init(&sorted_idx, &sign, &i);
 	while (ft_strcmp(token[++i], "export") != 0)
 		;
-	if (token[i + 1] == NULL)
+	if (token[i + 1] == NULL || token[i + 1][0] == '\0')
 		return (print_export(env, sorted_idx, sign));
 	while (token[++i] != NULL)
 	{
