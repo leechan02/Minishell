@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:52:17 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 09:39:42 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/17 13:19:59 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	open_file(char *file, int flag)
 {
 	int	fd;
 
+	fd = 0;
 	if (flag == READ)
 		fd = open(file, O_RDONLY);
 	else if (flag == WRITE)
