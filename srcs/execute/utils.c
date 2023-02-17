@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:52:17 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/16 17:35:23 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/17 09:39:42 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ void	exec(char **token, char **envp)
 			break ;
 		i++;
 	}
-	if (access(cmd, X_OK) == -1)
+	if (access(cmd, X_OK) == -1 && access(token[0], X_OK) == -1)
 		ft_assert(FALSE, "Failed to execute access ");
-	ft_assert(!(execve(cmd, token, envp) == -1), "Failed to execute execve ");
+	if (execve(cmd, token, envp) == -1)
+		ft_assert(!(execve(token[0], token, envp) == -1),
+			"Failed to execute execve ");
 }
 
 int	open_file(char *file, int flag)
