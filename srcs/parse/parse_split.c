@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:21:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/15 15:57:53 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/17 16:36:46 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-
-int	cnt_tokens(char *tok)
-{
-	int	num;
-	int	qut;
-	int	db_qut;
-
-	num = 0;
-	qut = 0;
-	db_qut = 0;
-	while (*tok != '\0')
-	{
-		if (*tok == '\'')
-			qut++;
-		else if (*tok == '\"')
-			db_qut++;
-		if ((*tok != ' ' && (*(tok + 1) == ' ' || *(tok + 1) == '\0'))
-			|| (*tok == '<' && *(tok + 1) == '<')
-			|| (*tok == '>' && *(tok + 1) == '>') || *tok == '<' || *tok == '>'
-			|| ((*tok == '\'' || *tok == '\"') && (qut != 0 || db_qut != 0)))
-			if (qut % 2 == 0 && db_qut % 2 == 0)
-				num++;
-		if ((*tok == '<' && *(tok + 1) == '<')
-			|| (*tok == '>' && *(tok + 1) == '>'))
-			tok++;
-		tok++;
-	}
-	return (num);
-}
 
 int	is_redirection(char **token, int qut, int db_qut, int *len)
 {

@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 14:12:36 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/17 16:28:22 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,23 @@ int	main(int ac, char **av, char **env)
 
 	while (ac || av)
 	{
-		setting_signal(SHELL);
-		line = readline("\033[34;1mminishell:0.6\033[0;1m$\033[0m ");
-		if (line == NULL)
-			sigexit_handler();
-		if (line[0] == '\0')
-		{
-			free(line);
-			continue ;
-		}
+		// setting_signal(SHELL);
+		// line = readline("\033[34;1mminishell:0.6\033[0;1m$\033[0m ");
+		// if (line == NULL)
+		// 	sigexit_handler();
+		// if (line[0] == '\0')
+		// {
+		// 	free(line);
+		// 	continue ;
+		// }
+		line = "echo \"$USER na\"me";
 		pipe_num = parsing(line, &tokens, env);
 		execute(tokens, env, pipe_num);
-		add_history(line);
-		free(line);
-		line = NULL;
-		free_all(tokens);
+		break ;
+		// add_history(line);
+		// free(line);
+		// line = NULL;
+		// free_all(tokens);
 	}
 	return (0);
 }

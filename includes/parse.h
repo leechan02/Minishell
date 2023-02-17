@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:32:05 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 13:10:38 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/17 16:42:38 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@ int		until_pipe(char *line);
 int		parsing(char *line, t_tokens **tokens, char **env);
 
 /*parse_split*/
-int		cnt_tokens(char *token);
 int		until_sep(char **token);
 int		is_spaquot(char **token, int qut, int db_qut, int *len);
 int		is_redirection(char **token, int qut, int db_qut, int *len);
 char	**split_token(char *token);
+
+/*parse_tokens*/
+int		is_tokens(char *tok, int qut, int db_qut);
+int		cnt_tokens(char *token);
 
 /*pase_env*/
 int		get_end_with_len(char **loca, char **finish, char **env);
