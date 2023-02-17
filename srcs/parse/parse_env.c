@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:39:56 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 13:10:48 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/17 14:08:40 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,9 @@ int	get_end_with_len(char **loca, char **finish, char **env)
 	}
 	env_name = ft_substr(*loca, 0, len);
 	find_env = ft_strfind(env, env_name);
-	if (find_env != NULL)
-	{
-		while (find_env[env_len])
-			env_len++;
-		env_len -= (len + 1);
-	}
+	while (find_env != NULL && find_env[env_len])
+		env_len++;
+	env_len -= (len + 1);
 	free(env_name);
 	return (env_len);
 }
@@ -51,6 +48,8 @@ char	*make_ret(char **loca, char *origin, char **env, char **finish)
 	while (origin[first] != '$')
 		first++;
 	env_len = get_end_with_len(loca, finish, env);
+	if (env_len < 0)
+		env_len = 1;
 	while ((*finish)[last])
 		last++;
 	ret = ft_calloc(first + env_len + last, sizeof(char));
@@ -88,9 +87,9 @@ char	*replace_env(char **loca, char *origin, char **env)
 	len = get_len(*loca, 1);
 	env_name = ft_substr(*loca, 0, len);
 	find_env = ft_strfind(env, env_name);
-	printf("find_env : %s\n", find_env);
-	ft_memmove(ret + get_len(origin, 0), find_env + len + 1,
-		ft_strlen(find_env + len + 1));
+	if (find_env != NULL)
+		ft_memmove(ret + get_len(origin, 0), find_env + len + 1,
+			ft_strlen(find_env + len + 1));
 	len = get_len(ret, 2);
 	*loca = ret + len;
 	ft_memmove(ret + get_len(ret, 2), finish, ft_strlen(finish));
