@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/16 17:36:59 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/17 09:16:12 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ void	file_delete(char **file_name)
 		unlink(file_name[i]);
 		i++;
 	}
+	i = 0;
+	while (file_name[i])
+	{
+		free(file_name[i]);
+		i++;
+	}
+	free(file_name);
 }
 
 void	pipex(int token_nb, t_tokens *tokens, char **env)
