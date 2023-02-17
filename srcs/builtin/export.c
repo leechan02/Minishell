@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/13 18:48:42 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/17 13:11:12 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,13 @@ static int	print_export(char **env, int *sorted_idx, int sign)
 	return (free(sorted_idx), TRUE);
 }
 
+void	variable_init(int **sorted_idx, int *sign, int *i)
+{
+	*sorted_idx = NULL;
+	*sign = 0;
+	*i = -1;
+}
+
 int	ft_export(char **token, char **env)
 {
 	int	*sorted_idx;
@@ -84,7 +91,7 @@ int	ft_export(char **token, char **env)
 	int	i;
 	int	j;
 
-	i = -1;
+	variable_init(&sorted_idx, &sign, &i);
 	while (ft_strcmp(token[++i], "export") != 0)
 		;
 	if (token[i + 1] == NULL)

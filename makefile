@@ -1,5 +1,5 @@
 NAME = minishell
-CFLAGS = -I $(INCLUDES) -MMD #-Wall -Wextra -Werror
+CFLAGS = -I $(INCLUDES) -MMD -Wall -Wextra -Werror
 RFLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib -I${HOME}/.brew/opt/readline/include
 
 SRCS_PARSE = $(addprefix parse/, parse_env.c parse_quote.c parse_redir.c parse_split.c parse.c)

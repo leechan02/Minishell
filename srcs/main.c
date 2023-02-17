@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 09:20:15 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/17 13:18:08 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,9 @@ int	main(int ac, char **av, char **env)
 {
 	int			pipe_num;
 	char		*line;
-	char		**shell_env;
 	t_tokens	*tokens;
 
-	(void)av;
-	while (ac)
+	while (ac || av)
 	{
 		setting_signal(SHELL);
 		line = readline("\033[34;1mminishell:0.6\033[0;1m$\033[0m ");
@@ -81,8 +79,10 @@ int	main(int ac, char **av, char **env)
 			free(line);
 			continue ;
 		}
+		// line = "echo $USERname";
 		pipe_num = parsing(line, &tokens, env);
 		execute(tokens, env, pipe_num);
+		// break ; 
 		add_history(line);
 		free(line);
 		line = NULL;
