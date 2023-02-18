@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:21:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 18:46:46 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/18 10:53:46 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,9 @@ char	**split_token(char *token)
 {
 	char	**ret;
 	int		words;
-	int		qut;
-	int		db_qut;
 	int		idx;
 
 	idx = 0;
-	qut = 0;
-	db_qut = 0;
 	words = cnt_tokens(token);
 	ret = ft_calloc(words + 1, sizeof(char *));
 	while (idx < words)
