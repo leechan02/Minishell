@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 08:47:47 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 19:42:13 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/18 14:05:45 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ void	check_quote(t_tokens *tokens)
 	int		db_qut;
 
 	i = 0;
-	qut = 0;
-	db_qut = 0;
 	while (tokens->token[i])
 	{
+		qut = 0;
+		db_qut = 0;
 		check_quote_num(tokens->token[i], &qut, &db_qut);
-		if (ft_strchr(tokens->token[i], '\'') != NULL && qut == 2)
+		if (ft_strchr(tokens->token[i], '\'') != NULL && qut % 2 == 0)
 			tokens->token[i] = rm_quote(tokens->token[i], '\'');
-		else if (ft_strchr(tokens->token[i], '\"') != NULL && db_qut == 2)
+		else if (ft_strchr(tokens->token[i], '\"') != NULL && db_qut % 2 == 0)
 			tokens->token[i] = rm_quote(tokens->token[i], '\"');
 		i++;
 	}
