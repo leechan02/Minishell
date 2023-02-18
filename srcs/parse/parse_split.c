@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:21:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/18 10:53:46 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/18 14:28:25 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ int	is_spaquot(char **token, int qut, int db_qut, int *len)
 {
 	if (**token == '\"' && *(*token + 1) == ' '
 		&& ((qut != 0 && qut % 2 == 0)
-			|| (db_qut != 0 && db_qut % 2 == 0)))
+			&& (db_qut != 0 && db_qut % 2 == 0)))
 		return (TRUE);
 	else if (**token == '\'' && *(*token + 1) == ' '
 		&& ((qut != 0 && qut % 2 == 0)
-			|| (db_qut != 0 && db_qut % 2 == 0)))
+			&& (db_qut != 0 && db_qut % 2 == 0)))
 		return (TRUE);
 	else if ((**token == ' ' && qut % 2 == 0 && db_qut % 2 == 0))
 	{

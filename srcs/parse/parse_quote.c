@@ -6,11 +6,40 @@
 /*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 08:47:47 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/18 14:05:45 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/18 16:30:51 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+
+int	env_qut_check(char *str)
+{
+	int	first;
+	int	qut;
+	int	db_qut;
+
+	first = 0;
+	qut = 0;
+	db_qut = 0;
+	while (*str != '\0')
+	{
+		if (*str == '\'')
+		{
+			first++;
+			qut = first;
+		}
+		else if (*str == '\"')
+		{
+			first++;
+			db_qut = first;
+		}
+		else if (*str == '$' && ((db_qut > qut && qut != 0)
+				|| (db_qut == 0 && qut == 1)))
+			return (FALSE);
+		str++;
+	}
+	return (TRUE);
+}
 
 void	check_quote_num(char *str, int *qut, int *db_qut)
 {
@@ -47,9 +76,10 @@ char	*rm_quote(char *str, char c)
 
 void	check_quote(t_tokens *tokens)
 {
-	int		i;
-	int		qut;
-	int		db_qut;
+	int	i;
+	int	j;
+	int	qut;
+	int	db_qut;
 
 	i = 0;
 	while (tokens->token[i])
@@ -57,9 +87,13 @@ void	check_quote(t_tokens *tokens)
 		qut = 0;
 		db_qut = 0;
 		check_quote_num(tokens->token[i], &qut, &db_qut);
-		if (ft_strchr(tokens->token[i], '\'') != NULL && qut % 2 == 0)
+		j = 0;
+		while (tokens->token[i][j] != '\0'
+			&& tokens->token[i][j] != '\'' && tokens->token[i][j] != '\"')
+			j++;
+		if (tokens->token[i][j] == '\'' && qut % 2 == 0)
 			tokens->token[i] = rm_quote(tokens->token[i], '\'');
-		else if (ft_strchr(tokens->token[i], '\"') != NULL && db_qut % 2 == 0)
+		else if (tokens->token[i][j] == '\"' && db_qut % 2 == 0)
 			tokens->token[i] = rm_quote(tokens->token[i], '\"');
 		i++;
 	}

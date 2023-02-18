@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:32:05 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 19:42:44 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/18 15:55:40 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	check_env(t_tokens *tokens, char **env);
 void	is_redir(t_tokens **tok, int idx, int token_num);
 
 /*parse_quote*/
+int		env_qut_check(char *str);
 void	check_quote(t_tokens *tokens);
 void	check_quote_num(char *str, int *qut, int *db_qut);
 char	*rm_quote(char *str, char c);
