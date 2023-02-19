@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:39:56 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/19 19:24:46 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/19 20:16:57 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	get_end_with_len(char **loca, char **finish, char **env)
 	}
 	env_name = ft_substr(*loca, 0, len);
 	find_env = ft_strfind(env, env_name);
-	printf("find_env : %s\n", find_env);
 	while (find_env != NULL && find_env[env_len])
 		env_len++;
 	env_len -= (len + 1);
@@ -46,7 +45,6 @@ char	*make_ret(char **loca, char *origin, char **env, char **finish)
 
 	first = 0;
 	last = 0;
-	printf("loca : %s\n", *loca);
 	while (origin[first] != '$')
 		first++;
 	env_len = get_end_with_len(loca, finish, env);
