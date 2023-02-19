@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:39:56 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 14:08:40 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/19 20:16:57 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,15 @@ char	*replace_env(char **loca, char *origin, char **env)
 void	check_env(t_tokens *tokens, char **env)
 {
 	char	*loca;
+	char	*temp;
 	int		i;
 
 	i = 0;
 	while (tokens->token[i])
 	{
 		loca = tokens->token[i];
-		while (tokens->token[i][0] != '\'' && loca)
+		temp = tokens->token[i];
+		while (env_qut_check(temp) && loca)
 		{
 			loca = ft_strchr(loca, '$');
 			if (loca != NULL && (ft_isalnum(*(++loca)) || *loca == '_'))
