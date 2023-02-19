@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/17 19:24:14 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/19 19:45:06 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,31 @@ static int	error_msg(int expression, char *msg)
 		return (FALSE);
 	}
 	return (TRUE);
+}
+
+static void	move_home_dir(char **env)
+{
+	char	*pwd;
+
+	pwd = NULL;
+	pwd = ft_strfind(env, "HOME=") + 5;
+	error_msg(chdir(pwd) == 0, "cd ");
+}
+
+static void	move_previous_dir(char *copy)
+{
+	if (error_msg(chdir(copy) == 0, "cd ") == TRUE)
+		printf("%s\n", copy);
+}
+
+static void	move_token_dir(char *pwd, char **env)
+{
+	int	i;
+
+	i = 0;
+	error_msg(chdir(pwd) == 0, "cd ");
+	free(pwd);
+	pwd = getcwd(NULL, 0);
 }
 
 int	ft_cd(char **token, char **env)
@@ -38,17 +63,14 @@ int	ft_cd(char **token, char **env)
 	ft_strlcpy(oldpwd, pwd, ft_strlen(pwd) + 1);
 	free(pwd);
 	if (token[i + 1] == NULL || token[i + 1][0] == '~')
-		pwd = ft_strfind(env, "HOME=") + 5;
+		move_home_dir(env);
 	else if (token[i + 1][0] == '-')
-	{
-		if (error_msg(chdir(copy) == 0, "cd ") == TRUE)
-			printf("%s\n", copy);
-		return (free(copy), TRUE);
-	}
+		move_previous_dir(copy);
 	else if (token[i + 1] != NULL)
-		pwd = token[i + 1];
-	error_msg(chdir(pwd) == 0, "cd ");
-	pwd = getcwd(NULL, 0);
-	/* seg error ft_strlcpy(ft_strfind(env, "PWD=") + 4, pwd, ft_strlen(pwd) + 1); */
-	return (free(pwd), TRUE);
+	{
+		pwd = ft_strdup(token[i + 1]);
+		move_token_dir(pwd, env);
+		free(pwd);
+	}
+	return (free(copy), TRUE);
 }
