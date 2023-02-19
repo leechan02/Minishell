@@ -25,7 +25,7 @@ all : $(NAME)
 $(NAME) : $(OBJ_DIR) $(OBJS)
 	@echo -n "Making minishell... "
 	@make all -s -C libft
-	@cc -g -fsanitize=address $(OBJS) $(RFLAGS) ./libft/libft.a -o $@ 
+	@cc -g $(OBJS) $(RFLAGS) ./libft/libft.a -o $@ 
 	@echo -e "\033[32;1m"complete"\033[0m"
 	@sleep 0.2
 
