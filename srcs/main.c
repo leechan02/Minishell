@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/19 20:25:26 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/20 13:02:42 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int ac, char **av, char **env)
 	char		*line;
 	t_tokens	*tokens;
 
+	g_exit = 0;
 	while (ac || av)
 	{
 		setting_signal(SHELL);

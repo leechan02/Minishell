@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:00:53 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/16 19:53:24 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/20 09:42:41 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_tokens{
 	char	**token;
 	int		*redir;
 }t_tokens;
+
+int	g_exit;
 
 /* main */
 void	free_all(t_tokens *tokens);

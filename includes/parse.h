@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:32:05 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/18 15:55:40 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/20 13:52:33 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		is_tokens(char *tok, int qut, int db_qut);
 int		cnt_tokens(char *token);
 
 /*pase_env*/
+int		get_len(char *str, int position);
 int		get_end_with_len(char **loca, char **finish, char **env);
 char	*make_ret(char **loca, char *origin, char **env, char **finish);
 char	*replace_env(char **loca, char *origin, char **env);
@@ -44,4 +45,7 @@ int		env_qut_check(char *str);
 void	check_quote(t_tokens *tokens);
 void	check_quote_num(char *str, int *qut, int *db_qut);
 char	*rm_quote(char *str, char c);
+
+/*parse_exit*/
+char	*re_quo(char **loca, char *origin);
 #endif

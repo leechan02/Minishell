@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:52:17 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 16:04:51 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/20 13:02:08 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 void	wait_children(int num_of_children)
 {
 	int	i;
+	int	status;
 
 	i = 0;
 	while (i < num_of_children)
 	{
-		ft_assert(waitpid(-1, NULL, 0) != -1, "waitpid error" );
+		ft_assert(waitpid(-1, &status, 0) != -1, "waitpid error" );
 		i++;
 	}
+	g_exit = WEXITSTATUS(status);
 }
 
 char	**find_path(char **envp)
