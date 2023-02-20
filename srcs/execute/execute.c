@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:50:52 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/18 14:03:35 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/20 16:59:37 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-int	only_process(t_tokens *tokens, char **env)
+int	only_process(t_tokens *tokens, char **dup_env)
 {
 	pid_t	pid;
 	int		fd;
@@ -23,7 +23,7 @@ int	only_process(t_tokens *tokens, char **env)
 	{
 		fd = dup(STDOUT_FILENO);
 		find_redir(&tokens[0], 0, 2, 1);
-		exec_builtin(tokens, env);
+		exec_builtin(tokens, dup_env);
 		dup2(fd, STDOUT_FILENO);
 	}
 	else
@@ -32,7 +32,7 @@ int	only_process(t_tokens *tokens, char **env)
 		if (pid == 0)
 		{
 			find_redir(&tokens[0], 0, 2, 1);
-			exec(tokens->token, env);
+			exec(tokens->token, dup_env);
 		}
 		wait_children(1);
 	}
@@ -40,11 +40,11 @@ int	only_process(t_tokens *tokens, char **env)
 	return (SUCCESS);
 }
 
-int	execute(t_tokens *tokens, char **env, int pipe_num)
+int	execute(t_tokens *tokens, char **dup_env, int pipe_num)
 {
 	if (pipe_num == 0)
-		only_process(tokens, env);
+		only_process(tokens, dup_env);
 	else
-		pipex(pipe_num + 1, tokens, env);
+		pipex(pipe_num + 1, tokens, dup_env);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/17 14:57:23 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/20 16:59:46 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ enum e_status {
 
 /* builtin */
 int		is_builtin(t_tokens tokens);
-int		exec_builtin(t_tokens *tokens, char **env);
+int		exec_builtin(t_tokens *tokens, char **dup_env);
 
 /* redirect */
 char	**replace_redir(t_tokens *tokens, int i);
@@ -60,8 +60,8 @@ int		find_redir(t_tokens *tokens, int new_fd, int token_nb, int cmd);
 int		check_redir(t_tokens *tokens, int i);
 
 /* execute.c */
-int		only_process(t_tokens *tokens, char **env);
-int		execute(t_tokens *tokens, char **env, int pipe_num);
+int		only_process(t_tokens *tokens, char **dup_env);
+int		execute(t_tokens *tokens, char **dup_env, int pipe_num);
 
 /* here_doc */
 char	**name_save(t_tokens *tokens);
@@ -79,7 +79,6 @@ void	wait_children(int num_of_children);
 void	exec(char **token, char **envp);
 char	**find_path(char **envp);
 int		open_file(char *file, int flag);
-void	swap(int *a, int *b);
 
 /* signal.c */
 void	sigexit_handler(void);

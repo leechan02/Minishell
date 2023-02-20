@@ -6,11 +6,22 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/17 16:44:31 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/20 19:14:53 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+
+void	free_env(char **env);
+char	**cp_env(char **origin_env, int flag);
+
+static void	variable_init(int **sorted_idx, int *sign, int *i, int *j)
+{
+	*sorted_idx = NULL;
+	*sign = 0;
+	*i = -1;
+	*j = 0;
+}
 
 static int	*sort_ascii(char **env)
 {
@@ -39,27 +50,27 @@ static int	*sort_ascii(char **env)
 	return (sorted_idx);
 }
 
-static int	print_export(char **env, int *sorted_idx, int sign)
+static int	print_export(char **dup_env, int *sorted_idx, int sign)
 {
 	int	i;
 	int	j;
 
-	sorted_idx = sort_ascii(env);
+	sorted_idx = sort_ascii(dup_env);
 	i = -1;
-	while (env[++i] != NULL)
+	while (dup_env[++i] != NULL)
 	{
 		j = -1;
 		printf("declare -x ");
 		sign = NO_EQUAL;
-		while (env[sorted_idx[i]][++j] != '\0')
+		while (dup_env[sorted_idx[i]][++j] != '\0')
 		{
-			if (env[sorted_idx[i]][j] == '=' && sign == NO_EQUAL)
+			if (dup_env[sorted_idx[i]][j] == '=' && sign == NO_EQUAL)
 			{
 				sign = EQUAL;
 				printf("=\"");
 			}
 			else
-				printf("%c", env[sorted_idx[i]][j]);
+				printf("%c", dup_env[sorted_idx[i]][j]);
 		}
 		if (sign == EQUAL)
 			printf("\"");
@@ -68,42 +79,30 @@ static int	print_export(char **env, int *sorted_idx, int sign)
 	return (free(sorted_idx), TRUE);
 }
 
-static void	variable_init(int **sorted_idx, int *sign, int *i, int *j)
+static void	is_duplicated(char *str, char **dup_env)
 {
-	*sorted_idx = NULL;
-	*sign = 0;
-	*i = -1;
-	*j = 0;
-}
+	int	len;
+	int	i;
 
-static void	is_duplicated(char *str, char **env)
-{
-	char	*tmp;
-	int		len;
-	int		i;
-
+	len = 0;
+	while (str[len] != '=' && str[len] != '\0')
+		len++;
 	i = 0;
-	while (str[i] != '=' && str[i] != '\0')
+	while (dup_env[i] != NULL && ft_strncmp(str, dup_env[i], len) != 0)
 		i++;
-	tmp = ft_substr(str, 0, i);
-	len = ft_strlen(tmp);
-	i = -1;
-	while (env[++i] != NULL && ft_strncmp(tmp, env[i], len) != 0)
-		;
-	if (env[i] != NULL)
+	if (dup_env[i] != NULL)
 	{
-		while (env[i] != NULL)
+		free(dup_env[i]);
+		while (dup_env[i + 1] != NULL)
 		{
-			free(env[i]);
-			env[i] = env[i + 1];
+			dup_env[i] = dup_env[i + 1];
 			i++;
 		}
-		free(env[i]);
-		env[i] = NULL;
+		dup_env[i] = NULL;
 	}
 }
 
-int	ft_export(char **token, char **env)
+int	ft_export(char **token, char **dup_env)
 {
 	int	*sorted_idx;
 	int	sign;
@@ -114,7 +113,7 @@ int	ft_export(char **token, char **env)
 	while (ft_strcmp(token[++i], "export") != 0)
 		;
 	if (token[i + 1] == NULL || token[i + 1][0] == '\0')
-		return (print_export(env, sorted_idx, sign));
+		return (print_export(dup_env, sorted_idx, sign));
 	while (token[++i] != NULL)
 	{
 		if (ft_isalpha(token[i][0]) == 0 && token[i][0] != '_')
@@ -122,11 +121,11 @@ int	ft_export(char **token, char **env)
 			token[i]);
 		else
 		{
-			is_duplicated(token[i], env);
-			while (env[j] != NULL)
+			is_duplicated(token[i], dup_env);
+			while (dup_env[j] != NULL)
 				j++;
-			env[j] = ft_strdup(token[i]);
-			env[j + 1] = NULL;
+			dup_env[j] = ft_strdup(token[i]);
+			dup_env[j + 1] = NULL;
 		}
 	}
 	return (TRUE);

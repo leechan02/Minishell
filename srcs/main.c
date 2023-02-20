@@ -3,43 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/19 20:25:26 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/20 17:00:31 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "execute.h"
 
-// void	free_env(char **env)
-// {
-// 	int	env_num;
+void	free_env(char **env)
+{
+	int	env_num;
 
-// 	env_num = -1;
-// 	while (env[++env_num])
-// 		free(env[env_num]);
-// 	free(env);
-// }
+	env_num = 0;
+	while (env[env_num] != NULL)
+	{
+		free(env[env_num]);
+		env[env_num] = NULL;
+		env_num++;
+	}
+	free(env);
+}
 
-// char	**cp_env(char **origin_env)
-// {
-// 	char	**env;
-// 	int		env_num;
+char	**cp_env(char **origin_env)
+{
+	char	**env;
+	int		i;
 
-// 	env_num = 0;
-// 	while (origin_env[env_num])
-// 		env_num++;
-// 	env = malloc(sizeof(char *) * env_num);
-// 	if (!env)
-// 		return (NULL);
-// 	env_num = -1;
-// 	while (origin_env[++env_num])
-// 		env[env_num] = ft_strdup(origin_env[env_num]);
-// 	env[env_num] = NULL;
-// 	return (env);
-// }
+	env = (char **)malloc(sizeof(char *) * 255);
+	if (env == NULL)
+		exit(1);
+	i = 0;
+	while (origin_env[i] != NULL)
+	{
+		env[i] = ft_strdup(origin_env[i]);
+		i++;
+	}
+	env[i] = NULL;
+	return (env);
+}
 
 void	free_all(t_tokens *tokens)
 {
@@ -66,8 +70,10 @@ int	main(int ac, char **av, char **env)
 {
 	int			pipe_num;
 	char		*line;
+	char		**dup_env;
 	t_tokens	*tokens;
 
+	dup_env = cp_env(env);
 	while (ac || av)
 	{
 		setting_signal(SHELL);
@@ -79,12 +85,12 @@ int	main(int ac, char **av, char **env)
 			free(line);
 			continue ;
 		}
-		pipe_num = parsing(line, &tokens, env);
-		execute(tokens, env, pipe_num);
+		pipe_num = parsing(line, &tokens, dup_env);
+		execute(tokens, dup_env, pipe_num);
 		add_history(line);
 		free(line);
 		line = NULL;
 		free_all(tokens);
 	}
-	return (0);
+	return (free_env(dup_env), 0);
 }

@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/20 19:14:21 by nakoo            ###   ########.fr       */
+/*   Created: 2023/02/20 14:19:14 by nakoo             #+#    #+#             */
+/*   Updated: 2023/02/20 19:50:05 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-int	ft_pwd(char **env)
+void	swap(int *a, int *b)
 {
-	char	*cwd;
-
-	(void)env;
-	cwd = getcwd(NULL, 0);
-	printf("%s\n", cwd);
-	return (free(cwd), TRUE);
+	if (a == b)
+		return ;
+	*a ^= *b;
+	*b ^= *a;
+	*a ^= *b;
 }
