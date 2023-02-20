@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/19 19:45:06 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/20 09:02:19 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	move_previous_dir(char *copy)
 		printf("%s\n", copy);
 }
 
-static void	move_token_dir(char *pwd, char **env)
+static void	move_token_dir(char *pwd)
 {
 	int	i;
 
@@ -69,7 +69,7 @@ int	ft_cd(char **token, char **env)
 	else if (token[i + 1] != NULL)
 	{
 		pwd = ft_strdup(token[i + 1]);
-		move_token_dir(pwd, env);
+		move_token_dir(pwd);
 		free(pwd);
 	}
 	return (free(copy), TRUE);

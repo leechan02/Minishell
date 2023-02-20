@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:39:56 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/19 20:16:57 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/20 13:56:47 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	get_end_with_len(char **loca, char **finish, char **env)
 
 char	*make_ret(char **loca, char *origin, char **env, char **finish)
 {
-	char	*ret;
 	int		first;
 	int		env_len;
 	int		last;
@@ -52,8 +51,7 @@ char	*make_ret(char **loca, char *origin, char **env, char **finish)
 		env_len = 1;
 	while ((*finish)[last])
 		last++;
-	ret = ft_calloc(first + env_len + last, sizeof(char));
-	return (ret);
+	return (ft_calloc(first + env_len + last, sizeof(char)));
 }
 
 int	get_len(char *str, int position)
@@ -120,6 +118,8 @@ void	check_env(t_tokens *tokens, char **env)
 					tokens->token[i]
 						= replace_env(&loca, tokens->token[i], env);
 			}
+			else if (loca != NULL && *loca == '?')
+				tokens->token[i] = re_quo(&loca, tokens->token[i]);
 		}
 		i++;
 	}
