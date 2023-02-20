@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:19:21 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/16 19:04:13 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/20 18:55:43 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 void	here_doc(t_tokens *tokens, int i, int *file_n)
 {
-	char	*limiter;
 	char	*line;
 	char	*name;
 	char	*num;
 	int		fd;
+	int		save;
 
 	num = ft_itoa((*file_n));
 	name = ft_strjoin(tokens->token[i + 1], num);
 	fd = open_file(name, WRITE);
-	limiter = ft_strjoin(tokens->token[i + 1], "\n");
+	save = dup(STDIN_FILENO);
+	setting_signal(PARENT_HEREDOC);
 	while (TRUE)
 	{
-		write (STDIN_FILENO, "> ", 2);
+		write(1, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
-		if (line == NULL || ft_strcmp(line, limiter) == 0)
+		if (line == NULL || ft_strcmp(line, tokens->token[i + 1]) == 0)
 			break ;
-		setting_signal(PARENT_HEREDOC);
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
+	dup2(save, STDIN_FILENO);
 	free(num);
 	free(name);
 	free(line);
-	free(limiter);
 }
 
 void	save_filename(char *file_name, char **name, int *file_n)
@@ -76,12 +76,14 @@ char	**name_save(t_tokens *tokens)
 void	replace_here_doc(t_tokens *tokens, int i, int *file_n)
 {
 	char	*num;
+	char	*temp;
 
 	num = ft_itoa((*file_n));
 	free(tokens->token[i]);
 	tokens->token[i] = ft_strdup("<");
-	free(tokens->token[i + 1]);
-	tokens->token[i + 1] = ft_strjoin(tokens->token[i + 1], num);
+	temp = tokens->token[i + 1];
+	tokens->token[i + 1] = ft_strjoin(temp, num);
+	free(temp);
 	free(num);
 	(*file_n)++;
 }

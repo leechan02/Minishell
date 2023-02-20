@@ -6,7 +6,11 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:00:53 by euiclee           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/20 16:55:27 by nakoo            ###   ########.fr       */
+=======
+/*   Updated: 2023/02/20 09:42:41 by euiclee          ###   ########.fr       */
+>>>>>>> 4fcdbceedde43a50f49d58a318105bbd59773bbc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +31,8 @@ typedef struct s_tokens{
 	char	**token;
 	int		*redir;
 }t_tokens;
+
+int	g_exit;
 
 /* main */
 void	free_all(t_tokens *tokens);

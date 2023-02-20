@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:52:17 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/20 14:21:16 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/20 19:56:31 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 void	wait_children(int num_of_children)
 {
 	int	i;
+	int	status;
 
 	i = 0;
 	while (i < num_of_children)
 	{
-		ft_assert(waitpid(-1, NULL, 0) != -1, "waitpid error" );
+		ft_assert(waitpid(-1, &status, 0) != -1, "waitpid error", 1);
 		i++;
 	}
+	g_exit = WEXITSTATUS(status);
 }
 
 char	**find_path(char **envp)
@@ -33,7 +35,7 @@ char	**find_path(char **envp)
 	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
 	path = ft_split(envp[i] + 5, ':');
-	ft_assert((path != NULL), "Failed to execute ft_split ");
+	ft_assert((path != NULL), "Failed to execute ft_split ", 1);
 	return (path);
 }
 
@@ -55,10 +57,10 @@ void	exec(char **token, char **envp)
 		i++;
 	}
 	if (access(cmd, X_OK) == -1 && access(token[0], X_OK) == -1)
-		ft_assert(FALSE, "Failed to execute access ");
+		ft_assert(FALSE, "Failed to execute access ", 127);
 	if (execve(cmd, token, envp) == -1)
 		ft_assert(!(execve(token[0], token, envp) == -1),
-			"Failed to execute execve ");
+			"Failed to execute execve ", 126);
 }
 
 int	open_file(char *file, int flag)
@@ -72,6 +74,6 @@ int	open_file(char *file, int flag)
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (flag == HERE_DOC)
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	ft_assert(!(fd < 0), "Failed to open files " );
+	ft_assert(!(fd < 0), "Failed to open files ", 127);
 	return (fd);
 }

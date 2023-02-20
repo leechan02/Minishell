@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:50:52 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/20 16:59:37 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/20 19:58:03 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ int	only_process(t_tokens *tokens, char **dup_env)
 	char	**name;
 
 	name = find_here_doc(tokens);
-	if (is_builtin(tokens[0]))
+	if (is_builtin(tokens[0]) && !name)
 	{
 		fd = dup(STDOUT_FILENO);
 		find_redir(&tokens[0], 0, 2, 1);
 		exec_builtin(tokens, dup_env);
+		g_exit = !exec_builtin(tokens, dup_env);
 		dup2(fd, STDOUT_FILENO);
 	}
-	else
+	else if (!name)
 	{
 		pid = fork();
 		if (pid == 0)

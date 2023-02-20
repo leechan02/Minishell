@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 09:16:12 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/20 19:11:24 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	pipex(int token_nb, t_tokens *tokens, char **env)
 	cmd = -1;
 	fd[0][0] = STDIN_FILENO;
 	file_name = find_here_doc(tokens);
-	while (++cmd < token_nb)
+	while (++cmd < token_nb && g_exit != 130)
 	{
 		pipe(fd[1]);
 		pid = fork();
