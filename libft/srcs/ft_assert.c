@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_assert.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:58:19 by nakoo             #+#    #+#             */
-/*   Updated: 2023/01/19 17:25:18 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/20 14:17:31 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_assert(int expression, char *msg)
+void	ft_assert(int expression, char *msg, int error_code)
 {
 	if (expression == FALSE)
 	{
 		perror(msg);
-		exit(EXIT_FAILURE);
+		exit(error_code);
 	}
 }

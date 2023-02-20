@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 19:02:33 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/16 19:05:30 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/20 14:26:18 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	sigint_handler1(int sig)
 {
 	if (sig == SIGINT)
 	{
+		g_exit = 130;
 		write(STDOUT_FILENO, "\n", 1);
 		if (rl_on_new_line() == -1)
 			exit(1);
@@ -30,6 +31,7 @@ void	sigint_handler1(int sig)
 	}
 	else if (sig == SIGQUIT)
 	{
+		g_exit = 131;
 		write (1, "Quit :3\n", 8);
 		/* have to sest errno */
 	}

@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/20 13:02:42 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/20 14:31:40 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int ac, char **av, char **env)
 	while (ac || av)
 	{
 		setting_signal(SHELL);
-		line = readline("\033[34;1mminishell:0.7\033[0;1m$\033[0m ");
+		line = readline("\033[34;1mminishell:0.8\033[0;1m$\033[0m ");
 		if (line == NULL)
 			sigexit_handler();
 		if (line[0] == '\0')
