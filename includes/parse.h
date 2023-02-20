@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:32:05 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/20 13:52:33 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/20 17:37:54 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		is_redirection(char **token, int qut, int db_qut, int *len);
 char	**split_token(char *token);
 
 /*parse_tokens*/
-int		is_tokens(char *tok, int qut, int db_qut);
+int		is_tokens(char **tok, int qut, int db_qut);
 int		cnt_tokens(char *token);
 
 /*pase_env*/

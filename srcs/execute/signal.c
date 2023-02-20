@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 19:02:33 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/20 14:26:18 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/20 18:57:36 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	sigint_handler1(int sig)
 	{
 		g_exit = 131;
 		write (1, "Quit :3\n", 8);
-		/* have to sest errno */
 	}
 }
 
@@ -41,8 +40,9 @@ void	sigint_handler2(int sig)
 {
 	if (sig == SIGINT)
 	{
+		g_exit = 130;
+		close(STDIN_FILENO);
 		write (1, "\n", 1);
-		/* have to set errno */
 	}
 }
 
