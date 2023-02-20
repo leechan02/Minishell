@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/20 19:58:47 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/20 21:08:28 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	move_previous_dir(char *copy)
 {
 	if (error_msg(chdir(copy) == 0, "cd ") == TRUE)
 		printf("%s\n", copy);
+	free(copy);
 }
 
 static void	move_token_dir(char *pwd)
@@ -60,18 +61,20 @@ int	ft_cd(char **tok, char **env)
 	while (ft_strcmp(tok[++i], "cd") != 0)
 		;
 	oldpwd = ft_strfind(env, "OLDPWD");
+	copy = ft_strdup(oldpwd + 7);
+	free(oldpwd + 7);
 	pwd = getcwd(NULL, 0);
-	copy = ft_strdup(oldpwd);
-	free(pwd);
-	if (tok[i + 1] == NULL || (tok[i + 1][0] == '~' && tok[i + 1][1] == '\0'))
+	ft_strjoin(oldpwd, pwd);
+	if (tok[i + 1] == NULL) /* || (tok[i + 1][0] == '~' && tok[i + 1][1] == '\0')) -- tilde expansion */
 		move_home_dir(env);
-	else if (tok[i + 1][0] == '-')
+	else if (tok[i + 1][0] == '-' && tok[i + 1][1] == '\0')
 		move_previous_dir(copy);
 	else if (tok[i + 1] != NULL)
 	{
-		pwd = ft_strdup(token[i + 1]);
-		move_token_dir(pwd);
+		free(copy);
+		move_token_dir(tok[i + 1]);
+		
 		free(pwd);
 	}
-	return (free(copy), TRUE);
+	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/20 19:57:20 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/20 20:04:39 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,13 @@ void	free_all(t_tokens *tokens)
 	free(tokens);
 }
 
+static void	free_line(char **line)
+{
+	if (*line != NULL)
+		free(*line);
+	*line = NULL;
+}
+
 int	main(int ac, char **av, char **env)
 {
 	int			pipe_num;
@@ -83,14 +90,13 @@ int	main(int ac, char **av, char **env)
 			sigexit_handler();
 		if (line[0] == '\0')
 		{
-			free(line);
+			free_line(&line);
 			continue ;
 		}
 		pipe_num = parsing(line, &tokens, dup_env);
 		execute(tokens, dup_env, pipe_num);
 		add_history(line);
-		free(line);
-		line = NULL;
+		free_line(&line);
 		free_all(tokens);
 	}
 	return (free_env(dup_env), 0);

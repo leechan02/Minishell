@@ -3,7 +3,7 @@ CFLAGS = -I $(INCLUDES) -MMD -Wall -Wextra -Werror
 RFLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib -I${HOME}/.brew/opt/readline/include
 
 SRCS_PARSE = $(addprefix parse/, parse_env.c parse_exit.c parse_quote.c parse_redir.c parse_split.c parse_tokens.c parse.c)
-SRCS_BUILTIN = $(addprefix builtin/, cd.c env.c export.c pwd.c unset.c echo.c exit.c)
+SRCS_BUILTIN = $(addprefix builtin/, cd.c env.c export.c pwd.c unset.c echo.c exit.c builtin_utils.c)
 SRCS_EXECUTE = $(addprefix execute/, here_doc.c pipex.c execute.c utils.c builtin.c redirect.c signal.c)
 
 SRCS_DIR = ./srcs/
