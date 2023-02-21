@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:52:17 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/20 19:56:31 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/21 19:11:55 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	wait_children(int num_of_children)
 		ft_assert(waitpid(-1, &status, 0) != -1, "waitpid error", 1);
 		i++;
 	}
-	g_exit = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+		g_exit = WTERMSIG(status) + 128;
+	else
+		g_exit = WEXITSTATUS(status);
 }
 
 char	**find_path(char **envp)
