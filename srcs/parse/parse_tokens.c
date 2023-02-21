@@ -6,25 +6,31 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 16:36:29 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 18:45:58 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/20 17:37:09 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-int	is_tokens(char *tok, int qut, int db_qut)
+int	is_tokens(char **tok, int qut, int db_qut)
 {
 	if (qut % 2 == 0 && db_qut % 2 == 0)
 	{
-		if (*tok != ' ' && (*(tok + 1) == ' ' || *(tok + 1) == '\0'))
+		if (**tok != ' ' && (*(*tok + 1) == ' ' || *(*tok + 1) == '\0'))
 			return (TRUE);
-		else if (*tok == '<' && *(tok + 1) == '<' && *(tok + 2) != '<')
+		else if (**tok == '<' && *(*tok + 1) == '<' && *(*tok + 2) != '<')
+		{
+			(*tok)++;
 			return (TRUE);
-		else if (*tok == '>' && *(tok + 1) == '>' && *(tok + 2) != '>')
+		}
+		else if (**tok == '>' && *(*tok + 1) == '>' && *(*tok + 2) != '>')
+		{
+			(*tok)++;
 			return (TRUE);
-		else if (*tok == '<' || *tok == '>')
+		}
+		else if (**tok == '<' || **tok == '>')
 			return (TRUE);
-		else if ((*tok == '\'' || *tok == '\"') && *(tok + 1) == ' '
+		else if ((**tok == '\'' || **tok == '\"') && *(*tok + 1) == ' '
 			&& (qut != 0 || db_qut != 0))
 			return (TRUE);
 	}
@@ -46,7 +52,7 @@ int	cnt_tokens(char *tok)
 			qut++;
 		else if (*tok == '\"')
 			db_qut++;
-		if (is_tokens(tok, qut, db_qut))
+		if (is_tokens(&tok, qut, db_qut))
 			num++;
 		if (((*tok == '<' && *(tok + 1) == '<' && *(tok + 1) != '<'))
 			|| ((*tok == '>' && *(tok + 1) == '>') && *(tok + 1) != '>'))

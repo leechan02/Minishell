@@ -37,3 +37,10 @@
 ### **Order**
 
 ***check pipe_num → one process or pipex → if (one) check builtin or not → else (pipex) exec pipex and check redir***
+
+## **해야할 일**
+1. here_doc limiter 고치기.
+2. here_doc 중간 시그널 나오면 명령어 실행X -> NULL 값 반환 등으로 확인.
+3. cat 실행 시 시그널 받고 자식에서는 prompt 출력 X
+4. 시그널 전체적으로 고치기.
+5. 환경변수 확장 후 토큰 나누기.
