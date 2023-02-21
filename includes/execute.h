@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/21 19:12:30 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/21 19:32:48 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int		find_redir(t_tokens *tokens, int new_fd, int token_nb, int cmd);
 int		check_redir(t_tokens *tokens, int i);
 
 /* execute.c */
-int		only_process(t_tokens *tokens, char **dup_env);
-int		execute(t_tokens *tokens, char **dup_env, int pipe_num);
 int		only_process(t_tokens *tokens, char **env, int flag);
 int		execute(t_tokens *tokens, char **env, int pipe_num);
 
