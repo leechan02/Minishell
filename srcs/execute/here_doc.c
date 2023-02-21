@@ -6,47 +6,44 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:19:21 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/20 18:55:43 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/21 10:13:08 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-void	here_doc(t_tokens *tokens, int i, int *file_n)
+void	here_doc(t_tokens *tokens, int i, char *name)
 {
 	char	*line;
-	char	*name;
-	char	*num;
+	char	*limiter;
 	int		fd;
 	int		save;
 
-	num = ft_itoa((*file_n));
-	name = ft_strjoin(tokens->token[i + 1], num);
 	fd = open_file(name, WRITE);
+	limiter = ft_strjoin(tokens->token[i + 1], "\n");
 	save = dup(STDIN_FILENO);
-	setting_signal(PARENT_HEREDOC);
-	while (TRUE)
+	setting_signal(HEREDOC);
+	while (write(1, "> ", 2))
 	{
-		write(1, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
-		if (line == NULL || ft_strcmp(line, tokens->token[i + 1]) == 0)
+		if (line == NULL || ft_strcmp(line, limiter) == 0)
 			break ;
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
 	dup2(save, STDIN_FILENO);
-	free(num);
-	free(name);
-	free(line);
+	return (free(limiter), free(line));
 }
 
-void	save_filename(char *file_name, char **name, int *file_n)
+void	save_filename(t_tokens *tokens, char **name, int *file_n, int i)
 {
 	char	*num;
 
 	num = ft_itoa((*file_n));
-	name[(*file_n)] = ft_strjoin(file_name, num);
+	name[(*file_n)] = ft_strjoin(tokens->token[i + 1], num);
 	free(num);
+	here_doc(tokens, i, name[(*file_n)]);
+	replace_here_doc(tokens, i, file_n);
 }
 
 char	**name_save(t_tokens *tokens)
@@ -104,11 +101,7 @@ char	**find_here_doc(t_tokens *tokens)
 		while (tokens[i].token[j])
 		{
 			if (ft_strcmp(tokens[i].token[j], "<<") == 0)
-			{
-				save_filename(tokens[i].token[j + 1], name, &file_n);
-				here_doc(&tokens[i], j, &file_n);
-				replace_here_doc(&tokens[i], j, &file_n);
-			}
+				save_filename(&tokens[i], name, &file_n, j);
 			j++;
 		}
 		i++;

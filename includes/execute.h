@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/17 14:57:23 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/21 10:12:04 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ enum e_status {
 	SHELL,
 	PARENT_EXECVE,
 	CHILD_EXECVE,
-	PARENT_HEREDOC,
-	CHILD_HEREDOC
+	HEREDOC
 };
 
 /* builtin */
@@ -66,9 +65,9 @@ int		execute(t_tokens *tokens, char **env, int pipe_num);
 /* here_doc */
 char	**name_save(t_tokens *tokens);
 char	**find_here_doc(t_tokens *tokens);
-void	here_doc(t_tokens *tokens, int i, int *file_n);
-void	save_filename(char *file_name, char **name, int *file_n);
+void	save_filename(t_tokens *tokens, char **name, int *file_n, int i);
 void	replace_here_doc(t_tokens *tokens, int i, int *file_n);
+void	here_doc(t_tokens *tokens, int i, char *name);
 
 /* pipex.c */
 void	file_delete(char **file_name);
