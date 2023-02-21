@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/21 16:15:10 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/21 17:59:29 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static void	move_token_dir(char *pwd)
 
 	i = 0;
 	error_msg(chdir(pwd) == 0, "cd ");
-	free(pwd);
 }
 
 int	ft_cd(char **tok, char **env)
@@ -74,14 +73,17 @@ int	ft_cd(char **tok, char **env)
 		;
 	pwd = getcwd(NULL, 0);
 	add_env(env, "OLDPWD=", pwd);
-	copy = ft_strdup(ft_strfind(env, "oldpwd") + 7);
+	copy = ft_strdup(ft_strfind(env, "OLDPWD=") + 7);
 	if (tok[i + 1] == NULL)
 		move_home_dir(env);
 	else if (tok[i + 1][0] == '-' && tok[i + 1][1] == '\0')
 		move_previous_dir(copy);
 	else if (tok[i + 1] != NULL)
+	{
+		printf("%s\n", tok[i + 1]);
 		move_token_dir(tok[i + 1]);
-	pwd = getcwd(NULL, 0);
+		pwd = getcwd(NULL, 0);
+	}
 	add_env(env, "PWD=", pwd);
 	return (free(copy), TRUE);
 }
