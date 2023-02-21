@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/21 10:12:04 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/21 15:41:32 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ enum e_status {
 	HEREDOC
 };
 
+typedef struct s_pipe
+{
+	int		cmd;
+	int		old_fd[2];
+	int		new_fd[2];
+	pid_t	pid;
+	char	**file_name;
+}t_pipe;
+
 /* builtin */
 int		is_builtin(t_tokens tokens);
 int		exec_builtin(t_tokens *tokens, char **env);
@@ -59,19 +68,19 @@ int		find_redir(t_tokens *tokens, int new_fd, int token_nb, int cmd);
 int		check_redir(t_tokens *tokens, int i);
 
 /* execute.c */
-int		only_process(t_tokens *tokens, char **env);
+int		only_process(t_tokens *tokens, char **env, int flag);
 int		execute(t_tokens *tokens, char **env, int pipe_num);
 
 /* here_doc */
 char	**name_save(t_tokens *tokens);
-char	**find_here_doc(t_tokens *tokens);
-void	save_filename(t_tokens *tokens, char **name, int *file_n, int i);
+char	**find_here_doc(t_tokens *tokens, int *flag);
+int		save_filename(t_tokens *tokens, char **name, int *file_n, int i);
 void	replace_here_doc(t_tokens *tokens, int i, int *file_n);
-void	here_doc(t_tokens *tokens, int i, char *name);
+void	here_doc(t_tokens *tokens, int i, char *name, int *flag);
 
 /* pipex.c */
 void	file_delete(char **file_name);
-void	pipex(int token_nb, t_tokens *tokens, char **env);
+void	pipex(int token_nb, t_tokens *tokens, char **env, int flag);
 
 /* utils.c */
 void	wait_children(int num_of_children);

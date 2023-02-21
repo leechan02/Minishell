@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:52:17 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/20 14:21:39 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/21 14:36:32 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	wait_children(int num_of_children)
 		ft_assert(waitpid(-1, &status, 0) != -1, "waitpid error", 1);
 		i++;
 	}
-	g_exit = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+		g_exit = WTERMSIG(status) + 128;
+	else
+		g_exit = WEXITSTATUS(status);
 }
 
 char	**find_path(char **envp)

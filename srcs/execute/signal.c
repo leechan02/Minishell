@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 19:02:33 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/21 09:18:16 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/21 14:42:32 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ void	sigint_handler2(int sig)
 	}
 }
 
+void	sigint_handler3(int sig)
+{
+	if (sig == SIGINT)
+		write (1, "\n", 1);
+	else if (sig == SIGQUIT)
+		write (1, "Quit :3\n", 8);
+}
+
 void	setting_signal(int status)
 {
 	if (status == SHELL)
@@ -60,8 +68,8 @@ void	setting_signal(int status)
 	}
 	else if (status == CHILD_EXECVE)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, sigint_handler3);
+		signal(SIGQUIT, sigint_handler3);
 	}
 	else if (status == HEREDOC)
 	{

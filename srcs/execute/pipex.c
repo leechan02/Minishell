@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/20 19:11:24 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/21 15:42:47 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,31 @@ void	file_delete(char **file_name)
 	free(file_name);
 }
 
-void	pipex(int token_nb, t_tokens *tokens, char **env)
+void	pipex(int token_nb, t_tokens *tokens, char **env, int flag)
 {
-	int		fd[2][2];
-	int		cmd;
-	pid_t	pid;
-	char	**file_name;
+	t_pipe	p;
 
-	cmd = -1;
-	fd[0][0] = STDIN_FILENO;
-	file_name = find_here_doc(tokens);
-	while (++cmd < token_nb && g_exit != 130)
+	p.cmd = -1;
+	p.old_fd[0] = STDIN_FILENO;
+	p.file_name = find_here_doc(tokens, &flag);
+	while (++p.cmd < token_nb && g_exit != 130 && flag != 1)
 	{
-		pipe(fd[1]);
-		pid = fork();
-		if (pid == 0)
+		pipe(p.new_fd);
+		setting_signal(CHILD_EXECVE);
+		p.pid = fork();
+		if (p.pid == 0)
 		{
-			close(fd[1][0]);
-			dup2(fd[0][0], STDIN_FILENO);
-			find_redir(&tokens[cmd], fd[1][1], token_nb, cmd);
-			exec(tokens[cmd].token, env);
+			close(p.new_fd[0]);
+			dup2(p.old_fd[0], STDIN_FILENO);
+			find_redir(&tokens[p.cmd], p.new_fd[1], token_nb, p.cmd);
+			exec(tokens[p.cmd].token, env);
 		}
-		if (fd[0][0] != 0)
-			close(fd[0][0]);
-		close(fd[1][1]);
-		ft_memcpy(fd[0], fd[1], sizeof(int) * 2);
+		if (p.old_fd[0] != 0)
+			close(p.old_fd[0]);
+		close(p.new_fd[1]);
+		ft_memcpy(p.old_fd, p.new_fd, sizeof(int) * 2);
 	}
-	return (wait_children(token_nb), file_delete(file_name));
+	if (flag != 1)
+		wait_children(token_nb);
+	file_delete(p.file_name);
 }
