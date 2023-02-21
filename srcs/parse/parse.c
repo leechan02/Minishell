@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 19:18:22 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/17 18:34:47 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/21 19:03:02 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	parsing(char *line, t_tokens **tokens, char **env)
 		(*tokens)[idx].redir = ft_calloc(cnt_tokens(token), sizeof(int));
 		is_redir(tokens, idx, cnt_tokens(token));
 		check_env(&(*tokens)[idx], env);
+		(*tokens)[idx] = env_expand(&(*tokens)[idx]);
 		check_quote(&(*tokens)[idx]);
 		idx++;
 		line += token_len;

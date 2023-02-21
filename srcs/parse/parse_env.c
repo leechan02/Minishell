@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:39:56 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/20 13:56:47 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/21 16:51:56 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*make_ret(char **loca, char *origin, char **env, char **finish)
 		env_len = 1;
 	while ((*finish)[last])
 		last++;
-	return (ft_calloc(first + env_len + last, sizeof(char)));
+	return (ft_calloc(first + env_len + last + 1, sizeof(char)));
 }
 
 int	get_len(char *str, int position)
