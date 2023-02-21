@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strfind.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 13:53:15 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/21 17:27:40 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/22 08:52:59 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strfind(char **str, char *find)
 			j = 0;
 			while (str[i][j] != '=')
 				j++;
-			temp = ft_substr(str[i], 0, j + 1);
+			temp = ft_substr(str[i], 0, j);
 			if (ft_strcmp(temp, find) == 0)
 			{
 				free(temp);

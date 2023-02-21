@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:50:40 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/21 19:05:39 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/22 08:56:21 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ int	check_space(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (FALSE);
 	while (str[i])
 	{
-		if (str[0] != '\'' && str[0] != '\"' && str[i] == ' ')
-			return (TRUE);
+		if (str[i] == '\'' || str[i] == '\"')
+			return (FALSE);
 		i++;
 	}
-	return (FALSE);
+	return (TRUE);
 }
 
 int	cnt_tok(char **tok)
@@ -37,7 +39,7 @@ int	cnt_tok(char **tok)
 	while (tok[i])
 	{
 		j = 0;
-		if (tok[i][0] != '\'' && tok[i][0] != '\'')
+		if (check_space(tok[i]))
 		{
 			while (tok[i][j])
 			{
@@ -66,21 +68,7 @@ void	plus_token(t_tokens tokens, int *ori, int *cp, t_tokens *temp)
 		(*cp)++;
 		i++;
 	}
-	i = -1;
-	while (divide[++i])
-		free(divide[i]);
 	free(divide);
-}
-
-void	free_token(t_tokens *tokens)
-{
-	int	i;
-
-	i = -1;
-	while (tokens->token[++i])
-		free(tokens->token[i]);
-	free(tokens->redir);
-	free(tokens);
 }
 
 t_tokens	env_expand(t_tokens *tokens)
@@ -107,6 +95,7 @@ t_tokens	env_expand(t_tokens *tokens)
 		}
 		ori++;
 	}
-	free_token(tokens);
+	free(tokens->redir);
+	free(tokens->token);
 	return (temp);
 }
