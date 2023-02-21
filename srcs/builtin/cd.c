@@ -6,20 +6,34 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/20 21:08:28 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/21 16:15:10 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static int	error_msg(int expression, char *msg)
+static void	add_env(char **env, const char *find, char *str)
 {
-	if (expression == FALSE)
+	char	*tmp;
+	int		len;
+	int		i;
+
+	i = 0;
+	len = ft_strlen(find);
+	while (ft_strncmp(env[i], find, len) != 0)
+		i++;
+	if (env[i] == NULL)
+		return ;
+	free(env[i]);
+	while (env[i + 1] != NULL)
 	{
-		perror(msg);
-		return (FALSE);
+		env[i] = env[i + 1];
+		i++;
 	}
-	return (TRUE);
+	tmp = ft_strjoin(find, str);
+	free(str);
+	env[i] = tmp;
+	env[i + 1] = NULL;
 }
 
 static void	move_home_dir(char **env)
@@ -38,7 +52,6 @@ static void	move_previous_dir(char *copy)
 {
 	if (error_msg(chdir(copy) == 0, "cd ") == TRUE)
 		printf("%s\n", copy);
-	free(copy);
 }
 
 static void	move_token_dir(char *pwd)
@@ -52,7 +65,6 @@ static void	move_token_dir(char *pwd)
 
 int	ft_cd(char **tok, char **env)
 {
-	char	*oldpwd;
 	char	*copy;
 	char	*pwd;
 	int		i;
@@ -60,21 +72,16 @@ int	ft_cd(char **tok, char **env)
 	i = -1;
 	while (ft_strcmp(tok[++i], "cd") != 0)
 		;
-	oldpwd = ft_strfind(env, "OLDPWD");
-	copy = ft_strdup(oldpwd + 7);
-	free(oldpwd + 7);
 	pwd = getcwd(NULL, 0);
-	ft_strjoin(oldpwd, pwd);
-	if (tok[i + 1] == NULL) /* || (tok[i + 1][0] == '~' && tok[i + 1][1] == '\0')) -- tilde expansion */
+	add_env(env, "OLDPWD=", pwd);
+	copy = ft_strdup(ft_strfind(env, "oldpwd") + 7);
+	if (tok[i + 1] == NULL)
 		move_home_dir(env);
 	else if (tok[i + 1][0] == '-' && tok[i + 1][1] == '\0')
 		move_previous_dir(copy);
 	else if (tok[i + 1] != NULL)
-	{
-		free(copy);
 		move_token_dir(tok[i + 1]);
-		
-		free(pwd);
-	}
-	return (TRUE);
+	pwd = getcwd(NULL, 0);
+	add_env(env, "PWD=", pwd);
+	return (free(copy), TRUE);
 }

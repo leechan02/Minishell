@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:04:05 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/20 19:24:06 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/21 15:55:17 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		ft_pwd(char **env);
 int		ft_env(char **env);
 
 /* builtin_utils.c */
+int		error_msg(int expression, char *msg);
 void	swap(int *a, int *b);
-int		count_env(char **env);
 
 #endif
