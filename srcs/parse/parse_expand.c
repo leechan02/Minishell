@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:50:40 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/21 19:42:20 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/21 19:58:17 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_space(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' && str[i] == '\"')
+		if (str[i] == '\'' || str[i] == '\"')
 			return (FALSE);
 		i++;
 	}
