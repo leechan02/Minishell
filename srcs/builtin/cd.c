@@ -3,31 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/20 09:02:19 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/21 19:43:37 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static int	error_msg(int expression, char *msg)
+static void	add_env(char **env, const char *find, char *str)
 {
-	if (expression == FALSE)
+	char	*tmp;
+	int		len;
+	int		i;
+
+	i = 0;
+	len = ft_strlen(find);
+	while (ft_strncmp(env[i], find, len) != 0)
+		i++;
+	if (env[i] == NULL)
+		return ;
+	free(env[i]);
+	while (env[i + 1] != NULL)
 	{
-		perror(msg);
-		return (FALSE);
+		env[i] = env[i + 1];
+		i++;
 	}
-	return (TRUE);
+	tmp = ft_strjoin(find, str);
+	free(str);
+	env[i] = tmp;
+	env[i + 1] = NULL;
 }
 
 static void	move_home_dir(char **env)
 {
 	char	*pwd;
+	int		i;
 
-	pwd = NULL;
-	pwd = ft_strfind(env, "HOME=") + 5;
+	i = 0;
+	while (ft_strncmp(env[i], "HOME=", 5) != 0)
+		i++;
+	pwd = &env[i][5];
 	error_msg(chdir(pwd) == 0, "cd ");
 }
 
@@ -43,34 +60,29 @@ static void	move_token_dir(char *pwd)
 
 	i = 0;
 	error_msg(chdir(pwd) == 0, "cd ");
-	free(pwd);
-	pwd = getcwd(NULL, 0);
 }
 
-int	ft_cd(char **token, char **env)
+int	ft_cd(char **tok, char **env)
 {
-	char	*oldpwd;
 	char	*copy;
 	char	*pwd;
 	int		i;
 
 	i = -1;
-	while (ft_strcmp(token[++i], "cd") != 0)
+	while (ft_strcmp(tok[++i], "cd") != 0)
 		;
-	oldpwd = ft_strfind(env, "OLDPWD=") + 7;
-	copy = ft_strdup(oldpwd);
 	pwd = getcwd(NULL, 0);
-	ft_strlcpy(oldpwd, pwd, ft_strlen(pwd) + 1);
-	free(pwd);
-	if (token[i + 1] == NULL || token[i + 1][0] == '~')
+	add_env(env, "OLDPWD=", pwd);
+	copy = ft_strdup(ft_strfind(env, "OLDPWD=") + 7);
+	if (tok[i + 1] == NULL)
 		move_home_dir(env);
-	else if (token[i + 1][0] == '-')
+	else if (tok[i + 1][0] == '-' && tok[i + 1][1] == '\0')
 		move_previous_dir(copy);
-	else if (token[i + 1] != NULL)
+	else if (tok[i + 1] != NULL)
 	{
-		pwd = ft_strdup(token[i + 1]);
-		move_token_dir(pwd);
-		free(pwd);
+		move_token_dir(tok[i + 1]);
+		pwd = getcwd(NULL, 0);
 	}
+	add_env(env, "PWD=", pwd);
 	return (free(copy), TRUE);
 }

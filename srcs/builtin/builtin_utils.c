@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 17:22:56 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/21 17:09:00 by nakoo            ###   ########.fr       */
+/*   Created: 2023/02/20 14:19:14 by nakoo             #+#    #+#             */
+/*   Updated: 2023/02/21 15:54:16 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtin.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+void	swap(int *a, int *b)
 {
-	int	i;
+	if (a == b)
+		return ;
+	*a ^= *b;
+	*b ^= *a;
+	*a ^= *b;
+}
 
-	if (s1 == NULL || s2 == NULL)
-		return (-2147483648);
-	i = 0;
-	while ((s1[i] != '\0') && (s1[i] == s2[i]))
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+int	error_msg(int expression, char *msg)
+{
+	if (expression == FALSE)
+	{
+		perror(msg);
+		return (FALSE);
+	}
+	return (TRUE);
 }

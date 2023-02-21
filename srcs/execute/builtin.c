@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 08:44:06 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/20 14:37:34 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/21 17:10:04 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_builtin(t_tokens tokens)
 	return (FALSE);
 }
 
-int	exec_builtin(t_tokens *tokens, char **env)
+int	exec_builtin(t_tokens *tokens, char **dup_env)
 {
 	int	j;
 
@@ -47,15 +47,15 @@ int	exec_builtin(t_tokens *tokens, char **env)
 	while (tokens->token[j] != NULL)
 	{
 		if (ft_strcmp(tokens->token[j], "export") == 0)
-			return (ft_export(tokens->token, env));
+			return (ft_export(tokens->token, dup_env));
 		else if (ft_strcmp(tokens->token[j], "unset") == 0)
-			return (ft_unset(tokens->token, env));
+			return (ft_unset(tokens->token, dup_env));
 		else if (ft_strcmp(tokens->token[j], "cd") == 0)
-			return (ft_cd(tokens->token, env));
+			return (ft_cd(tokens->token, dup_env));
 		else if (ft_strcmp(tokens->token[j], "pwd") == 0)
-			return (ft_pwd(env));
+			return (ft_pwd(dup_env));
 		else if (ft_strcmp(tokens->token[j], "env") == 0)
-			return (ft_env(env));
+			return (ft_env(dup_env));
 		else if (ft_strcmp(tokens->token[j], "echo") == 0)
 			return (ft_echo(tokens->token));
 		else if (ft_strcmp(tokens->token[j], "exit") == 0)

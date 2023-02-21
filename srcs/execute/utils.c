@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:52:17 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/21 14:36:32 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/21 19:11:55 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,4 @@ int	open_file(char *file, int flag)
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	ft_assert(!(fd < 0), "Failed to open files ", 127);
 	return (fd);
-}
-
-void	swap(int *a, int *b)
-{
-	if (a == b)
-		return ;
-	*a ^= *b;
-	*b ^= *a;
-	*a ^= *b;
 }

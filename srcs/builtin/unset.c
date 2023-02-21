@@ -6,11 +6,21 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/17 15:53:52 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/20 19:26:18 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+
+static int	find_unset(char **token)
+{
+	int	i;
+
+	i = 0;
+	while (ft_strcmp(token[i], "unset") != 0)
+		i++;
+	return (i);
+}
 
 static int	get_del_idx(char *token, char **env, int *del_idx)
 {
@@ -32,9 +42,7 @@ int	ft_unset(char **token, char **env)
 	int	i;
 	int	del_idx;
 
-	i = -1;
-	while (ft_strcmp(token[++i], "unset") != 0)
-		;
+	i = find_unset(token);
 	while (token[++i] != NULL)
 	{
 		if (ft_isalpha(token[i][0]) == 0 && token[i][0] != '_')
@@ -44,9 +52,10 @@ int	ft_unset(char **token, char **env)
 		{
 			if (get_del_idx(token[i], env, &del_idx) != FALSE)
 			{
+				free(env[del_idx]);
 				while (env[del_idx + 1] != NULL)
 				{
-					env[del_idx] = ft_strdup(env[del_idx + 1]);
+					env[del_idx] = env[del_idx + 1];
 					del_idx++;
 				}
 				env[del_idx] = NULL;

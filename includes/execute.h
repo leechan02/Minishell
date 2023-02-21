@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/21 15:41:32 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/21 19:32:48 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_pipe
 
 /* builtin */
 int		is_builtin(t_tokens tokens);
-int		exec_builtin(t_tokens *tokens, char **env);
+int		exec_builtin(t_tokens *tokens, char **dup_env);
 
 /* redirect */
 char	**replace_redir(t_tokens *tokens, int i);
@@ -87,7 +87,6 @@ void	wait_children(int num_of_children);
 void	exec(char **token, char **envp);
 char	**find_path(char **envp);
 int		open_file(char *file, int flag);
-void	swap(int *a, int *b);
 
 /* signal.c */
 void	sigexit_handler(void);
