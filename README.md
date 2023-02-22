@@ -52,3 +52,7 @@ minishell:0.9$ ls
 minishell:0.9$ rm -r ../1
 minishell:0.9$ cd
 [1]    53600 segmentation fault  ./minishell
+8. <<a | <<b
+>a
+>b
+error message가 뜨면 안됨. 또 echo $?시 0 나와야함(적당 작동임)
