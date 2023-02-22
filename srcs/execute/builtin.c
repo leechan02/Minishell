@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 08:44:06 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/21 17:10:04 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/22 18:00:26 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	exec_builtin(t_tokens *tokens, char **dup_env)
 		else if (ft_strcmp(tokens->token[j], "unset") == 0)
 			return (ft_unset(tokens->token, dup_env));
 		else if (ft_strcmp(tokens->token[j], "cd") == 0)
-			return (ft_cd(tokens->token, dup_env));
+			return (!ft_cd(tokens->token, dup_env));
 		else if (ft_strcmp(tokens->token[j], "pwd") == 0)
 			return (ft_pwd(dup_env));
 		else if (ft_strcmp(tokens->token[j], "env") == 0)

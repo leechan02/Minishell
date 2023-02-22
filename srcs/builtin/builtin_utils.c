@@ -6,13 +6,11 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:19:14 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/22 17:44:07 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/22 17:52:47 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-extern int	g_exit;
 
 void	swap(int *a, int *b)
 {
