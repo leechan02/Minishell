@@ -46,12 +46,12 @@
 5. 환경변수 확장 후 토큰 나누기.
 6. unset PATH -> 명령어 실행 후 $? 시, 127 나와야함.
 7. 임의의 디렉토리 만들고 이동한 뒤, 삭제하면 seg error 떠선 안됨.
-예시(안걸리면 장땡)
-minishell:0.9$ cd 1
-minishell:0.9$ ls
-minishell:0.9$ rm -r ../1
-minishell:0.9$ cd
-[1]    53600 segmentation fault  ./minishell
+예시(안걸리면 장땡)\n
+minishell:0.9$ cd 1\n
+minishell:0.9$ ls\n
+minishell:0.9$ rm -r ../1\n
+minishell:0.9$ cd\n
+[1]    53600 segmentation fault  ./minishell\n
 8. <<a | <<b
 
 >a
