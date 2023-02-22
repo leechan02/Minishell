@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:50:40 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/22 08:56:21 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/22 09:50:24 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,26 @@
 int	check_space(char *str)
 {
 	int	i;
+	int	qut;
+	int	space;
 
 	i = 0;
+	qut = 0;
+	space = 0;
 	if (!str)
 		return (FALSE);
 	while (str[i])
 	{
 		if (str[i] == '\'' || str[i] == '\"')
-			return (FALSE);
+			qut = 1;
+		if (str[i] == ' ')
+			space = 1;
 		i++;
 	}
-	return (TRUE);
+	if (qut == 0 && space == 1)
+		return (TRUE);
+	else
+		return (FALSE);
 }
 
 int	cnt_tok(char **tok)
@@ -61,6 +70,7 @@ void	plus_token(t_tokens tokens, int *ori, int *cp, t_tokens *temp)
 	int		i;
 
 	divide = ft_split(tokens.token[(*ori)], ' ');
+	free(tokens.token[(*ori)]);
 	i = 0;
 	while (divide[i])
 	{
