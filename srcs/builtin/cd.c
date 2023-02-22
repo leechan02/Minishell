@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/21 19:59:18 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/22 15:31:31 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_cd(char **tok, char **env)
 		;
 	pwd = getcwd(NULL, 0);
 	add_env(env, "OLDPWD=", pwd);
-	copy = ft_strdup(ft_strfind(env, "OLDPWD=") + 7);
+	copy = ft_strdup(ft_strfind(env, "OLDPWD") + 7);
 	if (tok[i + 1] == NULL)
 		move_home_dir(env);
 	else if (tok[i + 1] != NULL)

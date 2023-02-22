@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/21 20:47:16 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/22 17:35:10 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ int	ft_export(char **token, char **dup_env)
 	while (token[++i] != NULL)
 	{
 		if (ft_isalpha(token[i][0]) == 0 && token[i][0] != '_')
-			printf("minishell: export: `%s': not a valid identifier\n", \
-			token[i]);
+			return (!printf("minishell: export: `%s': not a valid identifier\n", \
+			token[i]));
 		else
 		{
 			is_duplicated(token[i], dup_env);

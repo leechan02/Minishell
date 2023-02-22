@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/14 16:12:40 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/22 17:28:49 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_exit(char **token)
 	printf("exit\n");
 	if (token[++i] == NULL)
 		exit(0);
-	else if (token[i] != NULL)
+	if (token[i] != NULL)
 	{
 		j = -1;
 		while (ft_isdigit(token[i][++j]) != 0 && token[i][j] != '\0')
@@ -29,13 +29,13 @@ int	ft_exit(char **token)
 		if (token[i][j] != '\0')
 		{
 			printf("minishell: exit: %s: numeric argument required\n", token[i]);
-			exit (0);
+			exit (2);
 		}
-		if (token[++i] != NULL)
+		if (token[i + 1] != NULL)
 		{
 			printf("minishell: exit: too many arguments\n");
 			return (FALSE);
 		}
 	}
-	exit(0);
+	exit(ft_atoi(token[i]));
 }
