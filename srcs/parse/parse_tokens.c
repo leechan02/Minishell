@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 16:36:29 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/23 15:39:10 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 15:43:08 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ int	cnt_tokens(char *tok)
 		else if (*tok == '\"')
 			db_qut++;
 		if (is_tokens(&tok, qut, db_qut))
-		{
-			printf("token : %s\n", tok);
 			num++;
-		}
 		tok++;
 	}
 	return (num);
