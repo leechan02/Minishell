@@ -6,13 +6,13 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/22 19:25:09 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/23 17:53:08 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static int	add_env(char **env, const char *find, char *str)
+static int	add_env(char **env, const char *find, char *str, int flag)
 {
 	char	*tmp;
 	int		len;
@@ -33,6 +33,8 @@ static int	add_env(char **env, const char *find, char *str)
 	tmp = ft_strjoin(find, str);
 	env[i] = tmp;
 	env[i + 1] = NULL;
+	if (flag == 1)
+		free(str);
 	return (TRUE);
 }
 
@@ -45,14 +47,12 @@ static int	move_home_dir(char **env)
 	while (ft_strncmp(env[i], "HOME=", 5) != 0)
 		i++;
 	pwd = &env[i][5];
-	return (error_msg(chdir(pwd) == 0, "cd "));
+	error_msg(chdir(pwd) == 0, "cd ");
+	return (add_env(env, "PWD=", pwd, 0));
 }
 
 static int	move_token_dir(char *pwd)
 {
-	int	i;
-
-	i = 0;
 	return (error_msg(chdir(pwd) == 0, "cd "));
 }
 
@@ -66,17 +66,17 @@ int	ft_cd(char **tok, char **env)
 	while (ft_strcmp(tok[++i], "cd") != 0)
 		;
 	pwd = getcwd(NULL, 0);
-	if (add_env(env, "OLDPWD=", pwd) == FALSE)
+	if (add_env(env, "OLDPWD=", pwd, 1) == FALSE)
 		return (FALSE);
 	copy = ft_strdup(ft_strfind(env, "OLDPWD") + 7);
 	if (tok[i + 1] == NULL)
-		return (move_home_dir(env));
+		return (free(copy), move_home_dir(env));
 	else if (tok[i + 1] != NULL)
 	{
 		move_token_dir(tok[i + 1]);
 		pwd = getcwd(NULL, 0);
 	}
-	if (add_env(env, "PWD=", pwd) == FALSE)
-		return (FALSE);
+	if (add_env(env, "PWD=", pwd, 1) == FALSE)
+		return (free(copy), FALSE);
 	return (free(copy), g_exit);
 }
