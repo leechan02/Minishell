@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:00:09 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/23 17:00:11 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 17:11:24 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	cmd_check(t_tokens *tokens, char **envp)
 		return (1);
 }
 
-void	free_lalala(char **path, char *cmd, char *cmd2)
+void	free_lalala(char **path)
 {
 	int	i;
 
@@ -49,8 +49,6 @@ void	free_lalala(char **path, char *cmd, char *cmd2)
 	while (path[++i])
 		free(path[i]);
 	free(path);
-	free(cmd);
-	free(cmd2);
 }
 
 int	cmd_path(char *check, char **env)
@@ -67,14 +65,16 @@ int	cmd_path(char *check, char **env)
 		cmd = ft_strjoin(path[i], "/");
 		cmd2 = ft_strjoin(cmd, check);
 		if (access(cmd2, X_OK) == 0)
+		{
+			free(cmd);
+			free(cmd2);
 			break ;
+		}
+		free(cmd);
+		free(cmd2);
 		i++;
 	}
 	if (access(cmd2, X_OK) == 0)
-	{
-		free_lalala(path, cmd, cmd2);
-		return (TRUE);
-	}
-	free_lalala(path, cmd, cmd2);
-	return (FALSE);
+		return (free_lalala(path), TRUE);
+	return (free_lalala(path), FALSE);
 }
