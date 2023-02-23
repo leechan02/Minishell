@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/22 17:35:10 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/23 15:53:20 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,18 @@ static void	is_duplicated(char *str, char **dup_env)
 	int	len;
 	int	i;
 
-	len = 0;
-	while (str[len] != '=' && str[len] != '\0')
-		len++;
 	i = 0;
-	while (dup_env[i] != NULL && ft_strncmp(str, dup_env[i], len) != 0)
+	while (dup_env[i] != NULL)
+	{
+		len = 0;
+		while (dup_env[i][len] != '=' && dup_env[i][len] != '\0')
+			len++;
+		if (ft_strncmp(str, dup_env[i], len) == 0)
+			break ;
+		if (ft_strchr(dup_env[i], '=') != NULL && ft_strchr(str, '=') == NULL)
+			return ;
 		i++;
+	}
 	if (dup_env[i] != NULL)
 	{
 		free(dup_env[i]);
