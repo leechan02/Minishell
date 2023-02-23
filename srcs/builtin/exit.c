@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/22 17:28:49 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/23 16:10:03 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ int	ft_exit(char **token)
 			return (FALSE);
 		}
 	}
-	exit(ft_atoi(token[i]));
+	exit(ft_atoll(token[i]));
 }
