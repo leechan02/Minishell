@@ -6,11 +6,18 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:00:09 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/23 17:11:24 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 18:47:43 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
+
+int	wrong_cmd(char *msg)
+{
+	perror(msg);
+	g_exit = 127;
+	return (1);
+}
 
 int	cmd_check(t_tokens *tokens, char **envp)
 {
@@ -38,7 +45,7 @@ int	cmd_check(t_tokens *tokens, char **envp)
 	if (flag == 1 || buil == 1)
 		return (0);
 	else
-		return (1);
+		return (wrong_cmd("minishell"));
 }
 
 void	free_lalala(char **path)
