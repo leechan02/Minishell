@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:52:17 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/22 19:53:29 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/23 11:40:03 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char	**find_path(char **envp)
 	char	**path;
 
 	i = 0;
+	if (ft_strfind(envp, "PATH") == NULL)
+		return (NULL);
 	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
 	path = ft_split(envp[i] + 5, ':');
@@ -49,11 +51,9 @@ void	exec(char **token, char **envp)
 	int		i;
 
 	setting_signal(CHILD_EXECVE);
-	if (ft_strfind(envp, "PATH") == NULL)
-		printf("minishell: %s: No such file or directory\n", token[0]);
 	path = find_path(envp);
 	i = 0;
-	while (path[i] != NULL)
+	while (path != NULL && path[i] != NULL)
 	{
 		cmd = ft_strjoin(path[i], "/");
 		cmd = ft_strjoin(cmd, token[0]);

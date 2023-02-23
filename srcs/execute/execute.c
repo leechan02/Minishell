@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:50:52 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/22 19:53:43 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/23 10:06:10 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
+
+void	process_signal(t_tokens *tokens)
+{
+	int	i;
+	int	find;
+
+	i = 0;
+	find = 0;
+	while (tokens->token[i])
+	{
+		if (ft_strcmp(tokens->token[i], "cat") == 0)
+		{
+			setting_signal(CHILD_EXECVE);
+			find = 1;
+		}
+		i++;
+	}
+	if (find == 0)
+		signal(SIGINT, SIG_IGN);
+}
 
 int	only_process(t_tokens *tokens, char **env, int flag)
 {
@@ -28,7 +48,7 @@ int	only_process(t_tokens *tokens, char **env, int flag)
 	}
 	else if (flag != 1)
 	{
-		setting_signal(CHILD_EXECVE);
+		process_signal(tokens);
 		pid = fork();
 		if (pid == 0)
 		{
