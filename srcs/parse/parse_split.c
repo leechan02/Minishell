@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:21:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/20 17:38:24 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 14:40:49 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	is_redirection(char **token, int qut, int db_qut, int *len)
 		}
 		return (TRUE);
 	}
+	else if (**token != '<' && *(*token + 1) == '<' && qut == 0 && db_qut == 0)
+		return (TRUE);
 	return (FALSE);
 }
 

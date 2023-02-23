@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 16:36:29 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/20 17:37:09 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 14:35:40 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	is_tokens(char **tok, int qut, int db_qut)
 	if (qut % 2 == 0 && db_qut % 2 == 0)
 	{
 		if (**tok != ' ' && (*(*tok + 1) == ' ' || *(*tok + 1) == '\0'))
+			return (TRUE);
+		else if (**tok != '<' && (*(*tok + 1) == '<' || *(*tok + 1) == '>'))
 			return (TRUE);
 		else if (**tok == '<' && *(*tok + 1) == '<' && *(*tok + 2) != '<')
 		{
@@ -54,9 +56,6 @@ int	cnt_tokens(char *tok)
 			db_qut++;
 		if (is_tokens(&tok, qut, db_qut))
 			num++;
-		if (((*tok == '<' && *(tok + 1) == '<' && *(tok + 1) != '<'))
-			|| ((*tok == '>' && *(tok + 1) == '>') && *(tok + 1) != '>'))
-			tok++;
 		tok++;
 	}
 	return (num);
