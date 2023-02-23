@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/21 19:32:48 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/23 10:05:10 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int		find_redir(t_tokens *tokens, int new_fd, int token_nb, int cmd);
 int		check_redir(t_tokens *tokens, int i);
 
 /* execute.c */
+void	process_signal(t_tokens *tokens);
 int		only_process(t_tokens *tokens, char **env, int flag);
 int		execute(t_tokens *tokens, char **env, int pipe_num);
 
