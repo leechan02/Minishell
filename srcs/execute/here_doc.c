@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:19:21 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/23 14:11:38 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 16:52:51 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,24 +92,23 @@ void	replace_here_doc(t_tokens *tokens, int i, int *file_n)
 	(*file_n)++;
 }
 
-char	**find_here_doc(t_tokens *tokens, int *flag)
+char	**find_here_doc(t_tokens *tokens, int *flag, char **env)
 {
-	int		i;
-	int		j;
+	int		i[2];
 	int		file_n;
 	char	**name;
 
-	i = -1;
+	i[0] = -1;
 	file_n = 0;
 	name = name_save(tokens);
-	while (tokens[++i].token)
+	while (tokens[++i[0]].token)
 	{
-		j = -1;
-		while (tokens[i].token[++j])
+		i[1] = -1;
+		while (tokens[i[0]].token[++i[1]])
 		{
-			if (ft_strcmp(tokens[i].token[j], "<<") == 0)
+			if (ft_strcmp(tokens[i[0]].token[i[1]], "<<") == 0)
 			{
-				if (save_filename(&tokens[i], name, &file_n, j) == 1)
+				if (save_filename(&tokens[i[0]], name, &file_n, i[1]) == 1)
 				{
 					*flag = 1;
 					return (name);
@@ -117,5 +116,7 @@ char	**find_here_doc(t_tokens *tokens, int *flag)
 			}
 		}
 	}
+	if (cmd_check(tokens, env))
+		*flag = 1;
 	return (name);
 }

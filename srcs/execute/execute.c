@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:50:52 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/23 14:15:12 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 16:52:12 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	only_process(t_tokens *tokens, char **env, int flag)
 	int		fd;
 	char	**name;
 
-	name = find_here_doc(tokens, &flag);
+	name = find_here_doc(tokens, &flag, env);
 	if (is_builtin(tokens[0]) && flag != 1)
 	{
 		fd = dup(STDOUT_FILENO);
