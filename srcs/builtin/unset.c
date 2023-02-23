@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/22 17:35:50 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/23 14:58:27 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ static int	find_unset(char **token)
 
 static int	get_del_idx(char *token, char **env, int *del_idx)
 {
-	int	token_len;
+	int	len;
 
 	*del_idx = 0;
-	token_len = ft_strlen(token);
 	while (env[*del_idx] != NULL)
 	{
-		if (ft_strncmp(token, env[*del_idx], token_len) == 0)
+		len = 0;
+		while (env[*del_idx][len] != '\0' && env[*del_idx][len] != '=')
+			len++;
+		if (ft_strncmp(token, env[*del_idx], len) == 0)
 			return (*del_idx);
 		(*del_idx)++;
 	}
