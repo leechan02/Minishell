@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:00:09 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/23 18:47:43 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 18:59:13 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	cmd_path(char *check, char **env)
 		free(cmd2);
 		i++;
 	}
-	if (access(cmd2, X_OK) == 0)
+	if (access(cmd2, X_OK) == 0 || access(check, X_OK) == 0)
 		return (free_lalala(path), TRUE);
 	return (free_lalala(path), FALSE);
 }
