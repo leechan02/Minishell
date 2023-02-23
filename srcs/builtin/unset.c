@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/20 19:26:18 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/22 17:35:50 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	ft_unset(char **token, char **env)
 	while (token[++i] != NULL)
 	{
 		if (ft_isalpha(token[i][0]) == 0 && token[i][0] != '_')
-			printf("minishell: unset: `%s': not a valid identifier\n", \
-			token[i]);
+			return (!printf("minishell: unset: `%s': not a valid identifier\n", \
+			token[i]));
 		else
 		{
 			if (get_del_idx(token[i], env, &del_idx) != FALSE)

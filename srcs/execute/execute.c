@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:50:52 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/21 19:39:09 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/22 19:53:43 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	only_process(t_tokens *tokens, char **env, int flag)
 	{
 		fd = dup(STDOUT_FILENO);
 		find_redir(&tokens[0], 0, 2, 1);
-		g_exit = !exec_builtin(tokens, env);
+		g_exit = exec_builtin(tokens, env);
 		dup2(fd, STDOUT_FILENO);
 	}
 	else if (flag != 1)
@@ -38,7 +38,7 @@ int	only_process(t_tokens *tokens, char **env, int flag)
 		wait_children(1);
 	}
 	file_delete(name);
-	return (SUCCESS);
+	return (g_exit);
 }
 
 int	execute(t_tokens *tokens, char **env, int pipe_num)
@@ -50,5 +50,5 @@ int	execute(t_tokens *tokens, char **env, int pipe_num)
 		only_process(tokens, env, flag);
 	else
 		pipex(pipe_num + 1, tokens, env, flag);
-	return (SUCCESS);
+	return (g_exit);
 }

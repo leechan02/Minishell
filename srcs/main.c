@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:16:34 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/22 09:25:55 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/22 19:11:21 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	main(int ac, char **av, char **env)
 		line = readline("\033[34;1mminishell:0.9\033[0;1m$\033[0m ");
 		if (line == NULL)
 			sigexit_handler();
-		if (line[0] == '\0')
+		if (line[0] == '\0' || (line[0] >= 9 && line[0] <= 13) || line[0] == 32)
 		{
 			free_line(&line);
 			continue ;
