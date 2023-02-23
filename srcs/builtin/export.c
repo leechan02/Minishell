@@ -6,7 +6,7 @@
 /*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:03 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/23 15:53:20 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/23 16:00:19 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ static void	is_duplicated(char *str, char **dup_env)
 			len++;
 		if (ft_strncmp(str, dup_env[i], len) == 0)
 			break ;
-		if (ft_strchr(dup_env[i], '=') != NULL && ft_strchr(str, '=') == NULL)
-			return ;
 		i++;
 	}
 	if (dup_env[i] != NULL)
