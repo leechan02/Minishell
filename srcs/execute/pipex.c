@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/23 16:57:39 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 18:35:37 by nakoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ void	pipex(int token_nb, t_tokens *tokens, char **env, int flag)
 	{
 		pipe(p.new_fd);
 		setting_signal(CHILD_EXECVE);
-		p.pid = fork();
-		if (p.pid == 0)
+		if (fork() == 0)
 		{
 			close(p.new_fd[0]);
 			dup2(p.old_fd[0], STDIN_FILENO);
@@ -66,5 +65,6 @@ void	pipex(int token_nb, t_tokens *tokens, char **env, int flag)
 		ft_memcpy(p.old_fd, p.new_fd, sizeof(int) * 2);
 	}
 	if (flag != 1)
-		return (wait_children(token_nb), file_delete(p.file_name));
+		wait_children(token_nb);
+	file_delete(p.file_name);
 }
