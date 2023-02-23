@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/23 17:10:18 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 18:46:24 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char	**find_path(char **envp);
 int		open_file(char *file, int flag);
 
 /*cmd*/
+int		wrong_cmd(char *msg);
 int		cmd_check(t_tokens *check, char **envp);
 void	free_lalala(char **path);
 int		cmd_path(char *check, char **env);
