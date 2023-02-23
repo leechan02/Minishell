@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 16:36:29 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/23 14:35:40 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 15:43:08 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,30 @@
 
 int	is_tokens(char **tok, int qut, int db_qut)
 {
-	if (qut % 2 == 0 && db_qut % 2 == 0)
+	if (!(qut % 2 == 0 && db_qut % 2 == 0))
+		return (FALSE);
+	if (**tok != ' ' && (*(*tok + 1) == ' ' || *(*tok + 1) == '\0'))
 	{
-		if (**tok != ' ' && (*(*tok + 1) == ' ' || *(*tok + 1) == '\0'))
-			return (TRUE);
-		else if (**tok != '<' && (*(*tok + 1) == '<' || *(*tok + 1) == '>'))
-			return (TRUE);
-		else if (**tok == '<' && *(*tok + 1) == '<' && *(*tok + 2) != '<')
-		{
-			(*tok)++;
-			return (TRUE);
-		}
-		else if (**tok == '>' && *(*tok + 1) == '>' && *(*tok + 2) != '>')
-		{
-			(*tok)++;
-			return (TRUE);
-		}
-		else if (**tok == '<' || **tok == '>')
-			return (TRUE);
-		else if ((**tok == '\'' || **tok == '\"') && *(*tok + 1) == ' '
-			&& (qut != 0 || db_qut != 0))
-			return (TRUE);
+		(*tok) += (*(*tok + 1) == ' ');
+		return (TRUE);
 	}
+	else if (**tok != '<' && (*(*tok + 1) == '<' || *(*tok + 1) == '>'))
+		return (TRUE);
+	else if (**tok == '<' && *(*tok + 1) == '<' && *(*tok + 2) != '<')
+	{
+		(*tok)++;
+		return (TRUE);
+	}
+	else if (**tok == '>' && *(*tok + 1) == '>' && *(*tok + 2) != '>')
+	{
+		(*tok)++;
+		return (TRUE);
+	}
+	else if (**tok == '<' || **tok == '>')
+		return (TRUE);
+	else if ((**tok == '\'' || **tok == '\"') && *(*tok + 1) == ' '
+		&& (qut != 0 || db_qut != 0))
+		return (TRUE);
 	return (FALSE);
 }
 
