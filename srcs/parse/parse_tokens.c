@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 16:36:29 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/23 15:43:08 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 15:50:59 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	cnt_tokens(char *tok)
 	db_qut = 0;
 	while (*tok != '\0')
 	{
+		while (*tok == ' ')
+			tok++;
 		if (*tok == '\'')
 			qut++;
 		else if (*tok == '\"')
