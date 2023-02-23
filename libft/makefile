@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+         #
+#    By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 10:07:49 by euiclee           #+#    #+#              #
-#    Updated: 2023/02/02 15:57:51 by euiclee          ###   ########.fr        #
+#    Updated: 2023/02/23 16:09:45 by nakoo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,9 @@ SRCS =  get_next_line.c ft_atoi.c ft_isalpha.c ft_itoa.c ft_lstdelone.c \
 		ft_lstnew.c ft_memcpy.c ft_putendl_fd.c ft_strcat.c ft_strfind.c \
 		ft_isprint.c ft_lstclear.c ft_lstmap.c ft_memcmp.c ft_putchar_fd.c \
 		ft_assert.c ft_calloc.c ft_isdigit.c ft_lstadd_front.c ft_lstlast.c \
-		ft_lstadd_back.c ft_lstiter.c ft_lstsize.c ft_memmove.c ft_putnbr_fd.c
+		ft_lstadd_back.c ft_lstiter.c ft_lstsize.c ft_memmove.c ft_putnbr_fd.c \
+		ft_atoll.c
+		
 SRCS_NAME = $(addprefix $(SRCS_DIR), $(SRCS))
 
 OBJ_DIR = objs
