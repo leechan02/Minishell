@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/23 09:04:49 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 16:57:39 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ void	file_delete(char **file_name)
 	free(file_name);
 }
 
-static void	init_structure(t_pipe *p, t_tokens *tokens, int *flag)
+static void	init_structure(t_pipe *p, t_tokens *tokens, int *flag, char **env)
 {
 	p->cmd = -1;
 	p->old_fd[0] = STDIN_FILENO;
-	p->file_name = find_here_doc(tokens, flag);
+	p->file_name = find_here_doc(tokens, flag, env);
 }
 
 void	pipex(int token_nb, t_tokens *tokens, char **env, int flag)
 {
 	t_pipe	p;
 
-	init_structure(&p, tokens, &flag);
+	init_structure(&p, tokens, &flag, env);
 	while (++p.cmd < token_nb && flag != 1)
 	{
 		pipe(p.new_fd);

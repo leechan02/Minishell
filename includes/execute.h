@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/23 10:05:10 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/23 16:37:28 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		execute(t_tokens *tokens, char **env, int pipe_num);
 
 /* here_doc */
 char	**name_save(t_tokens *tokens);
-char	**find_here_doc(t_tokens *tokens, int *flag);
+char	**find_here_doc(t_tokens *tokens, int *flag, char **env);
 int		save_filename(t_tokens *tokens, char **name, int *file_n, int i);
 void	replace_here_doc(t_tokens *tokens, int i, int *file_n);
 void	here_doc(t_tokens *tokens, int i, char *name, int *flag);
@@ -88,6 +88,11 @@ void	wait_children(int num_of_children);
 void	exec(char **token, char **envp);
 char	**find_path(char **envp);
 int		open_file(char *file, int flag);
+
+/*cmd*/
+int		cmd_check(t_tokens *check, char **envp);
+void	free_lalala(char **path, char *cmd, char *cmd2);
+int		cmd_path(char *check, char **env);
 
 /* signal.c */
 void	sigexit_handler(void);
