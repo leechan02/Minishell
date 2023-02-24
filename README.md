@@ -38,7 +38,7 @@
 
 ***check pipe_num → one process or pipex → if (one) check builtin or not → else (pipex) exec pipex and check redir***
 
-## **해야할 일**
+## **수정할 것**
 1. To check memory leaks
 2. To check norm
 3. Makefile relink 방지
