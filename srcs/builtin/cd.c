@@ -66,6 +66,8 @@ int	ft_cd(char **tok, char **env)
 	while (ft_strcmp(tok[++i], "cd") != 0)
 		;
 	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+		return (FALSE);
 	if (add_env(env, "OLDPWD=", pwd, 1) == FALSE)
 		return (FALSE);
 	copy = ft_strdup(ft_strfind(env, "OLDPWD") + 7);
