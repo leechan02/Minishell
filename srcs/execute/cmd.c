@@ -88,7 +88,8 @@ int	cmd_path(char *check, char **env)
 		cmd2 = ft_strjoin(cmd, check);
 		if (access(cmd2, X_OK) == 0)
 		{
-			free_cmd(&cmd, &cmd2);
+			free(cmd);
+			free(cmd2);
 			break ;
 		}
 		free_cmd(&cmd, &cmd2);
