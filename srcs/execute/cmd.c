@@ -48,14 +48,27 @@ int	cmd_check(t_tokens *tokens, char **envp)
 		return (wrong_cmd("minishell"));
 }
 
-void	free_lalala(char **path)
+static void	free_path(char **path)
 {
 	int	i;
 
 	i = -1;
 	while (path[++i])
+	{
 		free(path[i]);
+		path[i] = NULL;
+	}
 	free(path);
+}
+
+static void	free_cmd(char **cmd, char **cmd2)
+{
+	if (*cmd != NULL)
+		free(*cmd);
+	*cmd = NULL;
+	if (*cmd2 != NULL)
+		free(*cmd2);
+	*cmd2 = NULL;
 }
 
 int	cmd_path(char *check, char **env)
@@ -66,6 +79,8 @@ int	cmd_path(char *check, char **env)
 	char	**path;
 
 	path = find_path(env);
+	if (path == NULL)
+		return (127);
 	i = 0;
 	while (path != NULL && path[i] != NULL)
 	{
@@ -73,15 +88,13 @@ int	cmd_path(char *check, char **env)
 		cmd2 = ft_strjoin(cmd, check);
 		if (access(cmd2, X_OK) == 0)
 		{
-			free(cmd);
-			free(cmd2);
+			free_cmd(&cmd, &cmd2);
 			break ;
 		}
-		free(cmd);
-		free(cmd2);
+		free_cmd(&cmd, &cmd2);
 		i++;
 	}
 	if (access(cmd2, X_OK) == 0 || access(check, X_OK) == 0)
-		return (free_lalala(path), TRUE);
-	return (free_lalala(path), FALSE);
+		return (free_path(path), TRUE);
+	return (free_path(path), FALSE);
 }
