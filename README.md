@@ -45,5 +45,4 @@
 4. grep something - ctrl + c => 개행추가, ctrl + \ => Quit:3
 5. cat | cat | ls | cat | cat - ctrl + \ => Quit:3
 6. <<< 한줄 읽기지만 syntax error 띄우기
-6. <<< 한줄 읽기지만 
-7. unset PATH -> cmd => seg error 안 
+7. unset PATH -> cmd => seg error 안 띄우기
