@@ -53,6 +53,6 @@ re :
 	@make fclean
 	@make all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re OBJS
 
 -include $(DEPS)
