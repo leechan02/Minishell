@@ -39,22 +39,11 @@
 ***check pipe_num → one process or pipex → if (one) check builtin or not → else (pipex) exec pipex and check redir***
 
 ## **해야할 일**
-1. here_doc limiter 고치기.
-2. here_doc 중간 시그널 나오면 명령어 실행X -> NULL 값 반환 등으로 확인.
-3. cat 실행 시 시그널 받고 자식에서는 prompt 출력 X
-4. 시그널 전체적으로 고치기.
-5. 환경변수 확장 후 토큰 나누기.
-6. unset PATH -> 명령어 실행 후 $? 시, 127 나와야함.
-7. 임의의 디렉토리 만들고 이동한 뒤, 삭제하면 seg error 떠선 안됨.
-예시(안걸리면 장땡)  
-minishell:0.9$ cd 1  
-minishell:0.9$ ls  
-minishell:0.9$ rm -r ../1  
-minishell:0.9$ cd  
-[1]    53600 segmentation fault  ./minishell  
-8. <<a | <<b  
-
->a  
->b  
-error message가 뜨면 안됨. 또 echo $?시 0 나와야함(적당 작동임)  
-9. To check memory leaks
+1. To check memory leaks
+2. To check norm
+3. Makefile relink 방지
+4. grep something - ctrl + c => 개행추가, ctrl + \ => Quit:3
+5. cat | cat | ls | cat | cat - ctrl + \ => Quit:3
+6. <<< 한줄 읽기지만 syntax error 띄우기
+6. <<< 한줄 읽기지만 
+7. unset PATH -> cmd => seg error 안 
