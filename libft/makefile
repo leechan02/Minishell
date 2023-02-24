@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 10:07:49 by euiclee           #+#    #+#              #
-#    Updated: 2023/02/23 16:09:45 by nakoo            ###   ########.fr        #
+#    Updated: 2023/02/24 13:31:17 by euiclee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,13 +37,13 @@ vpath %.c $(SRCS_DIR)
 
 all : $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJ_DIR) $(OBJS)
 	ar rcsu $(NAME) $(OBJS)
 
 $(OBJ_DIR) :
 	mkdir $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o : %.c $(OBJ_DIR)
+$(OBJ_DIR)/%.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :

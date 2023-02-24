@@ -6,31 +6,11 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:50:52 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/23 17:07:11 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/24 14:04:06 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
-
-void	process_signal(t_tokens *tokens)
-{
-	int	i;
-	int	find;
-
-	i = 0;
-	find = 0;
-	while (tokens->token[i])
-	{
-		if (ft_strcmp(tokens->token[i], "cat") == 0)
-		{
-			setting_signal(CHILD_EXECVE);
-			find = 1;
-		}
-		i++;
-	}
-	if (find == 0)
-		signal(SIGINT, SIG_IGN);
-}
 
 int	only_process(t_tokens *tokens, char **env, int flag)
 {
@@ -48,7 +28,7 @@ int	only_process(t_tokens *tokens, char **env, int flag)
 	}
 	else if (flag != 1)
 	{
-		process_signal(tokens);
+		signal(SIGINT, SIG_IGN);
 		pid = fork();
 		if (pid == 0)
 		{
