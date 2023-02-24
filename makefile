@@ -32,7 +32,7 @@ $(NAME) : $(OBJ_DIR) $(OBJS)
 $(OBJ_DIR) :
 	@mkdir $@
 
-$(OBJ_DIR)/%.o : %.c $(OBJ_DIR)
+$(OBJ_DIR)/%.o : %.c
 	@cc -g $(CFLAGS) -I${HOME}/.brew/opt/readline/include -c $< -o $@
 
 clean :
@@ -53,6 +53,6 @@ re :
 	@make fclean
 	@make all
 
-.PHONY : all clean fclean re OBJS
+.PHONY : all clean fclean re
 
 -include $(DEPS)

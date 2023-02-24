@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/23 18:35:37 by nakoo            ###   ########.fr       */
+/*   Updated: 2023/02/24 14:04:10 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void	pipex(int token_nb, t_tokens *tokens, char **env, int flag)
 	t_pipe	p;
 
 	init_structure(&p, tokens, &flag, env);
+	signal(SIGINT, SIG_IGN);
 	while (++p.cmd < token_nb && flag != 1)
 	{
 		pipe(p.new_fd);
-		setting_signal(CHILD_EXECVE);
 		if (fork() == 0)
 		{
 			close(p.new_fd[0]);
