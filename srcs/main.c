@@ -85,7 +85,7 @@ int	main(int ac, char **av, char **env)
 	while (ac || av)
 	{
 		setting_signal(SHELL);
-		line = readline("\033[34;1mminishell:1.3\033[0;1m$\033[0m ");
+		line = readline("\033[34;1mminishell:1.5\033[0;1m$\033[0m ");
 		if (line == NULL)
 			sigexit_handler();
 		if (line[0] == '\0' || (line[0] >= 9 && line[0] <= 13) || line[0] == 32)
