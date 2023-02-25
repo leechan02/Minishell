@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:00:09 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/26 00:49:28 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/26 00:57: by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,14 @@ static void	free_path(char **path, char **cmd)
 	free(path);
 }
 
-static void	free_cmd(char **cmd)
+static void	free_cmd(char **cmd, char **cmd2)
 {
 	if (*cmd != NULL)
 		free(*cmd);
 	*cmd = NULL;
+	if (*cmd2 != NULL)
+		free(*cmd2);
+	*cmd2 = NULL;
 }
 
 int	cmd_path(char *check, char **env)
@@ -91,7 +94,7 @@ int	cmd_path(char *check, char **env)
 			free(cmd);
 			break ;
 		}
-		free_cmd(&cmd);
+		free_cmd(&cmd, &cmd2);
 		i++;
 	}
 	if (access(cmd2, X_OK) == 0 || access(check, X_OK) == 0)

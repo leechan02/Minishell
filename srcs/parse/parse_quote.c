@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 08:47:47 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/26 00:38:27 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/26 01:06:02 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,9 @@ char	*rm_quote(char *str, int len)
 			str++;
 			continue ;
 		}
-		ret[i++] = *str;
-		str++;
+		ret[i++] = *str++;
 	}
-	free(temp);
-	return (ret);
+	return (free(temp), ret);
 }
 
 void	check_quote(t_tokens *tokens)
