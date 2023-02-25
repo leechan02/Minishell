@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:00:09 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/23 18:59:13 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/26 00:49:28 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,14 @@ int	cmd_check(t_tokens *tokens, char **envp)
 		return (wrong_cmd("minishell"));
 }
 
-static void	free_path(char **path)
+static void	free_path(char **path, char **cmd)
 {
 	int	i;
 
 	i = -1;
+	if (*cmd != NULL)
+		free(*cmd);
+	*cmd = NULL;
 	while (path[++i])
 	{
 		free(path[i]);
@@ -61,14 +64,11 @@ static void	free_path(char **path)
 	free(path);
 }
 
-static void	free_cmd(char **cmd, char **cmd2)
+static void	free_cmd(char **cmd)
 {
 	if (*cmd != NULL)
 		free(*cmd);
 	*cmd = NULL;
-	if (*cmd2 != NULL)
-		free(*cmd2);
-	*cmd2 = NULL;
 }
 
 int	cmd_path(char *check, char **env)
@@ -89,13 +89,12 @@ int	cmd_path(char *check, char **env)
 		if (access(cmd2, X_OK) == 0)
 		{
 			free(cmd);
-			free(cmd2);
 			break ;
 		}
-		free_cmd(&cmd, &cmd2);
+		free_cmd(&cmd);
 		i++;
 	}
 	if (access(cmd2, X_OK) == 0 || access(check, X_OK) == 0)
-		return (free_path(path), TRUE);
-	return (free_path(path), FALSE);
+		return (free_path(path, &cmd2), TRUE);
+	return (free_path(path, &cmd2), FALSE);
 }
