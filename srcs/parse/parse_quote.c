@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 08:47:47 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/18 16:30:51 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/26 00:38:27 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,58 @@ int	env_qut_check(char *str)
 	return (TRUE);
 }
 
-void	check_quote_num(char *str, int *qut, int *db_qut)
+int	check_quote_num(char *str)
 {
-	while (*str)
+	int	is_qut;
+	int	is_db;
+	int	rm_qut;
+	int	i;
+
+	i = 0;
+	is_db = 0;
+	is_qut = 0;
+	rm_qut = 0;
+	while (str[i])
 	{
-		if (*str == '\'')
-			(*qut)++;
-		else if (*str == '\"')
-			(*db_qut)++;
-		str++;
+		if (str[i] == '\'')
+			is_qut++;
+		else if (str[i] == '\"')
+			is_db++;
+		if ((str[i] == '\'' && is_qut != 0
+			&& is_qut % 2 == 0 && is_db % 2 == 0)
+			|| (str[i] == '\"' && is_db != 0
+			&& is_db % 2 == 0 && is_qut % 2 == 0))
+			rm_qut += 2;
+		i++;
 	}
+	return (rm_qut);
 }
 
-char	*rm_quote(char *str, char c)
+char	*rm_quote(char *str, int len)
 {
 	char	*ret;
 	char	*temp;
-	int		len;
 	int		i;
+	int		qut[2];
 
 	temp = str;
-	len = ft_strlen(str);
-	ret = ft_calloc(len - 1, sizeof(char));
+	ret = ft_calloc(len + 1, sizeof(char));
 	i = 0;
+	qut[0] = 0;
+	qut[1] = 0;
 	while (*str)
 	{
-		if (*str != c)
-			ret[i++] = *str;
+		if (*str == '\'')
+			qut[0]++;
+		else if (*str == '\"')
+			qut[1]++;
+		if ((*str == '\"' && qut[0] % 2 == 0)
+			|| (*str == '\'' && qut[1] % 2 == 0))
+		{
+			str++;
+			continue ;
+		}
+		ret[i++] = *str;
 		str++;
 	}
 	free(temp);
@@ -77,24 +102,16 @@ char	*rm_quote(char *str, char c)
 void	check_quote(t_tokens *tokens)
 {
 	int	i;
-	int	j;
-	int	qut;
-	int	db_qut;
+	int	len;
+	int	ret_len;
 
 	i = 0;
 	while (tokens->token[i])
 	{
-		qut = 0;
-		db_qut = 0;
-		check_quote_num(tokens->token[i], &qut, &db_qut);
-		j = 0;
-		while (tokens->token[i][j] != '\0'
-			&& tokens->token[i][j] != '\'' && tokens->token[i][j] != '\"')
-			j++;
-		if (tokens->token[i][j] == '\'' && qut % 2 == 0)
-			tokens->token[i] = rm_quote(tokens->token[i], '\'');
-		else if (tokens->token[i][j] == '\"' && db_qut % 2 == 0)
-			tokens->token[i] = rm_quote(tokens->token[i], '\"');
+		len = check_quote_num(tokens->token[i]);
+		ret_len = ft_strlen(tokens->token[i]) - len;
+		if (len)
+			tokens->token[i] = rm_quote(tokens->token[i], ret_len);
 		i++;
 	}
 }
