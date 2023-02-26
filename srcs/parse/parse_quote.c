@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 08:47:47 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/26 01:28:34 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/26 20:29:29 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,27 +72,28 @@ char	*rm_quote(char *str, int len)
 {
 	char	*ret;
 	char	*temp;
+	char	*loca;
 	int		i;
-	int		qut[2];
 
 	temp = str;
 	ret = ft_calloc(len + 1, sizeof(char));
 	i = 0;
-	qut[0] = 0;
-	qut[1] = 0;
-	while (*str)
+	while (*str != '\0')
 	{
+		while (*str != '\'' && *str != '\"')
+			ret[i++] = *str++;
 		if (*str == '\'')
-			qut[0]++;
+			loca = ft_strchr(++str, '\'');
 		else if (*str == '\"')
-			qut[1]++;
-		if ((*str == '\"' && qut[0] % 2 == 0)
-			|| (*str == '\'' && qut[1] % 2 == 0))
+			loca = ft_strchr(++str, '\"');
+		if (*str != '\0' && loca && *str != *loca)
 		{
+			while (str && loca && *str != *loca)
+				ret[i++] = *str++;
 			str++;
-			continue ;
 		}
-		ret[i++] = *str++;
+		else if (*str != '\0')
+			str++;
 	}
 	return (free(temp), ret);
 }
