@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: nakoo <nakoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 08:47:47 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/26 20:29:28by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/26 20:29:28by euiclee          ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ int	check_quote_num(char *str)
 			is_qut++;
 		else if (str[i] == '\"')
 			is_db++;
-		if ((str[i] == '\'' && is_qut != 0
-			&& is_qut % 2 == 0 && is_db % 2 == 0)
-			|| (str[i] == '\"' && is_db != 0
-			&& is_db % 2 == 0 && is_qut % 2 == 0))
+		if ((str[i] == '\'' && is_qut != 0 \
+		&& is_qut % 2 == 0 && is_db % 2 == 0) \
+		|| (str[i] == '\"' && is_db != 0 \
+		&& is_db % 2 == 0 && is_qut % 2 == 0))
 			rm_qut += 2;
 		i++;
 	}
