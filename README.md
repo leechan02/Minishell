@@ -20,6 +20,7 @@
     - 4-3 환경변수 이름이 숫자로 시작하면 $와 함께 숫자 삭제
 - 치환한 token들 `‘ “` 빼주기.
     - 5-1 redirection들은 무조건 분리가 되어있기 때문에 앞글자만 확인하면 된다.
+    - 5-2 '나 "가 나오면 위치 기억하고 똑같은 것의 위치 찾아서 뺴주기.
 ### $ name rules
 
 - a to z, A to Z, 0 to 9 with ‘_’
@@ -41,7 +42,7 @@
 ## **수정할 것**
 1. To check memory leaks
 2. To check norm
-3. Makefile relink 방지
+3. ~~Makefile relink 방지~~
 4. grep something - ctrl + c => 개행추가, ctrl + \ => Quit:3
 5. cat | cat | ls | cat | cat - ctrl + \ => Quit:3
 6. <<< 한줄 읽기지만 syntax error 띄우기
