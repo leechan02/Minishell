@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:32:05 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/26 21:31:27 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/27 08:52:39 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define PARSE_H
 
 # include "minishell.h"
+
+typedef struct s_quo
+{
+	char	*ret;
+	char	*temp;
+	char	*loca;
+	int		i;
+}t_quo;
 
 /*parse*/
 int			get_pipe(char *line);
