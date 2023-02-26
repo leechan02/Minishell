@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 08:47:47 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/26 20:29:29 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/26 20:29:28by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,24 @@
 
 int	env_qut_check(char *str)
 {
-	int	first;
-	int	qut;
-	int	db_qut;
-
-	first = 0;
-	qut = 0;
-	db_qut = 0;
 	while (*str != '\0')
 	{
 		if (*str == '\'')
 		{
-			first++;
-			qut = first;
+			str++;
+			while (*str != '\'' && *str != '\0')
+			{
+				if (*str == '$')
+					return (FALSE);
+				str++;
+			}
 		}
 		else if (*str == '\"')
 		{
-			first++;
-			db_qut = first;
+			str++;
+			while (*str != '\"' && *str != '\0')
+				str++;
 		}
-		else if (*str == '$' && ((db_qut > qut && qut != 0)
-				|| (db_qut == 0 && qut == 1)))
-			return (FALSE);
 		str++;
 	}
 	return (TRUE);
