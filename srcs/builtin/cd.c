@@ -69,9 +69,9 @@ int	ft_cd(char **tok, char **env)
 	if (pwd == NULL)
 		pwd = ft_strdup("");
 	if (add_env(env, "OLDPWD=", pwd, 1) == FALSE)
-		return (FALSE);
+		return (free(pwd), FALSE);
 	copy = ft_strdup(ft_strfind(env, "OLDPWD") + 7);
-	if (pwd == NULL || tok[i + 1] == NULL)
+	if (tok[i + 1] == NULL)
 		return (free(copy), move_home_dir(env));
 	else if (tok[i + 1] != NULL)
 	{
