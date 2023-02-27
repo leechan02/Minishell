@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:57:37 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/26 00:48:58 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/27 11:17:05 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,6 @@ void	sigint_handler1(int sig);
 void	sigint_handler2(int sig);
 void	setting_signal(int status);
 
+/*syntax*/
+int		syntax_check(t_tokens *tokens, int pipe);
 #endif

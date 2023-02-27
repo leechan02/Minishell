@@ -6,7 +6,7 @@
 /*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 09:43:46 by euiclee           #+#    #+#             */
-/*   Updated: 2023/02/24 14:04:10 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/27 10:25:54 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	pipex(int token_nb, t_tokens *tokens, char **env, int flag)
 		close(p.new_fd[1]);
 		ft_memcpy(p.old_fd, p.new_fd, sizeof(int) * 2);
 	}
-	if (flag != 1)
+	if (flag != 1 && close(p.new_fd[0]) == 0 && close(p.new_fd[1]) == 0)
 		wait_children(token_nb);
 	file_delete(p.file_name);
 }

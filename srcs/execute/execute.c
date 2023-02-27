@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: euiclee <euiclee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: euiclee <euiclee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:50:52 by nakoo             #+#    #+#             */
-/*   Updated: 2023/02/26 00:55:26 by euiclee          ###   ########.fr       */
+/*   Updated: 2023/02/27 11:28:40 by euiclee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ int	execute(t_tokens *tokens, char **env, int pipe_num)
 	int	flag;
 
 	flag = 0;
+	g_exit = syntax_check(tokens, pipe_num);
+	if (g_exit)
+	{
+		printf("minishell: syntax error\n");
+		return (g_exit);
+	}
 	if (pipe_num == 0)
 		only_process(tokens, env, flag);
 	else
