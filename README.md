@@ -1,49 +1,82 @@
-# **Minishell**
+# Minishell
 
-## ✅ **Parse**
-### **Order**
-***check quote → divide tokens(with pipe) → divide token (with space) → replace $ variables → delete quote***
-- `‘ “`를 검사하면서 `pipe` 단위로 `while`문을 돌면서 tokens를 나누어 준다.
-    - 1-1 `‘ “`를 발견할 때마다 짝수 인지 홀수 인지 flag를 걸어 준다.
-    - 1-2 `pipe`를 만났을 때 flag가 홀수 이면 그 `pipe`는 넘어간다.
-    - 1-3 들어온 문자열이 끝났을 때 flag가 홀수 이면 프롬프트 재시작.
-- `‘ “`를 검사하면서 `space`와 `< > << >>`를 기준으로 token을 나눈다.
-    - 2-1 `‘ “`를 발견할 때마다 짝수 인지 홀수 인지 flag를 걸어 준다.
-    - 2-2 `space` 와 `< > << >>` 를 만났을 때 flag가 홀수 이면 넘어간다.
-        - 2-2-1 들어온 문자열이 끝났을 때 flag가 홀수 이면 프롬프트 재시작.
-    - 2-3 `< > << >>` 무조건 하나의 `token`에 들어간다
-- 나눈 token들 I/O redirection 검사
-    - 3-1 `‘ “` flag 검사하면서 redirection flag 추가.
-- 토큰을 나눈 후 `$`로 시작하는 문자열을 **환경변수 목록과 비교하여 교체**
-    - 4-1 `‘` 홀수이면 치환X `“` 홀수 이면 치환
-    - 4-2 환경변수 이름이 잘못되면 치환X
-    - 4-3 환경변수 이름이 숫자로 시작하면 $와 함께 숫자 삭제
-- 치환한 token들 `‘ “` 빼주기.
-    - 5-1 redirection들은 무조건 분리가 되어있기 때문에 앞글자만 확인하면 된다.
-    - 5-2 '나 "가 나오면 위치 기억하고 똑같은 것의 위치 찾아서 뺴주기.
-### $ name rules
+Minishell is a simple Unix shell implementation in C designed to provide basic shell functionalities, such as command parsing and execution, handling built-in commands, and managing I/O redirections. This README provides an in-depth look at its features and code structure.
 
-- a to z, A to Z, 0 to 9 with ‘_’
-- Can not start 0~9.
+## Table of Contents
+1. [Features](#features)
+2. [Code Structure](#code-structure)
+3. [Built-in Commands](#built-in-commands)
+4. [Installation](#installation)
+5. [Usage](#usage)
+6. [Contributing](#contributing)
 
-## ✅ **Execute**
+## Features
 
-### **<< Here_doc**
+### Command Parsing
+Minishell parses commands by:
+1. **Quote and Pipe Handling**: Detects quotes and splits tokens based on pipes.
+2. **Token Division**: Divides tokens using spaces and redirection operators (`< > << >>`).
+3. **I/O Redirection Check**: Scans tokens for input/output redirection.
+4. **Variable Replacement**: Replaces `$` prefixed strings with corresponding environment variables.
+5. **Quote Removal**: Removes quotes from the processed tokens.
 
-- tokens 다 돌면서 `<<` 찾기
-    - 1-1 `<<` 찾으면 limiter 이름 + idx로 파일 생성하고 넣어주기
-    - 1-2 limiter 나올 때까지 넣어주고 `<<` → `<`으로 그리고 limiter → 파일 이름으로 바꿔주기.
-- 명령어들 실행 끝날 때 파일 이름 모아뒀다가 `unlink`.
+### Command Execution
+Minishell executes commands by:
+1. **Handling Here Documents (`<<`)**: Processes here documents and replaces them with temporary files.
+2. **Command Execution**: Differentiates between single and piped commands, and executes built-in or external commands accordingly.
 
-### **Order**
+## Code Structure
+The Minishell project is organized into several key components:
 
-***check pipe_num → one process or pipex → if (one) check builtin or not → else (pipex) exec pipex and check redir***
+### Main Components
+- **main.c**: The entry point of the shell.
+- **parser.c**: Contains functions for parsing commands.
+- **executor.c**: Manages the execution of parsed commands.
+- **builtins.c**: Implements built-in shell commands.
+- **signals.c**: Handles signal management for the shell.
+- **utils.c**: Utility functions for common tasks.
 
-## **수정할 것**
-1. To check memory leaks
-2. To check norm
-3. ~~Makefile relink 방지~~
-4. grep something - ctrl + c => 개행추가, ctrl + \ => Quit:3
-5. cat | cat | ls | cat | cat - ctrl + \ => Quit:3
-6. <<< 한줄 읽기지만 syntax error 띄우기
-7. unset PATH -> cmd => seg error 안 띄우기
+### Key Functions
+- **parse_command**: Parses the input command string.
+- **execute_command**: Executes parsed commands.
+- **handle_redirection**: Manages input and output redirections.
+- **expand_variables**: Replaces environment variables in commands.
+- **remove_quotes**: Removes quotes from command arguments.
+
+### Error Handling
+Minishell includes robust error handling to manage:
+- Invalid commands
+- Syntax errors
+- Memory leaks (checked using tools like `valgrind`)
+
+## Built-in Commands
+Minishell supports the following built-in commands:
+- `echo`: Displays a line of text.
+- `cd`: Changes the current directory.
+- `pwd`: Prints the current working directory.
+- `export`: Sets environment variables.
+- `unset`: Unsets environment variables.
+- `env`: Displays the environment variables.
+- `exit`: Exits the shell.
+
+## Installation
+To install and compile Minishell, follow these steps:
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/leechan02/Minishell.git
+   ```
+2. Navigate to the project directory:
+   ```sh
+   cd Minishell
+   ```
+3. Compile the shell:
+   ```sh
+   make
+   ```
+
+## Usage
+To start using Minishell, run the following command:
+```sh
+./minishell
+```
+You can then enter commands as you would in a standard Unix shell.
